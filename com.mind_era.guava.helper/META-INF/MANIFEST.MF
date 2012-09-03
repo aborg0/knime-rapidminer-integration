@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Guava Helper
+Bundle-SymbolicName: com.mind_era.guava.helper;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: Mind Eratosthenes Kft.
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.google.guava;bundle-version="10.0.1"
+Export-Package: com.mind_era.guava.helper.data

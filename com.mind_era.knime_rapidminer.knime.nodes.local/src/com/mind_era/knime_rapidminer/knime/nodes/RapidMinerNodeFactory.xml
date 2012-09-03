@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE knimeNode PUBLIC "-//UNIKN//DTD KNIME Node 2.0//EN" "http://www.knime.org/Node.dtd">
+<knimeNode icon="./default.png" type="Manipulator">
+    <name>RapidMiner</name>
+    
+    <shortDescription>
+        Executes a RapidMiner workflow.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro><p>You can specify and preview the workflow in the configuration dialog, and it will be executed within KNIME.</p>
+        <p>Currently the KNIME workflow variables, table properties or flow variables are not supported within RapidMiner node, you should use KNIME nodes to extract that information and pass them as a table to RapidMiner.</p>
+        </intro>
+        
+        <option name="Location">The location of the (initial) RapidMiner process.</option>
+        <option name="Editable">Should an edited process be executed?</option>
+        <option name="Always reload">If checked, the process will always be reloaded from the location, else the state when the location was opened, or when last edited will be used.</option>
+        <option name="Reload">Reloads the process from the location.</option>
+        <option name="Save As">Save the currently edited process to a new file.</option>
+        
+        <option name="RapidMiner editor">You can specify the RapidMiner process within the editor.</option>
+        <option name="Row ID">You can specify with this option Row ID attribute name in the RapidMiner process, although this is optional. If not available after execution, automatically generated id will be in the resulting tables. If there are duplicates in the resulting column, an error will be reported, and the node execution will fail.</option>
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="KNIME table 1">Optional KNIME input port.</inPort>
+        <inPort index="1" name="KNIME table 2">Optional KNIME input port.</inPort>
+        <inPort index="2" name="KNIME table 3">Optional KNIME input port.</inPort>
+        <inPort index="3" name="KNIME table 4">Optional KNIME input port.</inPort>
+        <!-- possibly more input ports here-->
+        <outPort index="0" name="RapidMiner result table">The result of the RapidMiner process.</outPort>
+        <outPort index="1" name="RapidMiner result table">The result of the RapidMiner process.</outPort>
+        <outPort index="2" name="RapidMiner result table">The result of the RapidMiner process.</outPort>
+        <outPort index="3" name="RapidMiner result table">The result of the RapidMiner process.</outPort>
+        <!-- possibly more output ports here-->
+    </ports>    
+    <!-- views>
+        <view index="0" name="name of first view">Description of first view...</view>
+    </views-->
+</knimeNode>
