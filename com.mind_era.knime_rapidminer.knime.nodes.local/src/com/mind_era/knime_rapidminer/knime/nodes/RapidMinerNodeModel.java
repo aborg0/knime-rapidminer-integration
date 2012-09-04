@@ -62,6 +62,7 @@ import com.rapidminer.example.table.DataRow;
 import com.rapidminer.example.table.ExampleTable;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.operator.IOContainer;
+import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.ports.metadata.AttributeMetaData;
 import com.rapidminer.operator.ports.metadata.ExampleSetMetaData;
 import com.rapidminer.operator.ports.metadata.MetaData;
@@ -73,7 +74,7 @@ import com.rapidminer.tools.math.container.Range;
  * This is the model implementation of RapidMiner. Executes a RapidMiner
  * workflow.
  * 
- * @author ivi
+ * @author Gabor Bakos
  */
 public class RapidMinerNodeModel extends NodeModel implements
 		HasTableSpecAndRowId, RepositoryAccessor {
@@ -198,6 +199,13 @@ public class RapidMinerNodeModel extends NodeModel implements
 			Thread.sleep(500);
 			try {
 				exec.checkCanceled();
+				Operator currentOperator = process == null ? null : process
+						.getCurrentOperator();
+				if (currentOperator != null) {
+					exec.setProgress("Operator: " + currentOperator.getName());
+				} else {
+					exec.setProgress("");
+				}
 			} catch (final CanceledExecutionException e) {
 				process.stop();
 				Thread.sleep(200);

@@ -8,7 +8,7 @@ import org.knime.core.node.NodeView;
  * <code>NodeFactory</code> for the "RapidMiner" Node. Executes a RapidMiner
  * workflow.
  * 
- * @author ivi
+ * @author Gabor Bakos
  */
 public class RapidMinerNodeFactory extends NodeFactory<RapidMinerNodeModel> {
 

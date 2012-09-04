@@ -19,7 +19,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
  * complex dialog please derive directly from
  * {@link org.knime.core.node.NodeDialogPane}.
  * 
- * @author ivi
+ * @author Gabor Bakos
  */
 public class RapidMinerNodeDialog extends DefaultNodeSettingsPane {
 
