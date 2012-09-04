@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
 import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeBoolean;
@@ -42,10 +43,11 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				PreferenceConstants.RAPIDMINER_PATH,
 				Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files (x86)\\Rapid-I\\RapidMiner5"
 						: "");
+		RapidMinerInit.init(false);
 		for (final String parameterKey : ParameterService.getParameterKeys()) {
 			final String key = getRapidminerPreferenceKey(parameterKey);
 			final ParameterType parameterType = ParameterService
-					.getParameterType(key);
+					.getParameterType(parameterKey);
 			if (parameterType instanceof ParameterTypeChar) {
 				final ParameterTypeChar charType = (ParameterTypeChar) parameterType;
 				store.setDefault(key, charType.getDefaultValueAsString());
