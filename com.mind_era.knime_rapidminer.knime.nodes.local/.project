@@ -25,4 +25,10 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>RapidMiner_Loc</name>
+			<value>file:/C:/Java/eclipse_knime_2.6.1/workspace/RapidMiner_Vega</value>
+		</variable>
+	</variableList>
 </projectDescription>

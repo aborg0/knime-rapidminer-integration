@@ -55,12 +55,12 @@ Bundle-ClassPath: rapidminer.jar,
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.6.0,4.0.0)",
- org.knime.workbench.core;bundle-version="[2.6.0,3.0.0)",
- org.knime.workbench.repository;bundle-version="[2.6.0,3.0.0)",
- org.knime.base;bundle-version="[2.6.0,3.0.0)",
+ org.knime.workbench.core;bundle-version="[2.5.0,3.0.0)",
+ org.knime.workbench.repository;bundle-version="[2.5.0,3.0.0)",
+ org.knime.base;bundle-version="[2.5.0,3.0.0)",
  com.mind_era.guava.helper;bundle-version="0.0.1",
  org.eclipse.ui;bundle-version="[3.6.0,4.0.0)",
- com.google.guava;bundle-version="[10.0.1,14.0.0)"
+ com.google.guava;bundle-version="10.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 
