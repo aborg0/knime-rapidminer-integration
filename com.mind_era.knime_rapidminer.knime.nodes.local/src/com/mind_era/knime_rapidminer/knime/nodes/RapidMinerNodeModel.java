@@ -113,9 +113,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 				OptionalBufferedDataTableType, OptionalBufferedDataTableType });
 	}
 
-	// static final String CFGKEY_PROCESS = "Process";
-	// static final String DEFAULT_PROCESS =
-	// "I:\\tmp\\LocalRapidMinerRepository\\01_Normalization.rmp";
 	static final String CFGKEY_PROCESS_CUSTOM = "Process custom";
 	static final String DEFAULT_PROCESS_CUSTOM = null;
 	static final boolean DEFAULT_EDITABILITY = true;
@@ -126,8 +123,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 	static final String DEFAULT_ROWID_COLUMN_NAME = "__KNIME\u00a0RowID__";
 	static final boolean DEFAULT_ENABLED_ROWID_COLUMN_NAME = true;
 
-	// private SettingsModelString processFile = new SettingsModelString(
-	// CFGKEY_PROCESS, DEFAULT_PROCESS);
 	private SettingsModelRapidMinerProject processModel = new SettingsModelRapidMinerProject(
 			CFGKEY_PROCESS_CUSTOM, DEFAULT_PROCESS_CUSTOM, DEFAULT_EDITABILITY,
 			DEFAULT_SNAPSHOT, DEFAULT_CONTENT);
@@ -143,25 +138,9 @@ public class RapidMinerNodeModel extends NodeModel implements
 	@Override
 	protected PortObject[] execute(final PortObject[] inData,
 			final ExecutionContext exec) throws Exception {
-		// System.setProperty(Launcher.PROPERTY_RAPIDMINER_HOME,
-		// RapidMinerNodePlugin.getDefault().getPreferenceStore()
-		// .getString(PreferenceConstants.RAPIDMINER_PATH)/*
-		// * .
-		// * getAbsolutePath
-		// * ()
-		// */);
-		//
-		// RapidMiner
-		// .setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITHOUT_UI);
-		// RapidMiner.init();
 		RapidMinerInit.init(false);
 		RapidMinerInit.setPreferences();
-		// final Process process = new Process(new File(
-		// // "I:\\tmp\\LocalRapidMinerRepository\\01_Normalization.rmp"));
-		// processFile.getStringValue()));
 		final Process process = processModel.loadProject(false);
-		// logger.debug("Loading process: "
-		// + process.getProcessLocation().getShortName());
 		final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 1,
 				TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
 		final Future<IOContainer> future = executor
@@ -195,17 +174,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 																				.isEnabled(),
 																		rowIdColumnName
 																				.getStringValue())
-														/*
-														 * .createExampleSet
-														 * (new AttributeSet(
-														 * KnimeExampleTable .
-														 * createAttributes
-														 * (inData[0]
-														 * .getDataTableSpec
-														 * ()), Collections
-														 * .<String, Attribute>
-														 * emptyMap())
-														 */
 														).createExampleSet();
 											}
 										}), ExampleSet.class)));
@@ -234,12 +202,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 		for (int resultIndex = 0; resultIndex < container.size(); ++resultIndex) {
 			logger.debug("Converting the " + (resultIndex + 1)
 					+ "th result table.");
-			// final Collection<DataTable> tables = process.getDataTables();
 			final ExampleSet result = container.get(ExampleSet.class,
 					resultIndex);
-			// result.writeDataFile(new File("I:/tmp/xxxxxx.zip"), 2, true,
-			// true,
-			// false, java.nio.charset.Charset.forName("UTF-8"))
 			ret.add(convertExampleSet(
 					exec,
 					result,
@@ -265,30 +229,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 		}
 		return ret.toArray(new BufferedDataTable[ret.size()]);
 	}
-
-	// /**
-	// * Selects the specs from the tables.
-	// *
-	// * @param inData
-	// * Some {@link DataTable}s.
-	// * @return The {@link DataTableSpec} of {@code inData}.
-	// */
-	// private DataTableSpec[] getSpecs(final PortObject[] inData) {
-	// if (inData == null) {
-	// throw new IllegalStateException("No input!");
-	// }
-	// final DataTableSpec[] ret = new DataTableSpec[inData.length];
-	// for (int i = inData.length; i-- > 0;) {
-	// if (inData[i] == null) {
-	// continue;
-	// }
-	// if (!(inData[i] instanceof DataTable)) {
-	// throw new IllegalStateException(i + " input is not DataTable");
-	// }
-	// ret[i] = ((DataTable) inData[i]).getDataTableSpec();
-	// }
-	// return ret;
-	// }
 
 	/**
 	 * Converts {@code result} to a {@link BufferedDataTable}.

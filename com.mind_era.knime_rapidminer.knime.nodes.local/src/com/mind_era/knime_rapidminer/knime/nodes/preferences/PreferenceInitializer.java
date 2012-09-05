@@ -85,7 +85,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			}
 			if (parameterType instanceof ParameterTypeString) {
 				final ParameterTypeString stringType = (ParameterTypeString) parameterType;
-				store.setDefault(key, stringType.getDefaultValueAsString());
+				String defaultValueAsString = stringType.getDefaultValueAsString();
+				store.setDefault(key, defaultValueAsString == null ? "" : defaultValueAsString);
 			}
 			if (parameterType instanceof ParameterTypeStringCategory) {
 				final ParameterTypeStringCategory stringCatType = (ParameterTypeStringCategory) parameterType;

@@ -45,15 +45,6 @@ public class RapidMinerNodeDialog extends DefaultNodeSettingsPane {
 	 */
 	protected RapidMinerNodeDialog() {
 		super();
-		// addDialogComponent(new DialogComponentFileChooser(
-		// new SettingsModelString(RapidMinerNodeModel.CFGKEY_PROCESS,
-		// RapidMinerNodeModel.DEFAULT_PROCESS), "ProcessFile",
-		// ".rmp"));
-		// createNewTab("RapidMiner Workflow Editor");
-		// addDialogComponent(new DialogComponentRapidMinerEditor(
-		// new SettingsModelString(
-		// RapidMinerNodeModel.CFGKEY_PROCESS_CUSTOM,
-		// RapidMinerNodeModel.DEFAULT_PROCESS_CUSTOM)));
 		final DialogComponentRapidMinerProject rapidMinerComponent = new DialogComponentRapidMinerProject(
 				new SettingsModelRapidMinerProject(
 						RapidMinerNodeModel.CFGKEY_PROCESS_CUSTOM,

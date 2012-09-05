@@ -132,24 +132,11 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 	protected void modelChanged() {
 		final RapidMinerViewNodeModel nodeModel = getNodeModel();
 		table = nodeModel == null ? null : nodeModel.getTable();
-		// try {
-		// process.getContext().setInputRepositoryLocations(
-		// Arrays.asList("//" + KnimeRepository.KNIME + "/"
-		// + KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
-		// + 1));
-		// new RunAction(state).actionPerformed(null);
-		// process.run(new IOContainer(MemoryExampleTable.createCompleteCopy(
-		// new KnimeExampleTable(table, false, null))
-		// .createExampleSet()));
 		state.getResultDisplay().addDataTable(
 				new DataTableExampleSetAdapter(MemoryExampleTable
 						.createCompleteCopy(
 								new KnimeExampleTable(table, false, null))
 						.createExampleSet(), null));
-		// } catch (final OperatorException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 	}
 
 	/**

@@ -53,8 +53,9 @@ import com.rapidminer.repository.gui.RepositoryConfigurationPanel;
 import com.rapidminer.tools.ProgressListener;
 
 /**
- * @author Gabor
+ * The RapidMiner representation of the KNIME data sources.
  * 
+ * @author Gabor Bakos
  */
 public class KnimeRepository implements Repository {
 

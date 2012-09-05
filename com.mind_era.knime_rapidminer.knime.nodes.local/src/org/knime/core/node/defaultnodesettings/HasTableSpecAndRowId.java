@@ -32,8 +32,14 @@ public interface HasTableSpecAndRowId {
 	 */
 	public List<? extends DataTableSpec> getFilteredTableSpecs();
 
+	/**
+	 * @return Should it include the row ids?
+	 */
 	public boolean isWithRowIds();
 
+	/**
+	 * @return The name of the row id column.
+	 */
 	public String getRowIdColumnName();
 
 }

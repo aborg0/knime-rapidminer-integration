@@ -51,7 +51,6 @@ public class RapidMinerNodeFactory extends NodeFactory<RapidMinerNodeModel> {
 	public NodeView<RapidMinerNodeModel> createNodeView(final int viewIndex,
 			final RapidMinerNodeModel nodeModel) {
 		throw new IndexOutOfBoundsException("No views yet: " + viewIndex);
-		// return new RapidMinerNodeView(nodeModel);
 	}
 
 	/**

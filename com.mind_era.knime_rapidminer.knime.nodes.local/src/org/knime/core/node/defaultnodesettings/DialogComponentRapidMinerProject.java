@@ -122,12 +122,6 @@ public class DialogComponentRapidMinerProject extends
 	@Override
 	protected Entry<? extends Component, ProjectHandling<Process>> createEditor(
 			final SettingsModelRapidMinerProject model) {
-		// System.setProperty(Launcher.PROPERTY_RAPIDMINER_HOME,
-		// RapidMinerNodePlugin.getDefault().getPreferenceStore()
-		// .getString(PreferenceConstants.RAPIDMINER_PATH));
-		//
-		// RapidMiner.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
-		// RapidMiner.init();
 		RapidMinerInit.init(false);
 		RapidMinerInit.setPreferences();
 		final JPanel panel = new JPanel();

@@ -108,8 +108,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 				onChange(e);
 			}
 
-			private void onChange(
-					@SuppressWarnings("unused") final DocumentEvent e) {
+			private void onChange(final DocumentEvent e) {
 				if (isLoading) {
 					return;
 				}
@@ -164,48 +163,9 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 					try {
 						newFile = chooser.getSelectedFile().getAbsoluteFile()
 								.toString();
-						// check if the user has added the extension
-						// if (!directoryOnly && m_fileFilter != null) {
-						// boolean extensionFound = false;
-						// for (final SimpleFileFilter filter : m_fileFilter) {
-						// final String[] extensions = filter
-						// .getValidExtensions();
-						// for (final String extension : extensions) {
-						// if (newFile.endsWith(extension)) {
-						// extensionFound = true;
-						// break;
-						// }
-						// }
-						// if (extensionFound) {
-						// break;
-						// }
-						// }
-						// otherwise add the extension of the selected
-						// FileFilter
-						// if (!extensionFound) {
-						// final FileFilter fileFilter = chooser
-						// .getFileFilter();
-						// if (fileFilter != null
-						// && fileFilter instanceof SimpleFileFilter) {
-						// final SimpleFileFilter filter = (SimpleFileFilter)
-						// fileFilter;
-						// final String[] extensions = filter
-						// .getValidExtensions();
-						// if (extensions != null
-						// && extensions.length > 0) {
-						// // append the first extension
-						// newFile = newFile + extensions[0];
-						// }
-						// }
-						// }
-						// }
 					} catch (final SecurityException se) {
 						newFile = "<Error: " + se.getMessage() + ">";
 					}
-					// avoid adding the same string twice...
-					// m_fileComboBox.removeItem(newFile);
-					// m_fileComboBox.addItem(newFile);
-					// m_fileComboBox.setSelectedItem(newFile);
 					location.setText(newFile);
 					getComponentPanel().revalidate();
 				}

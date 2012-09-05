@@ -294,21 +294,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 						final DataCell cell = entry.getKey();
 						return cell instanceof DoubleValue ? Double
 								.toString(((DoubleValue) cell).getDoubleValue())
-								: cell.isMissing() ? /*
-													 * Double
-													 * .toString(Double.NaN)
-													 */null : /*
-															 * mapping
-															 * .get(entry
-															 * .getValue())
-															 * .get(
-															 * ((org.knime.core
-															 * .data
-															 * .StringValue)
-															 * cell)
-															 * .getStringValue
-															 * ())
-															 */
+								: cell.isMissing() ? null :
 								((org.knime.core.data.StringValue) cell)
 										.getStringValue();
 					}
