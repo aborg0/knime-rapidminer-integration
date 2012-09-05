@@ -18,6 +18,7 @@ package com.mind_era.knime_rapidminer.knime.nodes;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
@@ -47,17 +48,20 @@ import com.rapidminer.tools.ParameterService;
  * @author Gabor
  */
 public class RapidMinerInit {
-	private static boolean isInitialized = false;
+	private static volatile boolean isInitialized = false, isInitializing = false;
 
 	public static synchronized void init(final boolean force) {
 		if (!isInitialized || force) {
+			if (isInitializing && ! force) {
+				Logger.getAnonymousLogger().warning("Initializing RapidMiner from another initializer, or the first initialization was not finished properly.");
+				return;
+			}
+			isInitializing = true;
 			final String rapidMinerHome = RapidMinerNodePlugin.getDefault()
 					.getPreferenceStore()
 					.getString(PreferenceConstants.RAPIDMINER_PATH);
 			System.setProperty(Launcher.PROPERTY_RAPIDMINER_HOME,
-					rapidMinerHome/*
-								 * . getAbsolutePath ( )
-								 */);
+					rapidMinerHome);
 			RapidMiner
 					.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
 			RepositoryManager.registerFactory(new RepositoryFactory() {
@@ -75,7 +79,6 @@ public class RapidMinerInit {
 				}
 			});
 			ManagedExtension.init();
-			// RapidMiner.showSplash();
 			
 			RapidMiner.init();
 			//Initialize the static initializers for MainFrame and AbstractUIPlugin
@@ -83,13 +86,8 @@ public class RapidMinerInit {
 			String _ = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString() + AbstractUIState.DOCK_GROUP_ROOT.getName();
 			//End of static init.
 			
-			// RapidMiner.hideSplash();
-			/*
-			 * Plugin.setInitPlugins(true);
-			 * Plugin.setPluginLocation(rapidMinerHome + File.separator + "lib"
-			 * + File.separator + "plugins"); Plugin.initAll();
-			 */
 			isInitialized = true;
+			isInitializing = false;
 		}
 	}
 
@@ -102,9 +100,6 @@ public class RapidMinerInit {
 		for (final String parameterKey : ParameterService.getParameterKeys()) {
 			final ParameterType type = ParameterService
 					.getParameterType(parameterKey);
-//			if (type == null) {
-//				continue;
-//			}
 			String storeKey = PreferenceInitializer
 					.getRapidminerPreferenceKey(parameterKey);
 			if (type instanceof ParameterTypeBoolean) {
