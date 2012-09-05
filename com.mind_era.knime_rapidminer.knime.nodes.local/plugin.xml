@@ -17,7 +17,12 @@
    
    <extension point="org.knime.workbench.repository.nodes">
       <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"/>
-   <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory"/>
+      <node
+            category-path="/community/rapidminer"
+            expert-flag="true"
+            factory-class="com.mind_era.knime_rapidminer.knime.nodes.DataAwareRapidMinerNodeFactory"
+            id="com.mind_era.knime_rapidminer.knime.nodes.DataAwareRapidMinerNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory"/>
 </extension>
    <extension point="org.eclipse.ui.preferencePages">
       <page class="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" name="RapidMiner Preferences">

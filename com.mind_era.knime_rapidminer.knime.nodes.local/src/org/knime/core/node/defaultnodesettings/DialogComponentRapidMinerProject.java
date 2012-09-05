@@ -29,11 +29,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.knime.core.data.DataTableSpec;
+import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.NotConfigurableException;
 import org.knime.core.node.port.PortObjectSpec;
 
@@ -70,9 +72,12 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
  */
 public class DialogComponentRapidMinerProject extends
 		DialogComponentProject<Process, SettingsModelRapidMinerProject>
-		implements RepositoryAccessor, HasTableSpecAndRowId {
+		implements RepositoryAccessor, HasTableAndRowId {
 	private AbstractUIState state;
 	private String rowIdColumnName;
+	
+	/** When present it means we are in a data aware dialog, else {@code null}. */
+	private BufferedDataTable[] filteredDataTables;
 
 	/**
 	 * Constructs the {@link DialogComponentRapidMinerProject}.
@@ -96,6 +101,13 @@ public class DialogComponentRapidMinerProject extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<? extends DataTableSpec> getFilteredTableSpecs() {
+		if (filteredDataTables != null) {
+			return Lists.transform(Arrays.asList(filteredDataTables), new Function<BufferedDataTable, DataTableSpec>(){
+				@Override
+				public DataTableSpec apply(BufferedDataTable table) {
+					return table.getDataTableSpec();
+				}});
+		}
 		if (getLastTableSpecs() == null) {
 			return Collections.emptyList();
 		}
@@ -412,5 +424,29 @@ public class DialogComponentRapidMinerProject extends
 	@Override
 	public boolean isWithRowIds() {
 		return rowIdColumnName != null;
+	}
+
+	/**
+	 * @param filteredInputTables The non null input data tables. Cannot be null.
+	 */
+	public void setInputTables(@Nonnull BufferedDataTable[] filteredInputTables) {
+		filteredDataTables = /*filteredInputTables == null ? null :*/ filteredInputTables.clone();
+		setInputPorts(state);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.knime.core.node.defaultnodesettings.HasTableAndRowId#getFilteredTables()
+	 */
+	@Override
+	public List<BufferedDataTable> getFilteredTables() {
+		return filteredDataTables == null ? Collections.<BufferedDataTable>emptyList() : Collections.unmodifiableList(Arrays.asList(filteredDataTables));
+	}
+
+	/* (non-Javadoc)
+	 * @see org.knime.core.node.defaultnodesettings.HasTableAndRowId#isReallyHaveTables()
+	 */
+	@Override
+	public boolean isReallyHaveTables() {
+		return filteredDataTables != null;
 	}
 }

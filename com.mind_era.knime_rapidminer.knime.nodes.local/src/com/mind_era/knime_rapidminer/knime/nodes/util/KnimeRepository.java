@@ -25,6 +25,8 @@ import java.util.List;
 import javax.swing.Action;
 
 import org.knime.core.data.DataTableSpec;
+import org.knime.core.node.BufferedDataTable;
+import org.knime.core.node.defaultnodesettings.HasTableAndRowId;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -76,6 +78,7 @@ public class KnimeRepository implements Repository {
 		private final DataTableSpec spec;
 		private final int index;
 		private long lastModDate;
+		private BufferedDataTable table;
 
 		/**
 		 * @param spec
@@ -85,6 +88,11 @@ public class KnimeRepository implements Repository {
 			this.spec = spec;
 			this.index = idx;
 			lastModDate = new Date().getTime();
+		}
+		
+		KnimeIOObjectEntry(final BufferedDataTable table, final int idx) {
+			this(table.getDataTableSpec(), idx);
+			this.table = table;
 		}
 
 		/*
@@ -104,8 +112,7 @@ public class KnimeRepository implements Repository {
 		 */
 		@Override
 		public long getSize() {
-			// TODO Auto-generated method stub
-			return 0;
+			return table == null ? 0 : table.getRowCount();
 		}
 
 		/*
@@ -256,8 +263,7 @@ public class KnimeRepository implements Repository {
 		@Override
 		public IOObject retrieveData(final ProgressListener l)
 				throws RepositoryException {
-			// TODO Auto-generated method stub
-			return null;
+			return table == null ? null : new KnimeExampleSet(table);
 		}
 
 		/*
@@ -323,6 +329,21 @@ public class KnimeRepository implements Repository {
 	 */
 	@Override
 	public List<DataEntry> getDataEntries() throws RepositoryException {
+		if (model instanceof HasTableAndRowId) {
+			HasTableAndRowId withTable = (HasTableAndRowId) model;
+			return Lists
+			.transform(
+					Zip.zipWithIndexList(withTable.getFilteredTables(), 1),
+					new Function<java.util.Map.Entry<BufferedDataTable, Integer>, DataEntry>() {
+						@Override
+						public DataEntry apply(
+								final java.util.Map.Entry<BufferedDataTable, Integer> inputEntry) {
+							return new KnimeIOObjectEntry(inputEntry
+									.getKey(), inputEntry.getValue()
+									.intValue());
+						}
+					});
+		}                                                                        
 		return Lists
 				.transform(
 						Zip.zipWithIndexList(model.getFilteredTableSpecs(), 1),
@@ -464,7 +485,17 @@ public class KnimeRepository implements Repository {
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
+		if (model instanceof HasTableAndRowId) {
+			HasTableAndRowId hasTable = (HasTableAndRowId) model;
+			if (hasTable.isReallyHaveTables())
+			{
+				return Lists.transform(hasTable.getFilteredTables(), new Function<BufferedDataTable, String>(){
+					@Override
+					public String apply(BufferedDataTable table) {
+						return table.getSummary();
+					}}).toString();
+			}
+		}
 		return null;
 	}
 
@@ -584,6 +615,19 @@ public class KnimeRepository implements Repository {
 	 */
 	@Override
 	public Entry locate(final String string) throws RepositoryException {
+		if (model instanceof HasTableAndRowId) {
+			HasTableAndRowId tableModel = (HasTableAndRowId) model;
+			final List<? extends BufferedDataTable> tableSpecs = tableModel
+			.getFilteredTables();
+			for (int i = tableSpecs.size(); i-- > 0;) {
+				final BufferedDataTable dataTable = tableSpecs.get(i);
+				if (dataTable.getDataTableSpec().getName().equals(string)
+						|| string.equalsIgnoreCase("/"
+								+ KnimeIOObjectEntry.KNIME_TABLE + (i + 1))) {
+					return new KnimeIOObjectEntry(dataTable, i);
+				}
+			}
+		}
 		final List<? extends DataTableSpec> tableSpecs = model
 				.getFilteredTableSpecs();
 		for (int i = tableSpecs.size(); i-- > 0;) {
