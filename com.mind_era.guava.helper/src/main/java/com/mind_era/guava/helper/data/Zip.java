@@ -16,7 +16,7 @@ import com.google.common.collect.Maps;
 /**
  * Helper methods to access zip, zipWithIndex functions.
  * 
- * @author Gábor Bakos
+ * @author Gabor Bakos
  */
 public class Zip {
 
@@ -24,6 +24,17 @@ public class Zip {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Zips the values with the indices starting from {@code startIndex}.
+	 * 
+	 * @param <T>
+	 *            Type of elements.
+	 * @param iter
+	 *            The {@link Iterable} of elements.
+	 * @param startIndex
+	 *            The number of the first element.
+	 * @return A new {@link Iterable} with index.
+	 */
 	public static <T> Iterable<Map.Entry<T, Integer>> zipWithIndex(
 			final Iterable<? extends T> iter, final int startIndex) {
 		return new Iterable<Map.Entry<T, Integer>>() {
@@ -57,6 +68,17 @@ public class Zip {
 		};
 	}
 
+	/**
+	 * Zips the values with the indices starting from {@code startIndex}.
+	 * 
+	 * @param <T>
+	 *            Type of elements.
+	 * @param list
+	 *            The {@link List} of elements.
+	 * @param startIndex
+	 *            The number of the first element.
+	 * @return A new {@link List} with index.
+	 */
 	public static <T> List<Entry<T, Integer>> zipWithIndexList(
 			final Collection<? extends T> list, final int startIndex) {
 		final List<Entry<T, Integer>> ret = new ArrayList<Map.Entry<T, Integer>>(
