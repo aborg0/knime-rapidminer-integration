@@ -173,8 +173,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 																		rowIdColumnName
 																				.isEnabled(),
 																		rowIdColumnName
-																				.getStringValue())
-														).createExampleSet();
+																				.getStringValue()))
+														.createExampleSet();
 											}
 										}), ExampleSet.class)));
 					}
@@ -276,8 +276,20 @@ public class RapidMinerNodeModel extends NodeModel implements
 						return a.isNominal() ? new StringCell(a.getMapping()
 								.mapIndex((int) row.get(a)))
 								: a.getValueType() == Ontology.INTEGER ? new IntCell(
-										(int) row.get(a)) : new DoubleCell(
-										row.get(a));
+										(int) row.get(a))
+										: a.getValueType() == Ontology.DATE ? new DateAndTimeCell(
+												(long) row.get(a), true, false,
+												false)
+												: a.getValueType() == Ontology.DATE_TIME ? new DateAndTimeCell(
+														(long) row.get(a),
+														true, true, true)
+														: a.getValueType() == Ontology.TIME ? new DateAndTimeCell(
+																(long) row
+																		.get(a),
+																false, true,
+																true)
+																: new DoubleCell(
+																		row.get(a));
 					}
 				};
 				dataContainer.addRowToTable(new DefaultRow(attribsEntry
@@ -416,7 +428,11 @@ public class RapidMinerNodeModel extends NodeModel implements
 								a.getName(),
 								a.isNominal() ? StringCell.TYPE
 										: a.getValueType() == Ontology.INTEGER ? IntCell.TYPE
-												: DoubleCell.TYPE).createSpec();
+												: (a.getValueType() == Ontology.DATE
+														|| a.getValueType() == Ontology.DATE_TIME || a
+														.getValueType() == Ontology.TIME) ? DateAndTimeCell.TYPE
+														: DoubleCell.TYPE)
+								.createSpec();
 					}
 				}), DataColumnSpec.class));
 	}
@@ -585,7 +601,9 @@ public class RapidMinerNodeModel extends NodeModel implements
 																	new DataColumnSpec[0]));
 										}
 										// Not supported metadata.
-										throw new UnsupportedOperationException("Not supported result format" + input.getClass());
+										throw new UnsupportedOperationException(
+												"Not supported result format"
+														+ input.getClass());
 									}
 								}));
 				if (resultList.size() > getNrOutPorts()) {
