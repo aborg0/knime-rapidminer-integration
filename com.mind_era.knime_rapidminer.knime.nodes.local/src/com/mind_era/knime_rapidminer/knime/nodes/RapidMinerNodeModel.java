@@ -585,7 +585,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 																	new DataColumnSpec[0]));
 										}
 										// Not supported metadata.
-										return new DataTableSpec();
+										throw new UnsupportedOperationException("Not supported result format" + input.getClass());
 									}
 								}));
 				if (resultList.size() > getNrOutPorts()) {
@@ -600,7 +600,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 				}
 				return lastResultTableSpecs = resultList
 						.toArray(new DataTableSpec[0]);
-				// System.out.println(resultMetaData);
 			} catch (final Exception e) {
 				lastResultTableSpecs = null;
 				throw new InvalidSettingsException(e);
