@@ -27,6 +27,7 @@ import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataColumnSpecCreator;
 import org.knime.core.data.DataTableSpec;
 import org.knime.core.data.DoubleValue;
+import org.knime.core.data.IntValue;
 import org.knime.core.data.StringValue;
 import org.knime.core.data.container.CloseableRowIterator;
 import org.knime.core.data.date.DateAndTimeValue;
@@ -176,7 +177,9 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	 */
 	private static Attribute createAttribute(final DataColumnSpec columnSpec) {
 		int type;
-		if (columnSpec.getType().isCompatible(DoubleValue.class)) {
+		if (columnSpec.getType().isCompatible(IntValue.class)) {
+			type = Ontology.INTEGER;
+		} else if (columnSpec.getType().isCompatible(DoubleValue.class)) {
 			type = Ontology.NUMERICAL;
 		} else if (columnSpec.getType().isCompatible(DateAndTimeValue.class)) {
 			type = Ontology.DATE_TIME;
@@ -286,17 +289,30 @@ public class KnimeExampleTable extends AbstractExampleTable {
 								final DataCell cell = entry.getKey();
 								return cell instanceof DoubleValue
 										|| cell instanceof org.knime.core.data.StringValue
+										|| cell instanceof DateAndTimeValue
 										|| cell.isMissing();
 							}
 						}), new Function<Entry<DataCell, Integer>, String>() {
 					@Override
 					public String apply(final Entry<DataCell, Integer> entry) {
 						final DataCell cell = entry.getKey();
-						return cell instanceof DoubleValue ? Double
-								.toString(((DoubleValue) cell).getDoubleValue())
-								: cell.isMissing() ? null :
-								((org.knime.core.data.StringValue) cell)
-										.getStringValue();
+						if (cell.isMissing()) {
+							return null;
+						}
+						if (cell instanceof IntValue) {
+							return Integer.toString(((IntValue) cell)
+									.getIntValue());
+						}
+						if (cell instanceof DateAndTimeValue) {
+							return Long.toString(((DateAndTimeValue) cell)
+									.getUTCTimeInMillis());
+						}
+						if (cell instanceof DoubleValue) {
+							return Double.toString(((DoubleValue) cell)
+									.getDoubleValue());
+						}
+						return ((org.knime.core.data.StringValue) cell)
+								.getStringValue();
 					}
 				}));
 		if (withRowIds) {

@@ -40,6 +40,7 @@ import org.knime.core.data.DataColumnDomainCreator;
 import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataColumnSpecCreator;
 import org.knime.core.data.DataTableSpec;
+import org.knime.core.data.DataType;
 import org.knime.core.data.container.WrappedTable;
 import org.knime.core.data.date.DateAndTimeCell;
 import org.knime.core.data.def.DefaultRow;
@@ -183,8 +184,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 			Thread.sleep(500);
 			try {
 				exec.checkCanceled();
-				Operator currentOperator = process == null ? null : process
-						.getCurrentOperator();
+				final Operator currentOperator = process == null ? null
+						: process.getCurrentOperator();
 				if (currentOperator != null) {
 					exec.setProgress("Operator: " + currentOperator.getName());
 				} else {
@@ -273,23 +274,35 @@ public class RapidMinerNodeModel extends NodeModel implements
 				final Function<Attribute, DataCell> transformFunction = new Function<Attribute, DataCell>() {
 					@Override
 					public DataCell apply(final Attribute a) {
-						return a.isNominal() ? new StringCell(a.getMapping()
-								.mapIndex((int) row.get(a)))
-								: a.getValueType() == Ontology.INTEGER ? new IntCell(
-										(int) row.get(a))
-										: a.getValueType() == Ontology.DATE ? new DateAndTimeCell(
-												(long) row.get(a), true, false,
-												false)
-												: a.getValueType() == Ontology.DATE_TIME ? new DateAndTimeCell(
-														(long) row.get(a),
-														true, true, true)
-														: a.getValueType() == Ontology.TIME ? new DateAndTimeCell(
-																(long) row
-																		.get(a),
-																false, true,
-																true)
-																: new DoubleCell(
-																		row.get(a));
+						final double d = row.get(a);
+						if (a.isNominal()) {
+							return Double.isNaN(d) ? DataType.getMissingCell()
+									: new StringCell(a.getMapping().mapIndex(
+											(int) d));
+						}
+						if (a.getValueType() == Ontology.INTEGER) {
+							return Double.isNaN(d) ? DataType.getMissingCell()
+									: new IntCell((int) d);
+						}
+						if (a.getValueType() == Ontology.DATE) {
+							return new DateAndTimeCell((long) d, true, false,
+									false);
+						}
+						if (a.getValueType() == Ontology.DATE_TIME) {
+							final long utc = (long) d;
+							final boolean hasDate = utc >= 24L * 3600 * 1000
+									|| utc < 0;
+							return new DateAndTimeCell(utc, hasDate, !hasDate,
+									!hasDate);
+						}
+						if (a.getValueType() == Ontology.TIME) {
+							return new DateAndTimeCell((long) d, false, true,
+									true);
+						}
+						if (a.isNumerical()) {
+							return new DoubleCell(d);
+						}
+						return DataType.getMissingCell();
 					}
 				};
 				dataContainer.addRowToTable(new DefaultRow(attribsEntry
@@ -428,9 +441,9 @@ public class RapidMinerNodeModel extends NodeModel implements
 								a.getName(),
 								a.isNominal() ? StringCell.TYPE
 										: a.getValueType() == Ontology.INTEGER ? IntCell.TYPE
-												: (a.getValueType() == Ontology.DATE
-														|| a.getValueType() == Ontology.DATE_TIME || a
-														.getValueType() == Ontology.TIME) ? DateAndTimeCell.TYPE
+												: a.getValueType() == Ontology.DATE
+														|| a.getValueType() == Ontology.DATE_TIME
+														|| a.getValueType() == Ontology.TIME ? DateAndTimeCell.TYPE
 														: DoubleCell.TYPE)
 								.createSpec();
 					}
