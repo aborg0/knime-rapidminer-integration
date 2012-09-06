@@ -42,5 +42,13 @@
             path="/community">
       </category>
    </extension>
+   <extension
+         point="org.knime.product.splashExtension">
+      <splashExtension
+            icon="icons/rapidminer_frame_icon_48.png"
+            id="com.mind_era.knime_rapidminer.knime.nodes.local.splashExtension1"
+            tooltip="RapidMiner integration for KNIME">
+      </splashExtension>
+   </extension>
    
 </plugin>
