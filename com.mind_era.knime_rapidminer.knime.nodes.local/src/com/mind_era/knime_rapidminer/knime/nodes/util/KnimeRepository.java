@@ -305,6 +305,19 @@ public class KnimeRepository implements Repository {
 			throw new RepositoryException("Storing data is not supported");
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder
+		 * , java.lang.String)
+		 */
+		//@Override
+		public boolean move(final Folder arg0, final String arg1)
+				throws RepositoryException {
+			throw new RepositoryException("Move is not supported");
+		}
+
 	}
 
 	private List<RepositoryListener> listeners = new ArrayList<RepositoryListener>();
@@ -681,6 +694,31 @@ public class KnimeRepository implements Repository {
 	@Override
 	public RepositoryConfigurationPanel makeConfigurationPanel() {
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.rapidminer.repository.Folder#canRefreshChild(java.lang.String)
+	 */
+	//@Override
+	public boolean canRefreshChild(final String arg0)
+			throws RepositoryException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder,
+	 * java.lang.String)
+	 */
+	//@Override
+	public boolean move(final Folder arg0, final String arg1)
+			throws RepositoryException {
+		throw new RepositoryException("Move is not supported.");
 	}
 
 }

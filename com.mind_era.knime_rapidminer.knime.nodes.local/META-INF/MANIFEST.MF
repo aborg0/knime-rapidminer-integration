@@ -51,7 +51,18 @@ Bundle-ClassPath: rapidminer.jar,
  lib/xmlrpc-common-3.1.3.jar,
  lib/xpp3.jar,
  lib/xstream.jar,
- gen_lib/launcher.jar
+ gen_lib/launcher.jar,
+ lib/dom4j-1.6.1.jar,
+ lib/poi-3.8-20120326.jar,
+ lib/poi-excelant-3.8-20120326.jar,
+ lib/poi-ooxml-3.8-20120326.jar,
+ lib/poi-ooxml-schemas-3.8-20120326.jar,
+ lib/poi-scratchpad-3.8-20120326.jar,
+ lib/SassyReader-0.5.jar,
+ lib/slf4j-api-1.6.4.jar,
+ lib/slf4j-simple-1.6.4.jar,
+ lib/xmlbeans-2.3.0.jar,
+ lib/xmlpull.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.6.0,4.0.0)",
