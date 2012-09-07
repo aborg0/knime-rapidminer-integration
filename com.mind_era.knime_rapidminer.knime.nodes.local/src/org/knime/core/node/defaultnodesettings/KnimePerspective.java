@@ -30,7 +30,7 @@ import com.vlsolutions.swing.docking.ws.WSDockKey;
  */
 public class KnimePerspective extends Perspectives {
 	public static final String DESIGN = "design";
-	public static final String RESULT = "knime-result";
+	public static final String RESULT = "result";
 
 	/**
 	 * Constructs the {@link KnimePerspective} with the specified perspective
