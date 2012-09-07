@@ -19,7 +19,6 @@ package com.mind_era.knime_rapidminer.knime.nodes.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
-import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,12 +31,9 @@ import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeRepository;
 import com.rapidminer.Process;
-import com.rapidminer.example.set.SimpleExampleSet;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.gui.AbstractUIState;
 import com.rapidminer.gui.RapidMinerGUI;
-import com.rapidminer.gui.renderer.Renderer;
-import com.rapidminer.gui.renderer.RendererService;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.tools.XMLException;
 import com.vlsolutions.swing.docking.DockingContext;
@@ -55,7 +51,6 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 	private KnowsRowCountTable table;
 	private AbstractUIState state;
 	private Process process;
-	private JScrollPane pane;
 
 	/**
 	 * Creates a new view.
@@ -108,34 +103,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		final ToolBarContainer toolBarContainer = ToolBarContainer
 				.createDefaultContainer(true, true, true, true);
 		toolBarContainer.setPreferredSize(new Dimension(1000, 750));
-		pane = new JScrollPane(toolBarContainer);
-		// final DockableResultDisplay resultDisplay = new
-		// DockableResultDisplay();
-		// resultDisplay.init(state);
-		// pane = new JScrollPane(resultDisplay);
-
-		// Remove the incompatible metadata renderer
-		final List<Renderer> renderers = RendererService
-				.getRenderers(RendererService.getName(SimpleExampleSet.class));
-/*		Renderer toRemove = null;
-		for (final Renderer renderer : renderers) {
-			if (renderer.getClass().getSimpleName()
-					.equals("ExampleSetMetaDataRenderer")) {
-				toRemove = renderer;
-			}
-		}
-		if (toRemove != null) {
-			renderers.remove(toRemove);
-		}*/
-		// end remove
-
-		// final JScrollPane pane = new JScrollPane(
-		// ResultDisplayTools.createVisualizationComponent(
-		// MemoryExampleTable.createCompleteCopy(
-		// new KnimeExampleTable(table, false, null))
-		// .createExampleSet(), null, ""));
-		// final JScrollPane pane = new JScrollPane(ResultDisplayTools
-		// .makeResultDisplay().getComponent());
+		final JScrollPane pane = new JScrollPane(toolBarContainer);
 		pane.getViewport().setPreferredSize(new Dimension(1000, 850));
 		toolBarContainer.add(dockingDesktop, BorderLayout.CENTER);
 		perspective.showPerspective(KnimePerspective.RESULT);
@@ -155,12 +123,6 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 			throw new IllegalStateException("Should not happen", e);
 		}
 		state.setProcess(process, false);
-		// try {
-		// process.run();
-		// } catch (final OperatorException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 	}
 
 	/**
@@ -177,17 +139,6 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 							new KnimeExampleTable(table, false, null))
 							.createExampleSet()));
 		}
-		// state.getResultDisplay().addDataTable(
-		// new DataTableExampleSetAdapter(MemoryExampleTable
-		// .createCompleteCopy(
-		// new KnimeExampleTable(table, false, null))
-		// .createExampleSet(), null));
-		// pane = new
-		// JScrollPane(ResultDisplayTools.createVisualizationComponent(
-		// MemoryExampleTable.createCompleteCopy(
-		// new KnimeExampleTable(table, false, null))
-		// .createExampleSet(), null, ""));
-		// setComponent(pane);
 	}
 
 	/**
@@ -205,5 +156,4 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 	protected void onOpen() {
 		// TODO: generated method stub
 	}
-
 }
