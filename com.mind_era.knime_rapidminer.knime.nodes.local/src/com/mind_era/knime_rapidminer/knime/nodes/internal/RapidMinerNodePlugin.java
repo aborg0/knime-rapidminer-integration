@@ -16,10 +16,14 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.internal;
 
+import javax.swing.JPanel;
+
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
+import com.rapidminer.gui.AbstractUIState;
+import com.rapidminer.gui.RapidMinerGUI;
 
 /**
  * This is the eclipse bundle activator. Note: KNIME node developers probably
@@ -53,6 +57,33 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		RapidMinerInit.init(false);
+		AbstractUIState state = new AbstractUIState("design", null, new JPanel()) {
+
+			@Override
+			public void exit(final boolean relaunch) {
+				// Do nothing, we do not exit
+			}
+
+			@Override
+			public boolean close() {
+				metaDataUpdateQueue.shutdown();
+				return true;
+			}
+
+			@Override
+			public void updateRecentFileList() {
+				// Do noting
+			}
+
+			@Override
+			protected void setTitle() {
+				// Do nothing
+			}
+		};
+		RapidMinerGUI.setMainFrame(state);
+		state.getValidateAutomaticallyAction().setSelected(true);
+		state.close();
+		RapidMinerInit.setPreferences();
 	}
 
 	/**
