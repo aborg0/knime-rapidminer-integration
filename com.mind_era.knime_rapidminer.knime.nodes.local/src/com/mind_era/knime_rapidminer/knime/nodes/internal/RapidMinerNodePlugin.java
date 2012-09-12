@@ -19,6 +19,8 @@ package com.mind_era.knime_rapidminer.knime.nodes.internal;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
+
 /**
  * This is the eclipse bundle activator. Note: KNIME node developers probably
  * won't have to do anything in here, as this class is only needed by the
@@ -50,7 +52,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
-
+		RapidMinerInit.init(false);
 	}
 
 	/**
