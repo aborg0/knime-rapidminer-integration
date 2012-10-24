@@ -20,9 +20,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
+import org.knime.core.node.defaultnodesettings.DialogComponentBoolean;
 import org.knime.core.node.defaultnodesettings.DialogComponentButton;
 import org.knime.core.node.defaultnodesettings.DialogComponentRapidMinerProject;
 import org.knime.core.node.defaultnodesettings.DialogComponentString;
+import org.knime.core.node.defaultnodesettings.SettingsModelBoolean;
 import org.knime.core.node.defaultnodesettings.SettingsModelRapidMinerProject;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
@@ -83,6 +85,10 @@ public class RapidMinerNodeDialog extends DefaultNodeSettingsPane {
 			}
 		});
 		addDialogComponent(rowIdEnabler);
+		createNewTab("Advanced");
+		addDialogComponent(new DialogComponentBoolean(new SettingsModelBoolean(
+				RapidMinerNodeModel.CFGKEY_INFER_OUTPUT,
+				RapidMinerNodeModel.DEFAULT_INFER_OUTPUT), "Infer output?"));
 	}
 
 	/**

@@ -59,6 +59,7 @@ import org.knime.core.node.NodeSettingsRO;
 import org.knime.core.node.NodeSettingsWO;
 import org.knime.core.node.defaultnodesettings.DialogComponentRapidMinerProject;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
+import org.knime.core.node.defaultnodesettings.SettingsModelBoolean;
 import org.knime.core.node.defaultnodesettings.SettingsModelRapidMinerProject;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.port.PortObject;
@@ -124,11 +125,17 @@ public class RapidMinerNodeModel extends NodeModel implements
 	static final String DEFAULT_ROWID_COLUMN_NAME = "__KNIME\u00a0RowID__";
 	static final boolean DEFAULT_ENABLED_ROWID_COLUMN_NAME = true;
 
+	static final String CFGKEY_INFER_OUTPUT = "infer output";
+	static final boolean DEFAULT_INFER_OUTPUT = true;
+
 	private SettingsModelRapidMinerProject processModel = new SettingsModelRapidMinerProject(
 			CFGKEY_PROCESS_CUSTOM, DEFAULT_PROCESS_CUSTOM, DEFAULT_EDITABILITY,
 			DEFAULT_SNAPSHOT, DEFAULT_CONTENT);
 	private SettingsModelString rowIdColumnName = new SettingsModelString(
 			CFGKEY_ROWID_COLUMN_NAME, DEFAULT_ROWID_COLUMN_NAME);
+
+	private SettingsModelBoolean inferOutput = new SettingsModelBoolean(
+			CFGKEY_INFER_OUTPUT, DEFAULT_INFER_OUTPUT);
 
 	private DataTableSpec[] lastTableSpecs;
 	private DataTableSpec[] lastResultTableSpecs;
@@ -515,108 +522,112 @@ public class RapidMinerNodeModel extends NodeModel implements
 											final MetaData input) {
 										if (input instanceof ExampleSetMetaData) {
 											final ExampleSetMetaData esmd = (ExampleSetMetaData) input;
-											return new DataTableSpec(
-													Lists.newArrayList(
-															Collections2
-																	.transform(
-																			selectAttributeMetaData(
-																					esmd.getAllAttributes(),
-																					isWithRowIds(),
-																					getRowIdColumnName()),
-																			new Function<AttributeMetaData, DataColumnSpec>() {
-																				@Override
-																				public DataColumnSpec apply(
-																						final AttributeMetaData amd) {
-																					switch (amd
-																							.getValueType()) {
-																					case Ontology.INTEGER:
-																						final DataColumnSpecCreator intSpecCreator = new DataColumnSpecCreator(
-																								amd.getName(),
-																								IntCell.TYPE);
-																						final Range intRange = amd
-																								.getValueRange();
-																						if (!(Double
-																								.isNaN(intRange
-																										.getLower()) || Double
-																								.isNaN(intRange
-																										.getUpper()))) {
-																							intSpecCreator
-																									.setDomain(new DataColumnDomainCreator(
-																											new IntCell(
-																													(int) intRange
-																															.getLower()),
-																											new IntCell(
-																													(int) intRange
-																															.getUpper()))
-																											.createDomain());
+											if (inferOutput.getBooleanValue()) {
+												return new DataTableSpec(
+														Lists.newArrayList(
+																Collections2
+																		.transform(
+																				selectAttributeMetaData(
+																						esmd.getAllAttributes(),
+																						isWithRowIds(),
+																						getRowIdColumnName()),
+																				new Function<AttributeMetaData, DataColumnSpec>() {
+																					@Override
+																					public DataColumnSpec apply(
+																							final AttributeMetaData amd) {
+																						switch (amd
+																								.getValueType()) {
+																						case Ontology.INTEGER:
+																							final DataColumnSpecCreator intSpecCreator = new DataColumnSpecCreator(
+																									amd.getName(),
+																									IntCell.TYPE);
+																							final Range intRange = amd
+																									.getValueRange();
+																							if (!(Double
+																									.isNaN(intRange
+																											.getLower()) || Double
+																									.isNaN(intRange
+																											.getUpper()))) {
+																								intSpecCreator
+																										.setDomain(new DataColumnDomainCreator(
+																												new IntCell(
+																														(int) intRange
+																																.getLower()),
+																												new IntCell(
+																														(int) intRange
+																																.getUpper()))
+																												.createDomain());
+																							}
+																							return intSpecCreator
+																									.createSpec();
+																						case Ontology.NUMERICAL:
+																						case Ontology.REAL:
+																							final DataColumnSpecCreator doubleSpecCreator = new DataColumnSpecCreator(
+																									amd.getName(),
+																									DoubleCell.TYPE);
+																							final Range doubleRange = amd
+																									.getValueRange();
+																							if (!(Double
+																									.isNaN(doubleRange
+																											.getLower()) || Double
+																									.isNaN(doubleRange
+																											.getUpper()))) {
+																								doubleSpecCreator
+																										.setDomain(new DataColumnDomainCreator(
+																												new DoubleCell(
+																														doubleRange
+																																.getLower()),
+																												new DoubleCell(
+																														doubleRange
+																																.getUpper()))
+																												.createDomain());
+																							}
+																							return doubleSpecCreator
+																									.createSpec();
+																						case Ontology.STRING:
+																						case Ontology.NOMINAL:
+																						case Ontology.BINOMINAL:
+																						case Ontology.POLYNOMINAL:
+																							final DataColumnSpecCreator stringSpecCreator = new DataColumnSpecCreator(
+																									amd.getName(),
+																									StringCell.TYPE);
+																							final Set<String> possValues = amd
+																									.getValueSet();
+																							if (possValues != null
+																									&& !(isWithRowIds() && amd
+																											.getName()
+																											.equals(getRowIdColumnName()))) {
+																								stringSpecCreator
+																										.setDomain(new DataColumnDomainCreator(
+																												toCells(possValues))
+																												.createDomain());
+																							}
+																							return stringSpecCreator
+																									.createSpec();
+																						case Ontology.DATE:
+																						case Ontology.DATE_TIME:
+																						case Ontology.TIME:
+																							return new DataColumnSpecCreator(
+																									amd.getName(),
+																									DateAndTimeCell.TYPE)
+																									.createSpec();
+																						default:
+																							throw new UnsupportedOperationException(
+																									"Not supported value type: "
+																											+ amd.getValueType());
 																						}
-																						return intSpecCreator
-																								.createSpec();
-																					case Ontology.NUMERICAL:
-																					case Ontology.REAL:
-																						final DataColumnSpecCreator doubleSpecCreator = new DataColumnSpecCreator(
-																								amd.getName(),
-																								DoubleCell.TYPE);
-																						final Range doubleRange = amd
-																								.getValueRange();
-																						if (!(Double
-																								.isNaN(doubleRange
-																										.getLower()) || Double
-																								.isNaN(doubleRange
-																										.getUpper()))) {
-																							doubleSpecCreator
-																									.setDomain(new DataColumnDomainCreator(
-																											new DoubleCell(
-																													doubleRange
-																															.getLower()),
-																											new DoubleCell(
-																													doubleRange
-																															.getUpper()))
-																											.createDomain());
-																						}
-																						return doubleSpecCreator
-																								.createSpec();
-																					case Ontology.STRING:
-																					case Ontology.NOMINAL:
-																					case Ontology.BINOMINAL:
-																					case Ontology.POLYNOMINAL:
-																						final DataColumnSpecCreator stringSpecCreator = new DataColumnSpecCreator(
-																								amd.getName(),
-																								StringCell.TYPE);
-																						final Set<String> possValues = amd
-																								.getValueSet();
-																						if (possValues != null
-																								&& !(isWithRowIds() && amd
-																										.getName()
-																										.equals(getRowIdColumnName()))) {
-																							stringSpecCreator
-																									.setDomain(new DataColumnDomainCreator(
-																											toCells(possValues))
-																											.createDomain());
-																						}
-																						return stringSpecCreator
-																								.createSpec();
-																					case Ontology.DATE:
-																					case Ontology.DATE_TIME:
-																					case Ontology.TIME:
-																						return new DataColumnSpecCreator(
-																								amd.getName(),
-																								DateAndTimeCell.TYPE)
-																								.createSpec();
-																					default:
-																						throw new UnsupportedOperationException(
-																								"Not supported value type: "
-																										+ amd.getValueType());
 																					}
-																				}
-																			}))
-															.toArray(
-																	new DataColumnSpec[0]));
+																				}))
+																.toArray(
+																		new DataColumnSpec[0]));
+											}
+											return null;
 										}
 										// Not supported metadata.
 										throw new UnsupportedOperationException(
 												"Not supported result format"
-														+ input.getClass());
+														+ input.getClass()
+														+ ". Only the purple semicircles are supported as outputs.");
 									}
 								}));
 				if (resultList.size() > getNrOutPorts()) {
@@ -655,6 +666,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 		// processFile.saveSettingsTo(settings);
 		processModel.saveSettingsTo(settings);
 		rowIdColumnName.saveSettingsTo(settings);
+		inferOutput.saveSettingsTo(settings);
 	}
 
 	/**
@@ -666,6 +678,12 @@ public class RapidMinerNodeModel extends NodeModel implements
 		// processFile.loadSettingsFrom(settings);
 		processModel.loadSettingsFrom(settings);
 		rowIdColumnName.loadSettingsFrom(settings);
+		try {
+			inferOutput.loadSettingsFrom(settings);
+		} catch (final InvalidSettingsException e) {
+			inferOutput.setBooleanValue(DEFAULT_INFER_OUTPUT);
+			logger.debug("Failed to load infer output value, using default", e);
+		}
 	}
 
 	/**
@@ -677,6 +695,11 @@ public class RapidMinerNodeModel extends NodeModel implements
 		// processFile.validateSettings(settings);
 		processModel.validateSettings(settings);
 		rowIdColumnName.validateSettings(settings);
+		try {
+			inferOutput.validateSettings(settings);
+		} catch (final InvalidSettingsException e) {
+			logger.debug("Failed to validate infer output settings.", e);
+		}
 	}
 
 	/**

@@ -20,6 +20,7 @@
         
         <option name="RapidMiner editor">You can specify the RapidMiner process within the editor.</option>
         <option name="Row ID">You can specify with this option Row ID attribute name in the RapidMiner process, although this is optional. If not available after execution, automatically generated id will be in the resulting tables. If there are duplicates in the resulting column, an error will be reported, and the node execution will fail.</option>
+        <option name="Infer output">When checked (default, recommended), it tries to figure out the proper output table format for all output tables, although it is not always possible. When there is a difference between the expected and the actual output an error is reported, but the correct results are returned. You can disable this behaviour by unchecking this option.</option>
     </fullDescription>
     
     <ports>
