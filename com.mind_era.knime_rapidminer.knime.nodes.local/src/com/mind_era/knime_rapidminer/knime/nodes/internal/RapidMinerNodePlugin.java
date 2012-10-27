@@ -16,6 +16,8 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.internal;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 import javax.swing.JPanel;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -31,7 +33,7 @@ import com.rapidminer.gui.RapidMinerGUI;
  * eclipse platform/plugin mechanism. If you want to move/rename this file, make
  * sure to change the plugin.xml file in the project root directory accordingly.
  * 
- * @author ivi
+ * @author Gabor Bakos
  */
 public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	// The shared instance.
@@ -56,34 +58,46 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
-		RapidMinerInit.init(false);
-		AbstractUIState state = new AbstractUIState("design", null, new JPanel()) {
-
-			@Override
-			public void exit(final boolean relaunch) {
-				// Do nothing, we do not exit
-			}
-
-			@Override
-			public boolean close() {
-				metaDataUpdateQueue.shutdown();
-				return true;
-			}
-
-			@Override
-			public void updateRecentFileList() {
-				// Do noting
-			}
-
-			@Override
-			protected void setTitle() {
-				// Do nothing
-			}
-		};
-		RapidMinerGUI.setMainFrame(state);
-		state.getValidateAutomaticallyAction().setSelected(true);
-		state.close();
-		RapidMinerInit.setPreferences();
+		//Start a new thread to avoid errors reported because of class loading.
+		new Thread() {
+			public void run() {
+				try {
+					//Wait a bit to make sure the bundle is properly initialized
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				RapidMinerInit.init(false);
+				AbstractUIState state = new AbstractUIState("design", null,
+						new JPanel()) {
+					
+					@Override
+					public void exit(final boolean relaunch) {
+						// Do nothing, we do not exit
+					}
+					
+					@Override
+					public boolean close() {
+						metaDataUpdateQueue.shutdown();
+						return true;
+					}
+					
+					@Override
+					public void updateRecentFileList() {
+						// Do noting
+					}
+					
+					@Override
+					protected void setTitle() {
+						// Do nothing
+					}
+				};
+				RapidMinerGUI.setMainFrame(state);
+				state.getValidateAutomaticallyAction().setSelected(true);
+				state.close();
+				RapidMinerInit.setPreferences();
+			};
+		}.start();
 	}
 
 	/**
