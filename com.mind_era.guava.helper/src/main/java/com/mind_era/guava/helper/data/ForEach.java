@@ -41,7 +41,10 @@ public class ForEach {
 	 */
 	public static <T> void consume(final Iterator<T> it) {
 		while (it.hasNext()) {
-			it.next();
+			T t = it.next();
+			if (t != null) {
+				t.toString();
+			}
 		}
 	}
 }
