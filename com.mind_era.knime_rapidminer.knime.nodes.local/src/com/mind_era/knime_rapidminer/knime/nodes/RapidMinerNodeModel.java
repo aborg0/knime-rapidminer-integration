@@ -75,9 +75,9 @@ import com.google.common.collect.Sets;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.rapidminer.Process;
 import com.rapidminer.example.Attribute;
+import com.rapidminer.example.Example;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.DataRow;
-import com.rapidminer.example.table.ExampleTable;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.Operator;
@@ -270,10 +270,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 					result, withRowIds, rowIdColName, referenceTableSpec);
 			final Iterable<Attribute> attribs = attribsEntry.getKey();
 			// final Iterator<Attribute> attributes =
-			final ExampleTable exampleTable = result.getExampleTable();
-			for (final Iterator<DataRow> it = exampleTable.getDataRowReader(); it
-					.hasNext();) {
-				final DataRow row = it.next();
+			for (Example example : result) {
+				final DataRow row = example.getDataRow();
 				++i;
 				if (i > result.size()) {
 					break;
