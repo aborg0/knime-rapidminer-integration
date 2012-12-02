@@ -19,6 +19,8 @@ package org.knime.core.node.defaultnodesettings;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +37,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 
 import org.knime.core.node.InvalidSettingsException;
@@ -87,45 +87,16 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 		final JLabel locationText = new JLabel("Location: ");
 		location.setText(model.getStringValue());
 		editable.setSelected(model.isEditability());
+		editable.setRolloverEnabled(false);
 		alwaysReload.setSelected(!model.isSnapshot());
 		final JPanel controlsPanel = new JPanel();
 		final Box box = Box.createHorizontalBox();
 		controlsPanel.add(locationText);
 		controlsPanel.add(location);
-		location.getDocument().addDocumentListener(new DocumentListener() {
+		location.addFocusListener(new FocusAdapter() {
 			@Override
-			public void insertUpdate(final DocumentEvent e) {
-				onChange(e);
-			}
-
-			@Override
-			public void removeUpdate(final DocumentEvent e) {
-				onChange(e);
-			}
-
-			@Override
-			public void changedUpdate(final DocumentEvent e) {
-				onChange(e);
-			}
-
-			private void onChange(final DocumentEvent e) {
-				if (isLoading) {
-					return;
-				}
-				if (allowSaveAs && editable.isSelected()) {
-					editor.saveAs();
-				}
-				model.setStringValue(location.getText());
-				try {
-					final ProjectType project = model.loadFromLocation();
-					editor.load(project);
-					if (model.isEditability()) {
-						model.setContent(editor.getContent());
-					}
-				} catch (final Exception e1) {
-					// Do nothing
-				}
-				updateModel();
+			public void focusLost(final FocusEvent e) {
+				updateModel(model, allowSaveAs);
 			}
 		});
 		controlsPanel.add(new JButton(new AbstractAction("Browse") {
@@ -167,6 +138,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 						newFile = "<Error: " + se.getMessage() + ">";
 					}
 					location.setText(newFile);
+					updateModel(model, allowSaveAs);
 					getComponentPanel().revalidate();
 				}
 			}
@@ -305,7 +277,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 	}
 
 	/**
-	 * 
+	 * Updates the model to keep the UI consistent with the model.
 	 */
 	private void updateModel() {
 		@SuppressWarnings("unchecked")
@@ -379,5 +351,47 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 	@Override
 	public void setToolTipText(final String text) {
 		getComponentPanel().setToolTipText(text);
+	}
+
+	/**
+	 * Updates the underlying model with questions about saving the current
+	 * model or discarding the current one (if it is not the default) in favor
+	 * of the new one.
+	 * 
+	 * @param model
+	 *            The {@link SettingsModel} of the
+	 *            {@link DialogComponentProject}.
+	 * @param allowSaveAs
+	 *            Do we allow Save As dialogs?
+	 */
+	private void updateModel(final Model model, final boolean allowSaveAs) {
+		if (isLoading) {
+			return;
+		}
+		if (allowSaveAs && editable.isSelected()) {
+			editor.saveAs();
+		}
+		try {
+			if (editor.getContent() != null && editor.getContent().length > 0) {
+				if (JOptionPane.showConfirmDialog(getComponentPanel(),
+						"Discard current project?", "Discard project?",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+					return;
+				}
+			}
+		} catch (final Exception ex) {
+			// Ignore exception
+		}
+		model.setStringValue(location.getText());
+		try {
+			final ProjectType project = model.loadFromLocation();
+			editor.load(project);
+			if (model.isEditability()) {
+				model.setContent(editor.getContent());
+			}
+		} catch (final Exception e1) {
+			// Do nothing
+		}
+		updateModel();
 	}
 }
