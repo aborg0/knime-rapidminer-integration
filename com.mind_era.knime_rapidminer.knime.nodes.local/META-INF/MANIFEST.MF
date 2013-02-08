@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: RapidMiner-Node extension for KNIME Workbench
+Bundle-Name: RapidMiner integration for KNIME
 Bundle-SymbolicName: com.mind_era.knime_rapidminer.knime.nodes.local;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 0.5.3.qualifier
 Bundle-ClassPath: rapidminer.jar,
  gen_lib/rapidminer.jar,
  lib/bcmail.jar,
