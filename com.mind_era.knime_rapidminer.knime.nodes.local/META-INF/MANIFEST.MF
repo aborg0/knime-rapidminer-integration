@@ -88,4 +88,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.6.0,4.0.0)",
  org.knime.product;bundle-version="2.7.0";resolution:=optional,
  org.fife.rsyntaxtextarea;bundle-version="[2.0.4,3.0.0)";resolution:=optional
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
