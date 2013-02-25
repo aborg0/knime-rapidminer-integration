@@ -352,7 +352,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 			for (int i = 0; i < referenceTableSpec.getNumColumns(); ++i) {
 				final String refName = referenceTableSpec.getColumnSpec(i)
 						.getName();
-				if (!attribList.get(i).getName().equals(refName)) {
+				if (attribList.size() > i && !attribList.get(i).getName().equals(refName)) {
 					int foundIndex = -1;
 					for (int j = 0; j < attribList.size(); ++j) {
 						if (attribList.get(j).getName().equals(refName)) {
