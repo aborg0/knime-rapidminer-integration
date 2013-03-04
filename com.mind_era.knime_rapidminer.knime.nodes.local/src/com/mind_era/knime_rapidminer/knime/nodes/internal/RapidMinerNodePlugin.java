@@ -16,8 +16,6 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.internal;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 import javax.swing.JPanel;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
