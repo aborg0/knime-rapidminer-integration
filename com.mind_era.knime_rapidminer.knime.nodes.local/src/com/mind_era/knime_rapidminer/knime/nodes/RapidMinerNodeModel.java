@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -37,6 +38,7 @@ import javax.annotation.Nullable;
 
 import org.knime.core.data.DataCell;
 import org.knime.core.data.DataColumnDomainCreator;
+import org.knime.core.data.DataColumnProperties;
 import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataColumnSpecCreator;
 import org.knime.core.data.DataTableSpec;
@@ -70,11 +72,15 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mind_era.guava.helper.data.Zip;
+import com.mind_era.knime_rapidminer.knime.nodes.util.AttributeWithRole;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.rapidminer.Process;
 import com.rapidminer.example.Attribute;
+import com.rapidminer.example.AttributeRole;
 import com.rapidminer.example.Example;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.DataRow;
@@ -103,6 +109,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 
 	private static final PortType OptionalBufferedDataTableType = new PortType(
 			BufferedDataTable.class, true);
+	
+	private static final String ROLE_KEY = "role";
 
 	/**
 	 * Constructor for the node model.
@@ -324,6 +332,74 @@ public class RapidMinerNodeModel extends NodeModel implements
 		}
 		return dataContainer.getTable();
 	}
+	
+	/**
+	 * Filters the {@link Attribute}s of the {@code exampleSet} based on the
+	 * rowId related parameters.
+	 * 
+	 * @param exampleSet
+	 *            The input {@link ExampleSet}.
+	 * @param withRowIds
+	 *            If set, the {@code rowIdColumnName} attribute will be used
+	 * @param rowIdColName
+	 *            This will be used as row id input column from RapidMiner. Can
+	 *            be {@code null} if not {@code withRowIds}.
+	 * @param referenceTableSpec
+	 *            The reference table specification to specify the order of
+	 *            columns already set.
+	 * @return The {@link Attribute}s applicable, and the rowId attribute.
+	 */
+	public Entry<? extends Iterable<AttributeWithRole>, AttributeWithRole> selectAttributesWithRoles(
+			final ExampleSet exampleSet, final boolean withRowIds,
+			final @Nullable String rowIdColName,
+			final DataTableSpec referenceTableSpec) {
+		final Iterator<Attribute> attribs = exampleSet.getAttributes()
+				.allAttributes();// .filter(_.isNumerical)*/.toSeq
+		Iterator<AttributeRole> attributeRoles = exampleSet.getAttributes().allAttributeRoles();
+		final List<AttributeWithRole> attribList = Lists.newArrayList(Iterators.transform(Zip.zip(attribs, attributeRoles), new Function<Entry<Attribute, AttributeRole>, AttributeWithRole>() {
+			@Override
+			public AttributeWithRole apply(Entry<Attribute, AttributeRole> entry) {
+				return new AttributeWithRole(entry.getKey(), entry.getValue());
+			}
+		}));
+		if (referenceTableSpec != null) {
+			for (int i = 0; i < referenceTableSpec.getNumColumns(); ++i) {
+				final String refName = referenceTableSpec.getColumnSpec(i)
+						.getName();
+				if (attribList.size() > i && !attribList.get(i).getAttribute().getName().equals(refName)) {
+					int foundIndex = -1;
+					for (int j = 0; j < attribList.size(); ++j) {
+						if (attribList.get(j).getAttribute().getName().equals(refName)) {
+							foundIndex = j;
+							break;
+						}
+					}
+					if (foundIndex != -1) {
+						final AttributeWithRole attribute = attribList
+								.remove(foundIndex);
+						attribList.add(i, attribute);
+					}
+				}
+			}
+		}
+		if (withRowIds) {
+			AttributeWithRole a = null;
+			for (final Iterator<AttributeWithRole> it = attribList.iterator(); it
+					.hasNext();) {
+				AttributeWithRole attribWithRole = it.next();
+				final Attribute attribute = attribWithRole.getAttribute();
+				if (attribute.getName().equals(rowIdColName)) {
+					it.remove();
+					a = attribWithRole;
+					break;
+				}
+			}
+			return new AbstractMap.SimpleImmutableEntry<List<AttributeWithRole>, AttributeWithRole>(
+					attribList, a);
+		}
+		return new AbstractMap.SimpleImmutableEntry<Iterable<AttributeWithRole>, AttributeWithRole>(
+				attribList, null);
+	}
 
 	/**
 	 * Filters the {@link Attribute}s of the {@code exampleSet} based on the
@@ -341,6 +417,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 	 *            columns already set.
 	 * @return The {@link Attribute}s applicable, and the rowId attribute.
 	 */
+	@Deprecated
 	public Entry<? extends Iterable<Attribute>, Attribute> selectAttributes(
 			final ExampleSet exampleSet, final boolean withRowIds,
 			final @Nullable String rowIdColName,
@@ -435,21 +512,27 @@ public class RapidMinerNodeModel extends NodeModel implements
 	private DataTableSpec createSpec(final ExampleSet examples,
 			final boolean withRowIds, final @Nullable String rowIdColumn,
 			final DataTableSpec referenceTableSpec) {
-		final Entry<? extends Iterable<Attribute>, Attribute> attribsEntry = selectAttributes(
+		final Entry<? extends Iterable<AttributeWithRole>, AttributeWithRole> attribsEntry = selectAttributesWithRoles(
 				examples, withRowIds, rowIdColumn, referenceTableSpec);
+		examples.getAttributes().allAttributeRoles();
 		return new DataTableSpec(Iterables.toArray(Iterables.transform(
 				attribsEntry.getKey(),
-				new Function<Attribute, DataColumnSpec>() {
+				new Function<AttributeWithRole, DataColumnSpec>() {
 					@Override
-					public DataColumnSpec apply(final Attribute a) {
-						return new DataColumnSpecCreator(
+					public DataColumnSpec apply(final AttributeWithRole aWithRole) {
+						final Attribute a = aWithRole.getAttribute();
+						final DataColumnSpecCreator dataColumnSpecCreator = new DataColumnSpecCreator(
 								a.getName(),
 								a.isNominal() ? StringCell.TYPE
 										: a.getValueType() == Ontology.INTEGER ? IntCell.TYPE
 												: a.getValueType() == Ontology.DATE
 														|| a.getValueType() == Ontology.DATE_TIME
 														|| a.getValueType() == Ontology.TIME ? DateAndTimeCell.TYPE
-														: DoubleCell.TYPE)
+														: DoubleCell.TYPE);
+						Map<String, String> roles = aWithRole.getRole().isSpecial() ? Collections.singletonMap(ROLE_KEY, aWithRole.getRole().getSpecialName()) : Collections.<String, String>emptyMap();
+						DataColumnProperties props = new DataColumnProperties(roles);
+						dataColumnSpecCreator.setProperties(props);
+						return dataColumnSpecCreator
 								.createSpec();
 					}
 				}), DataColumnSpec.class));

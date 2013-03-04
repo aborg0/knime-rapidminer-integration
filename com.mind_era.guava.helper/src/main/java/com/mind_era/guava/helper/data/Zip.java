@@ -89,4 +89,36 @@ public class Zip {
 		}
 		return ret;
 	}
+
+	/**
+	 * Zips two {@link Iterator}s.
+	 * 
+	 * @param lefts
+	 *            The left values.
+	 * @param rights
+	 *            The right values.
+	 * @return The zipped iterable. (Be careful with {@link Iterator#remove()},
+	 *         as it works only if both iterators support it).
+	 */
+	public static <T, U> Iterator<Entry<T, U>> zip(final Iterator<T> lefts,
+			final Iterator<U> rights) {
+		return new Iterator<Map.Entry<T, U>>() {
+			@Override
+			public boolean hasNext() {
+				return lefts.hasNext() && rights.hasNext();
+			}
+
+			@Override
+			public Entry<T, U> next() {
+				return Maps.immutableEntry(lefts.next(), rights.next());
+			}
+
+			@Override
+			public void remove() {
+				// TODO should an UnsupportedOperationException wold be better?
+				lefts.remove();
+				rights.remove();
+			}
+		};
+	}
 }
