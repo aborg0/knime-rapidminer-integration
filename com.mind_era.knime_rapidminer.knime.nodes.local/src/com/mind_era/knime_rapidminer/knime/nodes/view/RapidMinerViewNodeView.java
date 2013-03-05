@@ -18,7 +18,7 @@ package com.mind_era.knime_rapidminer.knime.nodes.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.io.IOException;
+import java.util.Collections;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,11 +31,12 @@ import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeRepository;
 import com.rapidminer.Process;
+import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.gui.AbstractUIState;
 import com.rapidminer.gui.RapidMinerGUI;
 import com.rapidminer.operator.IOContainer;
-import com.rapidminer.tools.XMLException;
+import com.rapidminer.operator.OperatorException;
 import com.vlsolutions.swing.docking.DockingContext;
 import com.vlsolutions.swing.docking.DockingDesktop;
 import com.vlsolutions.swing.toolbars.ToolBarContainer;
@@ -109,18 +110,39 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		perspective.showPerspective(KnimePerspective.RESULT);
 		setComponent(pane);
 		try {
-			process = new Process(
-					"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><process version=\"5.2.000\"><context><input><location>"
-							+ "//"
-							+ KnimeRepository.KNIME
+			process = new Process();
+			process.getContext().setInputRepositoryLocations(
+					Collections.singletonList("//" + KnimeRepository.KNIME
 							+ "/"
 							+ KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
-							+ 1
-							+ "</location></input><output/><macros/></context><operator activated=\"true\" class=\"process\" compatibility=\"5.2.000\" expanded=\"true\" name=\"Process\"><process expanded=\"true\" height=\"-20\" width=\"-50\"><connect from_port=\"input 1\" to_port=\"result 1\"/><portSpacing port=\"source_input 1\" spacing=\"0\"/><portSpacing port=\"source_input 2\" spacing=\"0\"/><portSpacing port=\"sink_result 1\" spacing=\"0\"/><portSpacing port=\"sink_result 2\" spacing=\"0\"/></process></operator></process>");
-		} catch (final IOException e) {
+							+ 1));
+			process.getRootOperator()
+					.getOutputPorts()
+					.createPort("input 1", true)
+					.connectTo(
+							process.getRootOperator().getInputPorts()
+									.createPort("output 1", true));
+			// final ProcessRootOperator rootOp = process.getRootOperator();
+			// final ExecutionUnit executionUnit = rootOp.getSubprocess(0);
+			// int i = 0;
+			// for (final OutputPort outPort :
+			// newOp.getOutputPorts().getAllPorts()) {
+			// final InputPort inputPort =
+			// executionUnit.getInnerSinks().getPortByIndex(i++);
+			// outPort.connectTo(inputPort);
+			// }
+			// "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><process version=\"5.2.000\"><context><input><location>"
+			// + "//"
+			// + KnimeRepository.KNIME
+			// + "/"
+			// + KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
+			// + 1
+			// +
+			// "</location></input><output/><macros/></context><operator activated=\"true\" class=\"process\" compatibility=\"5.2.000\" expanded=\"true\" name=\"Process\"><process expanded=\"true\" height=\"-20\" width=\"-50\"><connect from_port=\"input 1\" to_port=\"result 1\"/><portSpacing port=\"source_input 1\" spacing=\"0\"/><portSpacing port=\"source_input 2\" spacing=\"0\"/><portSpacing port=\"sink_result 1\" spacing=\"0\"/><portSpacing port=\"sink_result 2\" spacing=\"0\"/></process></operator></process>");
+		} catch (final/* IO */Exception e) {
 			throw new IllegalStateException("Should not happen", e);
-		} catch (final XMLException e) {
-			throw new IllegalStateException("Should not happen", e);
+			// } catch (final XMLException e) {
+			// throw new IllegalStateException("Should not happen", e);
 		}
 		state.setProcess(process, false);
 	}
@@ -133,11 +155,16 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		final RapidMinerViewNodeModel nodeModel = getNodeModel();
 		table = nodeModel == null ? null : nodeModel.getTable();
 		if (table != null) {
-			state.processEnded(
-					process,
-					new IOContainer(MemoryExampleTable.createCompleteCopy(
-							new KnimeExampleTable(table, false, null))
-							.createExampleSet()));
+			ExampleSet exampleSet = MemoryExampleTable.createCompleteCopy(
+					new KnimeExampleTable(table, false, null))
+					.createExampleSet();
+            try {
+				process.run(new IOContainer(exampleSet));
+			} catch (OperatorException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			state.processEnded(process, new IOContainer(exampleSet));
 		}
 	}
 
