@@ -87,6 +87,7 @@ import com.rapidminer.example.table.DataRow;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.Operator;
+import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.operator.ports.metadata.AttributeMetaData;
 import com.rapidminer.operator.ports.metadata.ExampleSetMetaData;
 import com.rapidminer.operator.ports.metadata.MetaData;
@@ -604,6 +605,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 										if (input instanceof ExampleSetMetaData) {
 											final ExampleSetMetaData esmd = (ExampleSetMetaData) input;
 											if (inferOutput.getBooleanValue()) {
+//												if (contains(input.getGenerationHistory(), ScriptingOperator.class))
+//													return null;
 												return new DataTableSpec(
 														Lists.newArrayList(
 																Collections2
@@ -718,7 +721,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 				}
 				if (resultList.size() < getNrOutPorts()) {
 					for (int i = getNrOutPorts() - resultList.size(); i-- > 0;) {
-						resultList.add(new DataTableSpec());
+						resultList.add(null);
 					}
 				}
 				return lastResultTableSpecs = resultList
@@ -729,6 +732,21 @@ public class RapidMinerNodeModel extends NodeModel implements
 			}
 		}
 		return lastResultTableSpecs = null;
+	}
+
+	/**
+	 * @param generationHistory
+	 * @param class1
+	 * @return
+	 */
+	protected boolean contains(List<? extends OutputPort> generationHistory,
+			Class<? extends Operator> noInferClass) {
+		for (OutputPort outputPort : generationHistory) {
+			if (noInferClass.isAssignableFrom(outputPort.getPorts().getOwner().getOperator().getClass())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static Set<DataCell> toCells(final Set<String> possValues) {
