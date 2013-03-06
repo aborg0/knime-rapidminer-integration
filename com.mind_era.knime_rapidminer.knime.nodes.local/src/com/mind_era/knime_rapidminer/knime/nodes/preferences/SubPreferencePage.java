@@ -102,16 +102,16 @@ public class SubPreferencePage extends FieldEditorPreferencePage implements
 						key, catType.getDescription(), 2, labelAndValues,
 						getFieldEditorParent(), true);
 				addField(stringFieldEditor);
-			} else if (type instanceof ParameterTypeFile) {
-				final ParameterTypeFile fileType = (ParameterTypeFile) type;
-				final FileFieldEditor fileFieldEditor = new FileFieldEditor(
-						key, fileType.getDescription(), getFieldEditorParent());
-				addField(fileFieldEditor);
 			} else if (type instanceof ParameterTypeDirectory) {
 				final ParameterTypeDirectory dirType = (ParameterTypeDirectory) type;
 				final DirectoryFieldEditor directoryFieldEditor = new DirectoryFieldEditor(
 						key, dirType.getDescription(), getFieldEditorParent());
 				addField(directoryFieldEditor);
+			} else if (type instanceof ParameterTypeFile) {
+				final ParameterTypeFile fileType = (ParameterTypeFile) type;
+				final FileFieldEditor fileFieldEditor = new FileFieldEditor(
+						key, fileType.getDescription(), getFieldEditorParent());
+				addField(fileFieldEditor);
 			} else if (type instanceof ParameterTypeBoolean) {
 				final ParameterTypeBoolean boolType = (ParameterTypeBoolean) type;
 				final BooleanFieldEditor booleanFieldEditor = new BooleanFieldEditor(
