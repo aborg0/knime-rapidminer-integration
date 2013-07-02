@@ -16,6 +16,8 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.util;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -282,6 +284,64 @@ public class KnimeExampleSet extends AbstractExampleSet {
 		return inData.getRowCount();
 	}
 
+	private static class ClosableIterator<E> implements Iterator<E>, Closeable {
+		private final CloseableRowIterator closeable;
+		private final Iterator<E> iterator;
+
+		/**
+		 * 
+		 */
+		public ClosableIterator(CloseableRowIterator it, Iterator<E> iterator) {
+			this.closeable = it;
+			this.iterator = iterator;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.io.Closeable#close()
+		 */
+		@Override
+		public void close() throws IOException {
+			closeable.close();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#hasNext()
+		 */
+		@Override
+		public boolean hasNext() {
+			boolean hasNext = iterator.hasNext();
+			if (!hasNext) {
+				closeable.close();
+			}
+			return hasNext;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#next()
+		 */
+		@Override
+		public E next() {
+			return iterator.next();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#remove()
+		 */
+		@Override
+		public void remove() {
+			iterator.remove();
+		}
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -290,17 +350,14 @@ public class KnimeExampleSet extends AbstractExampleSet {
 	@Override
 	public Iterator<Example> iterator() {
 		final CloseableRowIterator it = inData.iterator();
-		try {
-			return Iterators.transform(it, new Function<DataRow, Example>() {
-				@Override
-				public Example apply(final DataRow input) {
-					return new Example(convertRow(input, mapping),
-							KnimeExampleSet.this);
-				}
-			});
-		} finally {
-			// it.close();
-		}
+		return new ClosableIterator<Example>(it, Iterators.transform(it,
+				new Function<DataRow, Example>() {
+					@Override
+					public Example apply(final DataRow input) {
+						return new Example(convertRow(input, mapping),
+								KnimeExampleSet.this);
+					}
+				}));
 	}
 
 	/**
