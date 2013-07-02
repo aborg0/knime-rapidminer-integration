@@ -37,6 +37,7 @@ import com.rapidminer.parameter.ParameterTypeDirectory;
 import com.rapidminer.parameter.ParameterTypeDouble;
 import com.rapidminer.parameter.ParameterTypeFile;
 import com.rapidminer.parameter.ParameterTypeInt;
+import com.rapidminer.parameter.ParameterTypePassword;
 import com.rapidminer.parameter.ParameterTypeStringCategory;
 import com.rapidminer.tools.ParameterService;
 
@@ -136,20 +137,13 @@ public class SubPreferencePage extends FieldEditorPreferencePage implements
 						StringFieldEditor.UNLIMITED,
 						StringFieldEditor.VALIDATE_ON_FOCUS_LOST,
 						getFieldEditorParent());
+				if (type instanceof ParameterTypePassword) {
+					stringFieldEditor.getTextControl(getFieldEditorParent())
+							.setEchoChar('*');
+				}
 				addField(stringFieldEditor);
-			}// else Password should be important
+			}
 		}
-		// addField(new DirectoryFieldEditor(PreferenceConstants.P_PATH,
-		// "&Directory preference:", getFieldEditorParent()));
-		// addField(new BooleanFieldEditor(PreferenceConstants.P_BOOLEAN,
-		// "&An example of a boolean preference", getFieldEditorParent()));
-		//
-		// addField(new RadioGroupFieldEditor(PreferenceConstants.P_CHOICE,
-		// "An example of a multiple-choice preference", 1,
-		// new String[][] { { "&Choice 1", "choice1" },
-		// { "C&hoice 2", "choice2" } }, getFieldEditorParent()));
-		// addField(new StringFieldEditor(PreferenceConstants.P_STRING,
-		// "A &text preference:", getFieldEditorParent()));
 	}
 
 	/*
