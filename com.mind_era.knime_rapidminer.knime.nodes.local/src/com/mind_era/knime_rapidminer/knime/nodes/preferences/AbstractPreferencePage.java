@@ -124,6 +124,7 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 					final ParameterTypeDouble doubleType = (ParameterTypeDouble) type;
 					final StringFieldEditor stringFieldEditor = new StringFieldEditor(
 							key, label, getFieldEditorParent());
+					stringFieldEditor.setStringValue(value);
 					fieldEditor = stringFieldEditor;
 				} else if (type instanceof ParameterTypeStringCategory) {
 					final ParameterTypeStringCategory catType = (ParameterTypeStringCategory) type;
@@ -141,11 +142,13 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 					final ParameterTypeDirectory dirType = (ParameterTypeDirectory) type;
 					final DirectoryFieldEditor directoryFieldEditor = new DirectoryFieldEditor(
 							key, label, getFieldEditorParent());
+					directoryFieldEditor.setStringValue(value);
 					fieldEditor = directoryFieldEditor;
 				} else if (type instanceof ParameterTypeFile) {
 					final ParameterTypeFile fileType = (ParameterTypeFile) type;
 					final FileFieldEditor fileFieldEditor = new FileFieldEditor(
 							key, label, getFieldEditorParent());
+					fileFieldEditor.setStringValue(value);
 					fieldEditor = fileFieldEditor;
 				} else if (type instanceof ParameterTypeBoolean) {
 					final ParameterTypeBoolean boolType = (ParameterTypeBoolean) type;
@@ -161,6 +164,7 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 					final ParameterTypeChar charType = (ParameterTypeChar) type;
 					final StringFieldEditor charFieldEditor = new StringFieldEditor(
 							key, label, 1, getFieldEditorParent());
+					charFieldEditor.setStringValue(value);
 					fieldEditor = charFieldEditor;
 				} else if (type != null)/*
 										 * if (type instanceof
@@ -178,6 +182,7 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 								.getTextControl(getFieldEditorParent())
 								.setEchoChar('*');
 					}
+					stringFieldEditor.setStringValue(value);
 					fieldEditor = stringFieldEditor;
 				} else {
 					continue;
