@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -67,6 +69,7 @@ import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.port.PortObject;
 import org.knime.core.node.port.PortObjectSpec;
 import org.knime.core.node.port.PortType;
+import org.knime.core.node.workflow.FlowVariable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -78,6 +81,7 @@ import com.google.common.collect.Sets;
 import com.mind_era.guava.helper.data.Zip;
 import com.mind_era.knime_rapidminer.knime.nodes.util.AttributeWithRole;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
+import com.rapidminer.MacroHandler;
 import com.rapidminer.Process;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.example.AttributeRole;
@@ -92,6 +96,7 @@ import com.rapidminer.operator.ports.metadata.AttributeMetaData;
 import com.rapidminer.operator.ports.metadata.ExampleSetMetaData;
 import com.rapidminer.operator.ports.metadata.MetaData;
 import com.rapidminer.repository.RepositoryAccessor;
+import com.rapidminer.tools.LogService;
 import com.rapidminer.tools.Ontology;
 import com.rapidminer.tools.math.container.Range;
 
@@ -110,7 +115,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 
 	private static final PortType OptionalBufferedDataTableType = new PortType(
 			BufferedDataTable.class, true);
-	
+
 	private static final String ROLE_KEY = "role";
 
 	/**
@@ -158,42 +163,53 @@ public class RapidMinerNodeModel extends NodeModel implements
 		RapidMinerInit.init(false);
 		RapidMinerInit.setPreferences();
 		final Process process = processModel.loadProject(false);
+		final MacroHandler macroHandler = process.getMacroHandler();
+		final Map<String, String> map = new HashMap<String, String>();
+		for (final Entry<String, FlowVariable> entry : getAvailableInputFlowVariables()
+				.entrySet()) {
+			macroHandler.addMacro(entry.getKey(), entry.getValue()
+					.getValueAsString());
+			map.put(entry.getKey(), entry.getValue().getValueAsString());
+		}
 		final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 1,
 				TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
 		final Future<IOContainer> future = executor
 				.submit(new Callable<IOContainer>() {
 					@Override
 					public IOContainer call() throws Exception {
-						return process.run(new IOContainer(Iterables.toArray(
-								Collections2.transform(Collections2.filter(
-										Arrays.asList(inData),
-										new Predicate<PortObject>() {
-											@Override
-											public boolean apply(
-													final PortObject input) {
-												return input != null;
-											}
-										}),
-										new Function<PortObject, ExampleSet>() {
-											@Override
-											public ExampleSet apply(
-													final PortObject input) {
-												return MemoryExampleTable
-														.createCompleteCopy(
-																/*
-																 * new
-																 * SimpleExampleSet
-																 * (
-																 */new KnimeExampleTable(
-																		new WrappedTable(
-																				(BufferedDataTable) input),
-																		rowIdColumnName
-																				.isEnabled(),
-																		rowIdColumnName
-																				.getStringValue()))
-														.createExampleSet();
-											}
-										}), ExampleSet.class)));
+						return process.run(
+								new IOContainer(Iterables.toArray(Collections2
+										.transform(
+												Collections2.filter(
+														Arrays.asList(inData),
+														new Predicate<PortObject>() {
+															@Override
+															public boolean apply(
+																	final PortObject input) {
+																return input != null;
+															}
+														}),
+												new Function<PortObject, ExampleSet>() {
+													@Override
+													public ExampleSet apply(
+															final PortObject input) {
+														return MemoryExampleTable
+																.createCompleteCopy(
+																		/*
+																		 * new
+																		 * SimpleExampleSet
+																		 * (
+																		 */new KnimeExampleTable(
+																				new WrappedTable(
+																						(BufferedDataTable) input),
+																				rowIdColumnName
+																						.isEnabled(),
+																				rowIdColumnName
+																						.getStringValue()))
+																.createExampleSet();
+													}
+												}), ExampleSet.class)),
+								LogService.UNKNOWN_LEVEL, map);
 					}
 				});
 		while (!future.isDone()) {
@@ -244,6 +260,22 @@ public class RapidMinerNodeModel extends NodeModel implements
 			c.close();
 			ret.add(c.getTable());
 		}
+		final Map<String, String> diff = new LinkedHashMap<String, String>();
+		final Iterator<String> it = macroHandler.getDefinedMacroNames();
+		while (it.hasNext()) {
+			final String key = it.next();
+			if (map.containsKey(key)) {
+				final String newValue = macroHandler.getMacro(key);
+				if (!newValue.equals(map.get(key))) {
+					diff.put(key, newValue);
+				}
+			} else {
+				diff.put(key, macroHandler.getMacro(key));
+			}
+		}
+		for (final Entry<String, String> entry : diff.entrySet()) {
+			pushFlowVariableString(entry.getKey(), entry.getValue());
+		}
 		return ret.toArray(new BufferedDataTable[ret.size()]);
 	}
 
@@ -279,7 +311,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 					result, withRowIds, rowIdColName, referenceTableSpec);
 			final Iterable<Attribute> attribs = attribsEntry.getKey();
 			// final Iterator<Attribute> attributes =
-			for (Example example : result) {
+			for (final Example example : result) {
 				final DataRow row = example.getDataRow();
 				++i;
 				if (i > result.size()) {
@@ -333,7 +365,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 		}
 		return dataContainer.getTable();
 	}
-	
+
 	/**
 	 * Filters the {@link Attribute}s of the {@code exampleSet} based on the
 	 * rowId related parameters.
@@ -356,21 +388,30 @@ public class RapidMinerNodeModel extends NodeModel implements
 			final DataTableSpec referenceTableSpec) {
 		final Iterator<Attribute> attribs = exampleSet.getAttributes()
 				.allAttributes();// .filter(_.isNumerical)*/.toSeq
-		Iterator<AttributeRole> attributeRoles = exampleSet.getAttributes().allAttributeRoles();
-		final List<AttributeWithRole> attribList = Lists.newArrayList(Iterators.transform(Zip.zip(attribs, attributeRoles), new Function<Entry<Attribute, AttributeRole>, AttributeWithRole>() {
-			@Override
-			public AttributeWithRole apply(Entry<Attribute, AttributeRole> entry) {
-				return new AttributeWithRole(entry.getKey(), entry.getValue());
-			}
-		}));
+		final Iterator<AttributeRole> attributeRoles = exampleSet
+				.getAttributes().allAttributeRoles();
+		final List<AttributeWithRole> attribList = Lists
+				.newArrayList(Iterators.transform(
+						Zip.zip(attribs, attributeRoles),
+						new Function<Entry<Attribute, AttributeRole>, AttributeWithRole>() {
+							@Override
+							public AttributeWithRole apply(
+									final Entry<Attribute, AttributeRole> entry) {
+								return new AttributeWithRole(entry.getKey(),
+										entry.getValue());
+							}
+						}));
 		if (referenceTableSpec != null) {
 			for (int i = 0; i < referenceTableSpec.getNumColumns(); ++i) {
 				final String refName = referenceTableSpec.getColumnSpec(i)
 						.getName();
-				if (attribList.size() > i && !attribList.get(i).getAttribute().getName().equals(refName)) {
+				if (attribList.size() > i
+						&& !attribList.get(i).getAttribute().getName()
+								.equals(refName)) {
 					int foundIndex = -1;
 					for (int j = 0; j < attribList.size(); ++j) {
-						if (attribList.get(j).getAttribute().getName().equals(refName)) {
+						if (attribList.get(j).getAttribute().getName()
+								.equals(refName)) {
 							foundIndex = j;
 							break;
 						}
@@ -387,7 +428,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 			AttributeWithRole a = null;
 			for (final Iterator<AttributeWithRole> it = attribList.iterator(); it
 					.hasNext();) {
-				AttributeWithRole attribWithRole = it.next();
+				final AttributeWithRole attribWithRole = it.next();
 				final Attribute attribute = attribWithRole.getAttribute();
 				if (attribute.getName().equals(rowIdColName)) {
 					it.remove();
@@ -430,7 +471,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 			for (int i = 0; i < referenceTableSpec.getNumColumns(); ++i) {
 				final String refName = referenceTableSpec.getColumnSpec(i)
 						.getName();
-				if (attribList.size() > i && !attribList.get(i).getName().equals(refName)) {
+				if (attribList.size() > i
+						&& !attribList.get(i).getName().equals(refName)) {
 					int foundIndex = -1;
 					for (int j = 0; j < attribList.size(); ++j) {
 						if (attribList.get(j).getName().equals(refName)) {
@@ -520,7 +562,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 				attribsEntry.getKey(),
 				new Function<AttributeWithRole, DataColumnSpec>() {
 					@Override
-					public DataColumnSpec apply(final AttributeWithRole aWithRole) {
+					public DataColumnSpec apply(
+							final AttributeWithRole aWithRole) {
 						final Attribute a = aWithRole.getAttribute();
 						final DataColumnSpecCreator dataColumnSpecCreator = new DataColumnSpecCreator(
 								a.getName(),
@@ -530,11 +573,14 @@ public class RapidMinerNodeModel extends NodeModel implements
 														|| a.getValueType() == Ontology.DATE_TIME
 														|| a.getValueType() == Ontology.TIME ? DateAndTimeCell.TYPE
 														: DoubleCell.TYPE);
-						Map<String, String> roles = aWithRole.getRole().isSpecial() ? Collections.singletonMap(ROLE_KEY, aWithRole.getRole().getSpecialName()) : Collections.<String, String>emptyMap();
-						DataColumnProperties props = new DataColumnProperties(roles);
+						final Map<String, String> roles = aWithRole.getRole()
+								.isSpecial() ? Collections.singletonMap(
+								ROLE_KEY, aWithRole.getRole().getSpecialName())
+								: Collections.<String, String> emptyMap();
+						final DataColumnProperties props = new DataColumnProperties(
+								roles);
 						dataColumnSpecCreator.setProperties(props);
-						return dataColumnSpecCreator
-								.createSpec();
+						return dataColumnSpecCreator.createSpec();
 					}
 				}), DataColumnSpec.class));
 	}
@@ -605,8 +651,10 @@ public class RapidMinerNodeModel extends NodeModel implements
 										if (input instanceof ExampleSetMetaData) {
 											final ExampleSetMetaData esmd = (ExampleSetMetaData) input;
 											if (inferOutput.getBooleanValue()) {
-//												if (contains(input.getGenerationHistory(), ScriptingOperator.class))
-//													return null;
+												// if
+												// (contains(input.getGenerationHistory(),
+												// ScriptingOperator.class))
+												// return null;
 												return new DataTableSpec(
 														Lists.newArrayList(
 																Collections2
@@ -739,10 +787,12 @@ public class RapidMinerNodeModel extends NodeModel implements
 	 * @param class1
 	 * @return
 	 */
-	protected boolean contains(List<? extends OutputPort> generationHistory,
-			Class<? extends Operator> noInferClass) {
-		for (OutputPort outputPort : generationHistory) {
-			if (noInferClass.isAssignableFrom(outputPort.getPorts().getOwner().getOperator().getClass())) {
+	protected boolean contains(
+			final List<? extends OutputPort> generationHistory,
+			final Class<? extends Operator> noInferClass) {
+		for (final OutputPort outputPort : generationHistory) {
+			if (noInferClass.isAssignableFrom(outputPort.getPorts().getOwner()
+					.getOperator().getClass())) {
 				return true;
 			}
 		}
