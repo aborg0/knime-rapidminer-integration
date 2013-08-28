@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/swingx-all-1.6.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-3.8-20120326.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-excelant-3.8-20120326.jar"/>

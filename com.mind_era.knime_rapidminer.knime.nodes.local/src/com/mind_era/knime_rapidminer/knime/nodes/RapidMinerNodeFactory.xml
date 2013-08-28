@@ -35,7 +35,7 @@
         <outPort index="3" name="RapidMiner result table">The result of the RapidMiner process.</outPort>
         <!-- possibly more output ports here-->
     </ports>    
-    <!-- views>
-        <view index="0" name="name of first view">Description of first view...</view>
-    </views-->
+    <views>
+        <view index="0" name="Logs">Log tables of execution</view>
+    </views>
 </knimeNode>

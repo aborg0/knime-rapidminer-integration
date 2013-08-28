@@ -41,7 +41,7 @@ public class RapidMinerNodeFactory extends NodeFactory<RapidMinerNodeModel> {
 	 */
 	@Override
 	public int getNrNodeViews() {
-		return 0;
+		return 1;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class RapidMinerNodeFactory extends NodeFactory<RapidMinerNodeModel> {
 	@Override
 	public NodeView<RapidMinerNodeModel> createNodeView(final int viewIndex,
 			final RapidMinerNodeModel nodeModel) {
-		throw new IndexOutOfBoundsException("No views yet: " + viewIndex);
+		return new RapidMinerNodeView(nodeModel);
 	}
 
 	/**

@@ -35,6 +35,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import javax.annotation.Nullable;
 
@@ -81,14 +83,17 @@ import com.google.common.collect.Sets;
 import com.mind_era.guava.helper.data.Zip;
 import com.mind_era.knime_rapidminer.knime.nodes.util.AttributeWithRole;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
+import com.rapidminer.LoggingListener;
 import com.rapidminer.MacroHandler;
 import com.rapidminer.Process;
+import com.rapidminer.datatable.DataTable;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.example.AttributeRole;
 import com.rapidminer.example.Example;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.DataRow;
 import com.rapidminer.example.table.MemoryExampleTable;
+import com.rapidminer.gui.processeditor.results.ResultDisplay;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.ports.OutputPort;
@@ -154,6 +159,10 @@ public class RapidMinerNodeModel extends NodeModel implements
 	private DataTableSpec[] lastTableSpecs;
 	private DataTableSpec[] lastResultTableSpecs;
 
+	private Collection<DataTable> logTables = new ArrayList<DataTable>();
+
+	private Collection<ResultDisplay> resultDisplays = new ArrayList<ResultDisplay>();
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -171,6 +180,48 @@ public class RapidMinerNodeModel extends NodeModel implements
 					.getValueAsString());
 			map.put(entry.getKey(), entry.getValue().getValueAsString());
 		}
+		process.addLoggingListener(new LoggingListener() {
+
+			@Override
+			public void addDataTable(final DataTable dataTable) {
+				logTables.add(dataTable);
+				notifyChange(process);
+			}
+
+			/**
+			 * @param process
+			 */
+			private void notifyChange(final Process process) {
+				for (final ResultDisplay resultDisplay : resultDisplays) {
+					resultDisplay.processUpdated(process);
+				}
+			}
+
+			@Override
+			public void removeDataTable(final DataTable dataTable) {
+				logTables.remove(dataTable);
+				notifyChange(process);
+			}
+		});
+		process.getRootOperator().getLogger().addHandler(new Handler() {
+
+			@Override
+			public void publish(final LogRecord record) {
+				System.out.println(record.getMessage());
+			}
+
+			@Override
+			public void flush() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void close() throws SecurityException {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 1,
 				TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
 		final Future<IOContainer> future = executor
@@ -592,6 +643,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 	protected void reset() {
 		// Models build during execute are cleared here.
 		// Also data handled in load/saveInternals will be erased here.
+		// logTables.clear();
 	}
 
 	/**
@@ -600,6 +652,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 	@Override
 	protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
 			throws InvalidSettingsException {
+		// logTables.clear();
 		lastTableSpecs = inSpecs == null ? null : inSpecs.clone();
 		if (inSpecs != null) {
 			try {
@@ -946,5 +999,34 @@ public class RapidMinerNodeModel extends NodeModel implements
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @return
+	 */
+	public Collection<? extends DataTable> getLogDataTables() {
+		return Collections.unmodifiableCollection(logTables);
+	}
+
+	/**
+	 * @param resultDisplay
+	 */
+	public void addLogListener(final ResultDisplay resultDisplay) {
+		resultDisplays.add(resultDisplay);
+	}
+
+	/**
+	 * @param resultDisplay
+	 */
+	public void removeLogListener(final ResultDisplay resultDisplay) {
+		resultDisplays.remove(resultDisplay);
+	}
+
+	/**
+	 * @param table
+	 */
+	public void removeLogDataTable(final DataTable table) {
+		logTables.remove(table);
+
 	}
 }

@@ -75,7 +75,8 @@ Bundle-ClassPath: rapidminer.jar,
  lib/freehep/freehep-io.jar,
  lib/freehep/freehep-swing.jar,
  lib/freehep/freehep-util.jar,
- lib/freehep/freehep-xml.jar
+ lib/freehep/freehep-xml.jar,
+ lib/swingx-all-1.6.4.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.6.0,4.0.0)",
