@@ -48,12 +48,15 @@ import com.rapidminer.tools.ParameterService;
  * @author Gabor
  */
 public class RapidMinerInit {
-	private static volatile boolean isInitialized = false, isInitializing = false;
+	private static volatile boolean isInitialized = false,
+			isInitializing = false;
 
 	public static synchronized void init(final boolean force) {
 		if (!isInitialized || force) {
-			if (isInitializing && ! force) {
-				Logger.getAnonymousLogger().warning("Initializing RapidMiner from another initializer, or the first initialization was not finished properly.");
+			if (isInitializing && !force) {
+				Logger.getAnonymousLogger()
+						.warning(
+								"Initializing RapidMiner from another initializer, or the first initialization was not finished properly.");
 				return;
 			}
 			isInitializing = true;
@@ -79,13 +82,15 @@ public class RapidMinerInit {
 				}
 			});
 			ManagedExtension.init();
-			
+
 			RapidMiner.init();
-			//Initialize the static initializers for MainFrame and AbstractUIPlugin
+			// Initialize the static initializers for MainFrame and
+			// AbstractUIPlugin
 			@SuppressWarnings("unused")
-			String _ = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString() + AbstractUIState.DOCK_GROUP_ROOT.getName();
-			//End of static init.
-			
+			String _ = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
+					+ AbstractUIState.DOCK_GROUP_ROOT.getName();
+			// End of static init.
+
 			isInitialized = true;
 			isInitializing = false;
 		}
@@ -103,20 +108,23 @@ public class RapidMinerInit {
 			String storeKey = PreferenceInitializer
 					.getRapidminerPreferenceKey(parameterKey);
 			if (type instanceof ParameterTypeBoolean) {
-				ParameterService.setParameterValue(parameterKey, Boolean
-						.toString(store.getBoolean(storeKey)));
+				ParameterService.setParameterValue(parameterKey,
+						Boolean.toString(store.getBoolean(storeKey)));
 			} else if (type instanceof ParameterTypeInt) {
-				ParameterService.setParameterValue(parameterKey, Integer
-						.toString(store.getInt(storeKey)));
+				ParameterService.setParameterValue(parameterKey,
+						Integer.toString(store.getInt(storeKey)));
 			} else if (type instanceof ParameterTypeStringCategory) {
-				ParameterService.setParameterValue(parameterKey, Integer
-						.toString(store.getInt(storeKey)));
+				ParameterService.setParameterValue(parameterKey,
+						Integer.toString(store.getInt(storeKey)));
 			} else {
-				if (type != null && type.getDefaultValueAsString() != null && !type.getDefaultValueAsString().equals(store.getDefaultString(storeKey))) {
+				if (type != null
+						&& type.getDefaultValueAsString() != null
+						&& !type.getDefaultValueAsString().equals(
+								store.getDefaultString(storeKey))) {
 					store.setDefault(storeKey, type.getDefaultValueAsString());
 				}
-				ParameterService.setParameterValue(parameterKey, store
-						.getString(storeKey));
+				ParameterService.setParameterValue(parameterKey,
+						store.getString(storeKey));
 			}
 		}
 	}

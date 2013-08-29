@@ -267,8 +267,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 			Thread.sleep(500);
 			try {
 				exec.checkCanceled();
-				final Operator currentOperator = process == null ? null
-						: process.getCurrentOperator();
+				final Operator currentOperator = process.getCurrentOperator();
 				if (currentOperator != null) {
 					exec.setProgress("Operator: " + currentOperator.getName());
 				} else {

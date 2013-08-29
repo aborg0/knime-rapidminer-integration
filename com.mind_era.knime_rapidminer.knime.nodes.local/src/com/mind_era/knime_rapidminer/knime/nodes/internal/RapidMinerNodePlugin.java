@@ -56,11 +56,12 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
-		//Start a new thread to avoid errors reported because of class loading.
+		// Start a new thread to avoid errors reported because of class loading.
 		new Thread() {
 			public void run() {
 				try {
-					//Wait a bit to make sure the bundle is properly initialized
+					// Wait a bit to make sure the bundle is properly
+					// initialized
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -68,23 +69,23 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 				RapidMinerInit.init(false);
 				AbstractUIState state = new AbstractUIState("design", null,
 						new JPanel()) {
-					
+
 					@Override
 					public void exit(final boolean relaunch) {
 						// Do nothing, we do not exit
 					}
-					
+
 					@Override
 					public boolean close() {
 						metaDataUpdateQueue.shutdown();
 						return true;
 					}
-					
+
 					@Override
 					public void updateRecentFileList() {
 						// Do noting
 					}
-					
+
 					@Override
 					protected void setTitle() {
 						// Do nothing

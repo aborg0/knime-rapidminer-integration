@@ -158,7 +158,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 			ExampleSet exampleSet = MemoryExampleTable.createCompleteCopy(
 					new KnimeExampleTable(table, false, null))
 					.createExampleSet();
-            try {
+			try {
 				process.run(new IOContainer(exampleSet));
 			} catch (OperatorException e) {
 				// TODO Auto-generated catch block

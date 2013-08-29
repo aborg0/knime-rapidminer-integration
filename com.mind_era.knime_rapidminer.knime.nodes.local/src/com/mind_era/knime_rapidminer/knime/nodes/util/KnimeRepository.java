@@ -312,7 +312,7 @@ public class KnimeRepository implements Repository {
 		 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder
 		 * , java.lang.String)
 		 */
-		//@Override
+		// @Override
 		public boolean move(final Folder arg0, final String arg1)
 				throws RepositoryException {
 			throw new RepositoryException("Move is not supported");
@@ -701,7 +701,7 @@ public class KnimeRepository implements Repository {
 	 * 
 	 * @see com.rapidminer.repository.Folder#canRefreshChild(java.lang.String)
 	 */
-	//@Override
+	// @Override
 	public boolean canRefreshChild(final String arg0)
 			throws RepositoryException {
 		// TODO Auto-generated method stub
@@ -715,7 +715,7 @@ public class KnimeRepository implements Repository {
 	 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder,
 	 * java.lang.String)
 	 */
-	//@Override
+	// @Override
 	public boolean move(final Folder arg0, final String arg1)
 			throws RepositoryException {
 		throw new RepositoryException("Move is not supported.");

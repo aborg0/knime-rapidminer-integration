@@ -25,29 +25,32 @@ import com.rapidminer.example.AttributeRole;
  * @author Gabor Bakos
  */
 public final class AttributeWithRole {
-	
+
 	private final Attribute attribute;
 	private final AttributeRole role;
 
 	/**
 	 * Constructs the pair.
 	 * 
-	 * @param attribute The {@link Attribute} to store.
-	 * @param role The role of {@code attribute}. ({@code null} means no role, regular.)
+	 * @param attribute
+	 *            The {@link Attribute} to store.
+	 * @param role
+	 *            The role of {@code attribute}. ({@code null} means no role,
+	 *            regular.)
 	 */
 	public AttributeWithRole(Attribute attribute, AttributeRole role) {
 		super();
 		this.attribute = attribute;
 		this.role = role;
 	}
-	
+
 	/**
 	 * @return the attribute
 	 */
 	public Attribute getAttribute() {
 		return attribute;
 	}
-	
+
 	/**
 	 * @return the role
 	 */

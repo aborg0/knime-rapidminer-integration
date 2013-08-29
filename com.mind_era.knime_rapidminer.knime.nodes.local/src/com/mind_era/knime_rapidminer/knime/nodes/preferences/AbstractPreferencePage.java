@@ -166,13 +166,7 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 							key, label, 1, getFieldEditorParent());
 					charFieldEditor.setStringValue(value);
 					fieldEditor = charFieldEditor;
-				} else if (type != null)/*
-										 * if (type instanceof
-										 * ParameterTypeString)
-										 */{
-					// final ParameterTypeString stringType =
-					// (ParameterTypeString)
-					// type;
+				} else {// Not null, probably ParameterTypeString
 					final StringFieldEditor stringFieldEditor = new StringFieldEditor(
 							key, label, StringFieldEditor.UNLIMITED,
 							StringFieldEditor.VALIDATE_ON_FOCUS_LOST,
@@ -184,8 +178,6 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 					}
 					stringFieldEditor.setStringValue(value);
 					fieldEditor = stringFieldEditor;
-				} else {
-					continue;
 				}
 				addField(fieldEditor);
 				if (!(fieldEditor instanceof BooleanFieldEditor)) {
