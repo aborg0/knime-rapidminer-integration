@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.knime.core.node.BufferedDataTable.KnowsRowCountTable;
+import org.knime.core.node.NodeLogger;
 import org.knime.core.node.NodeView;
 import org.knime.core.node.defaultnodesettings.KnimePerspective;
 
@@ -48,6 +49,8 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
  * @author Gabor Bakos
  */
 public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
+	private static final NodeLogger logger = NodeLogger
+			.getLogger(RapidMinerViewNodeView.class);
 
 	private KnowsRowCountTable table;
 	private AbstractUIState state;
@@ -122,27 +125,8 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 					.connectTo(
 							process.getRootOperator().getInputPorts()
 									.createPort("output 1", true));
-			// final ProcessRootOperator rootOp = process.getRootOperator();
-			// final ExecutionUnit executionUnit = rootOp.getSubprocess(0);
-			// int i = 0;
-			// for (final OutputPort outPort :
-			// newOp.getOutputPorts().getAllPorts()) {
-			// final InputPort inputPort =
-			// executionUnit.getInnerSinks().getPortByIndex(i++);
-			// outPort.connectTo(inputPort);
-			// }
-			// "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><process version=\"5.2.000\"><context><input><location>"
-			// + "//"
-			// + KnimeRepository.KNIME
-			// + "/"
-			// + KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
-			// + 1
-			// +
-			// "</location></input><output/><macros/></context><operator activated=\"true\" class=\"process\" compatibility=\"5.2.000\" expanded=\"true\" name=\"Process\"><process expanded=\"true\" height=\"-20\" width=\"-50\"><connect from_port=\"input 1\" to_port=\"result 1\"/><portSpacing port=\"source_input 1\" spacing=\"0\"/><portSpacing port=\"source_input 2\" spacing=\"0\"/><portSpacing port=\"sink_result 1\" spacing=\"0\"/><portSpacing port=\"sink_result 2\" spacing=\"0\"/></process></operator></process>");
 		} catch (final/* IO */Exception e) {
 			throw new IllegalStateException("Should not happen", e);
-			// } catch (final XMLException e) {
-			// throw new IllegalStateException("Should not happen", e);
 		}
 		state.setProcess(process, false);
 	}
@@ -155,14 +139,15 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		final RapidMinerViewNodeModel nodeModel = getNodeModel();
 		table = nodeModel == null ? null : nodeModel.getTable();
 		if (table != null) {
-			ExampleSet exampleSet = MemoryExampleTable.createCompleteCopy(
-					new KnimeExampleTable(table, false, null))
+			final ExampleSet exampleSet = MemoryExampleTable
+					.createCompleteCopy(
+							new KnimeExampleTable(table, false, null))
 					.createExampleSet();
 			try {
 				process.run(new IOContainer(exampleSet));
-			} catch (OperatorException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (final OperatorException e) {
+				logger.error(e.getMessage());
+				logger.debug(e.getMessage(), e);
 			}
 			state.processEnded(process, new IOContainer(exampleSet));
 		}

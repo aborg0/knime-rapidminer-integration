@@ -63,12 +63,12 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					// Wait a bit to make sure the bundle is properly
 					// initialized
 					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (final InterruptedException e) {
+					// No problems
 				}
 				RapidMinerInit.init(false);
-				AbstractUIState state = new AbstractUIState("design", null,
-						new JPanel()) {
+				final AbstractUIState state = new AbstractUIState("design",
+						null, new JPanel()) {
 
 					@Override
 					public void exit(final boolean relaunch) {

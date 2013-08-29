@@ -40,6 +40,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import org.knime.core.node.InvalidSettingsException;
+import org.knime.core.node.NodeLogger;
 import org.knime.core.node.NotConfigurableException;
 import org.knime.core.node.port.PortObjectSpec;
 import org.knime.core.util.SimpleFileFilter;
@@ -60,6 +61,9 @@ import com.mind_era.knime_rapidminer.knime.nodes.util.XJTextField;
  */
 public abstract class DialogComponentProject<ProjectType, Model extends SettingsModelProject<ProjectType>>
 		extends DialogComponent {
+	private static final NodeLogger logger = NodeLogger
+			.getLogger(DialogComponentProject.class);
+
 	protected final JTextField location = new XJTextField(40);
 	protected final JCheckBox editable = new JCheckBox("Editable?");
 	protected final JCheckBox alwaysReload = new JCheckBox(
@@ -152,7 +156,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 					try {
 						editor.load(model.loadFromContent());
 					} catch (final Exception e1) {
-						e1.printStackTrace();
+						logger.debug(e1.getMessage(), e1);
 						model.setContent(oldContent);
 					}
 					alwaysReload.setEnabled(false);
@@ -292,7 +296,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 				model.loadFromLocation();
 			} catch (final Exception e) {
 				// ignore errors?
-				e.printStackTrace();
+				logger.debug(e.getMessage(), e);
 			}
 			model.setContent(null);
 		} else if (model.isEditability()) {
@@ -309,7 +313,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 				model.loadFromLocation();
 			} catch (final Exception e) {
 				// ignore errors?
-				e.printStackTrace();
+				logger.debug(e.getMessage(), e);
 			}
 		}
 	}

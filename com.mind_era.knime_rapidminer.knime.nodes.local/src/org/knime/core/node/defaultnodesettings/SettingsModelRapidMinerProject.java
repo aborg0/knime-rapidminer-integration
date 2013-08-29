@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.knime.core.node.InvalidSettingsException;
+import org.knime.core.node.NodeLogger;
 import org.knime.core.node.NodeSettingsRO;
 import org.w3c.dom.Document;
 
@@ -41,6 +42,8 @@ import com.rapidminer.tools.XMLException;
  */
 public class SettingsModelRapidMinerProject extends
 		SettingsModelProject<Process> {
+	private static final NodeLogger logger = NodeLogger
+			.getLogger(SettingsModelRapidMinerProject.class);
 
 	/**
 	 * @param configName
@@ -174,7 +177,8 @@ public class SettingsModelRapidMinerProject extends
 		} catch (final NullPointerException e) {
 			return new Process();
 		} catch (final RuntimeException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
+			logger.debug(e.getMessage(), e);
 			return new Process();
 		}
 	}
@@ -192,7 +196,8 @@ public class SettingsModelRapidMinerProject extends
 			try {
 				return new Process(new File(location));
 			} catch (final RuntimeException e2) {
-				e2.printStackTrace();
+				logger.warn(e2.getMessage());
+				logger.debug(e2.getMessage(), e2);
 				return new Process();
 			}
 		}
