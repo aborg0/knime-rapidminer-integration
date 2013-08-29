@@ -46,6 +46,7 @@ import com.rapidminer.example.Attribute;
 import com.rapidminer.example.AttributeRole;
 import com.rapidminer.example.Attributes;
 import com.rapidminer.example.Example;
+import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.SimpleAttributes;
 import com.rapidminer.example.set.AbstractExampleSet;
 import com.rapidminer.example.table.AbstractExampleTable;
@@ -59,21 +60,20 @@ import com.rapidminer.example.table.PolynominalMapping;
 import com.rapidminer.tools.Ontology;
 
 /**
- * @author Gabor
+ * A wrapper around {@link BufferedDataTable} to show as an {@link ExampleSet}.
  * 
+ * @author Gabor Bakos
  */
 public class KnimeExampleSet extends AbstractExampleSet {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4991615941790203693L;
 	private final BufferedDataTable inData;
 	private final Map<Integer, Map<String, Double>> mapping;
 
 	/**
-	 * @param inData
+	 * Constructor.
 	 * 
+	 * @param inData
+	 *            The {@link BufferedDataTable} to wrap.
 	 */
 	public KnimeExampleSet(final BufferedDataTable inData) {
 		super();
@@ -81,6 +81,13 @@ public class KnimeExampleSet extends AbstractExampleSet {
 		mapping = createMapping(inData);
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param toCopy
+	 *            The {@link KnimeExampleSet} containing the
+	 *            {@link BufferedDataTable} to wrap.
+	 */
 	public KnimeExampleSet(final KnimeExampleSet toCopy) {
 		this(toCopy.inData);
 	}
@@ -213,10 +220,10 @@ public class KnimeExampleSet extends AbstractExampleSet {
 		return new PolynominalMapping(
 				MapHelper.<Integer, String> newHashMap(Iterables.transform(
 						mapping.get(entry.getValue()).entrySet(),
-						new Function<Entry<String, Double>, Entry<Integer, String>>() {
+						new Function<Entry<String, ? extends Number>, Entry<Integer, String>>() {
 							@Override
 							public Entry<Integer, String> apply(
-									final Entry<String, Double> input) {
+									final Entry<String, ? extends Number> input) {
 								return Maps.immutableEntry(Integer
 										.valueOf(entry.getValue().intValue()),
 										input.getKey());
@@ -284,14 +291,25 @@ public class KnimeExampleSet extends AbstractExampleSet {
 		return inData.getRowCount();
 	}
 
+	/**
+	 * Wraps an iterator and closes the {@link CloseableRowIterator} when there
+	 * are no more elements.
+	 * 
+	 * @param <E>
+	 *            The type of the iterated elements.
+	 */
 	private static class ClosableIterator<E> implements Iterator<E>, Closeable {
 		private final CloseableRowIterator closeable;
 		private final Iterator<E> iterator;
 
 		/**
-		 * 
+		 * @param it
+		 *            the row iterator.
+		 * @param iterator
+		 *            the iterator for the elements.
 		 */
-		public ClosableIterator(CloseableRowIterator it, Iterator<E> iterator) {
+		ClosableIterator(final CloseableRowIterator it,
+				final Iterator<E> iterator) {
 			this.closeable = it;
 			this.iterator = iterator;
 		}
@@ -313,7 +331,7 @@ public class KnimeExampleSet extends AbstractExampleSet {
 		 */
 		@Override
 		public boolean hasNext() {
-			boolean hasNext = iterator.hasNext();
+			final boolean hasNext = iterator.hasNext();
 			if (!hasNext) {
 				closeable.close();
 			}
