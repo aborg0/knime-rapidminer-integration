@@ -118,8 +118,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 	private static final NodeLogger logger = NodeLogger
 			.getLogger(RapidMinerNodeModel.class);
 
-	private static final PortType OptionalBufferedDataTableType = new PortType(
-			BufferedDataTable.class, true);
+	private static final PortType OptionalBufferedDataTableType = BufferedDataTable.TYPE_OPTIONAL;
 
 	private static final String ROLE_KEY = "role";
 
