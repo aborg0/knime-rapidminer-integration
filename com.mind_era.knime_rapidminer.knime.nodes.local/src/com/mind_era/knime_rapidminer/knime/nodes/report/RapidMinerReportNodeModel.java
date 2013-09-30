@@ -21,6 +21,8 @@ import org.knime.core.node.InvalidSettingsException;
 import org.knime.core.node.NodeModel;
 import org.knime.core.node.NodeSettingsRO;
 import org.knime.core.node.NodeSettingsWO;
+import org.knime.core.node.defaultnodesettings.SettingsModelInteger;
+import org.knime.core.node.defaultnodesettings.SettingsModelIntegerBounded;
 import org.knime.core.node.defaultnodesettings.SettingsModelString;
 import org.knime.core.node.defaultnodesettings.SettingsModelStringArray;
 import org.knime.core.node.port.PortObject;
@@ -61,9 +63,24 @@ public class RapidMinerReportNodeModel extends NodeModel {
 			PNG, SVG };
 	protected static final String DEFAULT_IMAGE_FORMAT = POSSIBLE_IMAGE_FORMATS[0];
 
+	protected static final String CFGKEY_IMAGE_WIDTH = "image.width";
+	protected static final int DEFAULT_IMAGE_WIDTH = 800;
+	protected static final String CFGKEY_IMAGE_HEIGHT = "image.height";
+	protected static final int DEFAULT_IMAGE_HEIGHT = 600;
+
 	protected static SettingsModelString createImageFormat() {
 		return new SettingsModelString(CFGKEY_IMAGE_FORMAT,
 				DEFAULT_IMAGE_FORMAT);
+	}
+
+	protected static SettingsModelInteger createImageWidth() {
+		return new SettingsModelIntegerBounded(CFGKEY_IMAGE_WIDTH,
+				DEFAULT_IMAGE_WIDTH, 1, 200000);
+	}
+
+	protected static SettingsModelInteger createImageHeight() {
+		return new SettingsModelIntegerBounded(CFGKEY_IMAGE_HEIGHT,
+				DEFAULT_IMAGE_HEIGHT, 1, 200000);
 	}
 
 	private final SettingsModelString imageFormat = createImageFormat();
@@ -71,6 +88,8 @@ public class RapidMinerReportNodeModel extends NodeModel {
 			CFGKEY_REPORTERKEYS, new String[0]);
 	private final SettingsModelStringArray values = new SettingsModelStringArray(
 			CFGKEY_REPORTERVALUES, new String[0]);
+	private final SettingsModelInteger imageWidth = createImageWidth();
+	private final SettingsModelInteger imageHeight = createImageHeight();
 	protected final static String CFGKEY_REPORTERKEYS = "reporterKeys";
 	protected final static String CFGKEY_REPORTERVALUES = "reporterValues";
 	static final String REPORTER_OPERATOR_ID = "reporting:report";
@@ -105,34 +124,47 @@ public class RapidMinerReportNodeModel extends NodeModel {
 			generateReport.setParameter("html_output_directory", tempDir
 					.getAbsolutePath().toString());
 			generateReport.setParameter("report_name", "KNIME");
-			process.getRootOperator().getSubprocess(0).addOperator(generateReport, 0);
+			generateReport.setParameter("html_image_format", imageFormat
+					.getStringValue().toLowerCase());
+			process.getRootOperator().getSubprocess(0)
+					.addOperator(generateReport, 0);
 			Operator report = OperatorService
 					.createOperator(REPORTER_OPERATOR_ID);
-			assert keys.getStringArrayValue().length == values.getStringArrayValue().length;
+			assert keys.getStringArrayValue().length == values
+					.getStringArrayValue().length;
 			report.setParameter("report_name", "KNIME");
 			report.setParameter("specified", "true");
 			report.setParameter("renderer_name", "Plot View");
 			report.setParameter("reportable_type", "Data Table");
+			report.setParameter("image_width",
+					Integer.toString(imageWidth.getIntValue()));
+			report.setParameter("image_height",
+					Integer.toString(imageHeight.getIntValue()));
 			List<String[]> parameterList = new ArrayList<String[]>();
 			for (int i = 0; i < keys.getStringArrayValue().length; ++i) {
-				parameterList.add(new String[] {keys.getStringArrayValue()[i], values.getStringArrayValue()[i]});
+				parameterList.add(new String[] { keys.getStringArrayValue()[i],
+						values.getStringArrayValue()[i] });
 			}
-			report.setParameter("parameters", ParameterTypeList.transformList2String(parameterList));
+			report.setParameter("parameters",
+					ParameterTypeList.transformList2String(parameterList));
 			process.getRootOperator().getSubprocess(0).addOperator(report, 1);
 			generateReport.getOutputPorts().getPortByIndex(0)
-			.connectTo(report.getInputPorts().getPortByIndex(0));
-			process.getRootOperator().getSubprocess(0).getInnerSources()
+					.connectTo(report.getInputPorts().getPortByIndex(0));
+			process.getRootOperator()
+					.getSubprocess(0)
+					.getInnerSources()
 					.getPortByIndex(0)
-					//.createPort("input 1", true)
+					// .createPort("input 1", true)
 					.connectTo(generateReport.getInputPorts().getPortByIndex(0));
 			// process.getRootOperator().getInputPorts()
 			// .createPort("output 1", true));
-			process.run(new IOContainer(MemoryExampleTable
-					.createCompleteCopy(
-							new KnimeExampleTable(new WrappedTable((BufferedDataTable) inData[0]), false, null))
+			process.run(new IOContainer(MemoryExampleTable.createCompleteCopy(
+					new KnimeExampleTable(new WrappedTable(
+							(BufferedDataTable) inData[0]), false, null))
 					.createExampleSet()));
 		} catch (final/* IO */Exception e) {
-			throw new IllegalStateException("Should not happen: " + e.getMessage(), e);
+			throw new IllegalStateException("Should not happen: "
+					+ e.getMessage(), e);
 		}
 
 		ImageContent content = readFile(tempDir, "image1");
@@ -235,6 +267,8 @@ public class RapidMinerReportNodeModel extends NodeModel {
 		imageFormat.saveSettingsTo(settings);
 		keys.saveSettingsTo(settings);
 		values.saveSettingsTo(settings);
+		imageWidth.saveSettingsTo(settings);
+		imageHeight.saveSettingsTo(settings);
 	}
 
 	/**
@@ -246,6 +280,8 @@ public class RapidMinerReportNodeModel extends NodeModel {
 		imageFormat.loadSettingsFrom(settings);
 		keys.loadSettingsFrom(settings);
 		values.loadSettingsFrom(settings);
+		imageWidth.loadSettingsFrom(settings);
+		imageHeight.loadSettingsFrom(settings);
 	}
 
 	/**
@@ -258,9 +294,14 @@ public class RapidMinerReportNodeModel extends NodeModel {
 		keys.validateSettings(settings);
 		values.validateSettings(settings);
 		if (keys.getStringArrayValue().length != values.getStringArrayValue().length) {
-			throw new InvalidSettingsException("The keys and values do not form pairs:\nKeys:\n"+
-					Arrays.asList(keys.getStringArrayValue())  + "\nValues" + Arrays.asList(values.getStringArrayValue()));
+			throw new InvalidSettingsException(
+					"The keys and values do not form pairs:\nKeys:\n"
+							+ Arrays.asList(keys.getStringArrayValue())
+							+ "\nValues"
+							+ Arrays.asList(values.getStringArrayValue()));
 		}
+		imageWidth.validateSettings(settings);
+		imageHeight.validateSettings(settings);
 	}
 
 	/**
