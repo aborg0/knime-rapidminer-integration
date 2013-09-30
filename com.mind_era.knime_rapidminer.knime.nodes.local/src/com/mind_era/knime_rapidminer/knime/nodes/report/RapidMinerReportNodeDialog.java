@@ -29,7 +29,6 @@ import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.gui.properties.celleditors.value.ConfigurationWizardValueCellEditor;
 import com.rapidminer.gui.wizards.ConfigurationListener;
 import com.rapidminer.gui.wizards.ConfigurationWizardCreator;
-import com.rapidminer.gui.wizards.ReporterConfigurationWizardCreator;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.OperatorCreationException;
@@ -60,7 +59,10 @@ public class RapidMinerReportNodeDialog extends NodeDialogPane implements
 	private DialogComponentStringSelection formatSelection = new DialogComponentStringSelection(
 			RapidMinerReportNodeModel.createImageFormat(), "Image format: ",
 			RapidMinerReportNodeModel.POSSIBLE_IMAGE_FORMATS);
-	private DialogComponentNumberEdit imageWidth = new DialogComponentNumberEdit(RapidMinerReportNodeModel.createImageWidth(), "Width"), imageHeight = new DialogComponentNumberEdit(RapidMinerReportNodeModel.createImageHeight(), "Height");
+	private DialogComponentNumberEdit imageWidth = new DialogComponentNumberEdit(
+			RapidMinerReportNodeModel.createImageWidth(), "Width"),
+			imageHeight = new DialogComponentNumberEdit(
+					RapidMinerReportNodeModel.createImageHeight(), "Height");
 	private DataTableSpec[] lastSpecs;
 	private Process process;
 	private Parameters parameters;
@@ -143,8 +145,9 @@ public class RapidMinerReportNodeDialog extends NodeDialogPane implements
 	}
 
 	/**
-	 * Loads the {@link ReporterConfigurationWizardCreator} class using the
-	 * plugin classloader.
+	 * Loads the
+	 * {@link com.rapidminer.gui.wizards.ReporterConfigurationWizardCreator}
+	 * class using the plugin classloader.
 	 * 
 	 * @param plugin
 	 *            A {@link Plugin} instance.
@@ -226,13 +229,17 @@ public class RapidMinerReportNodeDialog extends NodeDialogPane implements
 			reporterOperator.setParameter("reportable_type", "Data Table");
 			imageWidth.loadSettingsFrom(settings, specs);
 			imageHeight.loadSettingsFrom(settings, specs);
-			
-			reporterOperator.setParameter("image_width", Integer.toString(((SettingsModelInteger)imageWidth.getModel()).getIntValue()));
-			reporterOperator.setParameter("image_height", Integer.toString(((SettingsModelInteger)imageHeight.getModel()).getIntValue()));
+
+			reporterOperator.setParameter("image_width", Integer
+					.toString(((SettingsModelInteger) imageWidth.getModel())
+							.getIntValue()));
+			reporterOperator.setParameter("image_height", Integer
+					.toString(((SettingsModelInteger) imageHeight.getModel())
+							.getIntValue()));
 
 			List<String[]> params = new ArrayList<String[]>(keys.length);
 			for (int i = 0; i < keys.length; ++i) {
-//				parameters.setParameter(keys[i], values[i]);
+				// parameters.setParameter(keys[i], values[i]);
 				params.add(new String[] { keys[i], values[i] });
 				// reporterOperator.setParameter(keys[i], values[i]);
 			}
