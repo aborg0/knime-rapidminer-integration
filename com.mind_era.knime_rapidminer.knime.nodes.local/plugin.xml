@@ -19,23 +19,21 @@
       <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory"/>
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
-      <page class="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" name="RapidMiner Preferences">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" name="General">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" name="General">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" name="Gui">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" name="Gui">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" name="Init">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" name="Init">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" name="Parallel">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" name="Parallel">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" name="System">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" name="System">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" name="Tools">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" name="Tools">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" name="Update">
       </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" name="Update">
-      </page>
-      <page category="com.mind_era.knime_rapidminer.knime.nodes.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" name="Other">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" name="Other">
       </page>
    </extension>
    <extension point="org.eclipse.core.runtime.preferences">

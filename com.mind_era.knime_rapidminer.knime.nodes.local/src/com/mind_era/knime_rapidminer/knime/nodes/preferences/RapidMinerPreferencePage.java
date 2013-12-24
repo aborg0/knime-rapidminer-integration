@@ -37,7 +37,7 @@ import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
  * preference store that belongs to the main plug-in class. That way,
  * preferences can be accessed directly via the preference store.
  */
-
+@Deprecated
 public class RapidMinerPreferencePage extends FieldEditorPreferencePage
 		implements IWorkbenchPreferencePage {
 

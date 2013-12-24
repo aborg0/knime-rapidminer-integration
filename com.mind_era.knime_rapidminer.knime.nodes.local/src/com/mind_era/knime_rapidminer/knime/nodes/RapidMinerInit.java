@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
 
+import com.mind_era.knime_rapidminer.knime.nodes.common.Activator;
 import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.mind_era.knime_rapidminer.knime.nodes.preferences.PreferenceConstants;
 import com.mind_era.knime_rapidminer.knime.nodes.preferences.PreferenceInitializer;
@@ -60,9 +61,9 @@ public class RapidMinerInit {
 				return;
 			}
 			isInitializing = true;
-			final String rapidMinerHome = RapidMinerNodePlugin.getDefault()
+			final String rapidMinerHome = Activator.getDefault()
 					.getPreferenceStore()
-					.getString(PreferenceConstants.RAPIDMINER_PATH);
+					.getString(com.mind_era.knime_rapidminer.knime.nodes.common.preferences.PreferenceConstants.RAPIDMINER_PATH);
 			System.setProperty(Launcher.PROPERTY_RAPIDMINER_HOME,
 					rapidMinerHome);
 			RapidMiner

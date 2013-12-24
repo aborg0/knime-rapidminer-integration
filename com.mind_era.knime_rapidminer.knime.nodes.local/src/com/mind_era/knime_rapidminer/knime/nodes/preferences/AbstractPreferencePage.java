@@ -116,7 +116,7 @@ public class AbstractPreferencePage extends FieldEditorPreferencePage implements
 					final ParameterTypeInt intType = (ParameterTypeInt) type;
 					final IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor(
 							key, label, getFieldEditorParent());
-					integerFieldEditor.setValidRange(intType.getMinValueInt(),
+					integerFieldEditor.setValidRange(intType.isOptional() ? Math.min(-1, intType.getMinValueInt()) : intType.getMinValueInt(),
 							intType.getMaxValueInt());
 					integerFieldEditor.setStringValue(value);
 					fieldEditor = integerFieldEditor;

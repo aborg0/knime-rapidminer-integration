@@ -55,10 +55,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		final IPreferenceStore store = RapidMinerNodePlugin.getDefault()
 				.getPreferenceStore();
-		store.setDefault(
-				PreferenceConstants.RAPIDMINER_PATH,
-				Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files (x86)\\Rapid-I\\RapidMiner5"
-						: "");
+//		store.setDefault(
+//				PreferenceConstants.RAPIDMINER_PATH,
+//				Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files (x86)\\Rapid-I\\RapidMiner5"
+//						: "");
 		RapidMinerInit.init(false);
 		for (final String parameterKey : ParameterService.getParameterKeys()) {
 			final String key = getRapidminerPreferenceKey(parameterKey);

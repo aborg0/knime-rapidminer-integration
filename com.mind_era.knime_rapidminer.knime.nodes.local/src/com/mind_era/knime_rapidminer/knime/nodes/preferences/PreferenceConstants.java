@@ -19,6 +19,7 @@ package com.mind_era.knime_rapidminer.knime.nodes.preferences;
 /**
  * Constant definitions for plug-in preferences
  */
+@Deprecated
 public class PreferenceConstants {
 
 	public static final String RAPIDMINER_PATH = "RapidMinerPath";
