@@ -8,7 +8,6 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends AbstractUIPlugin {
-
 	// The plug-in ID
 	public static final String PLUGIN_ID = "com.mind_era.knime_rapidminer.knime.nodes.common"; //$NON-NLS-1$
 

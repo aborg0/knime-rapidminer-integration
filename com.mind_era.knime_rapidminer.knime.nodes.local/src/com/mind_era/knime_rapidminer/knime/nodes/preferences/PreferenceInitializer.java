@@ -16,7 +16,6 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.preferences;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -144,9 +143,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			// store.setDefault(key, dirType.getDefaultValueAsString());
 			// }
 		}
-		// store.setDefault(PreferenceConstants.P_BOOLEAN, true);
-		// store.setDefault(PreferenceConstants.P_CHOICE, "choice2");
-		// store.setDefault(PreferenceConstants.P_STRING, "Default value");
 	}
 
 	/**

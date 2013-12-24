@@ -21,12 +21,6 @@ package com.mind_era.knime_rapidminer.knime.nodes.common.preferences;
  */
 public class PreferenceConstants {
 
+	/** Configuration key to the RapidMiner path. */
 	public static final String RAPIDMINER_PATH = "RapidMinerPath";
-
-	// public static final String P_BOOLEAN = "booleanPreference";
-	//
-	// public static final String P_CHOICE = "choicePreference";
-	//
-	// public static final String P_STRING = "stringPreference";
-
 }
