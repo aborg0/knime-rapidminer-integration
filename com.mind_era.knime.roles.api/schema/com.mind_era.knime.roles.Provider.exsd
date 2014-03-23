@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<!--
+Copyright © 2013 Mind Eratosthenes Kft.
+Licence: http://www.apache.org/licenses/LICENSE-2.0
+-->
+<schema targetNamespace="com.mind_era.knime.roles" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="com.mind_era.knime.roles" id="com.mind_era.knime.roles.Provider" name="com.mind_era.knime.roles.Provider"/>
+      </appinfo>
+      <documentation>
+         Registeres a node providing a certain kind of KNIME role as output.
+      </documentation>
+   </annotation>
+
+   <include schemaLocation="com.mind_era.knime.roles.Register.exsd"/>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+         <documentation>
+            Enumerates the role provider node factories.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <sequence>
+               <element ref="NodeFactoryReference"/>
+               <sequence minOccurs="1" maxOccurs="unbounded">
+                  <element ref="RoleReference"/>
+               </sequence>
+            </sequence>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="RoleReference">
+      <annotation>
+         <documentation>
+            Reference to a Role.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="reference" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The value of Role&apos;s reference method.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":com.mind_era.knime.roles.Role"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="NodeFactoryReference">
+      <annotation>
+         <documentation>
+            Reference to a node factory.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Node factory id.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="instance" type="string">
+            <annotation>
+               <documentation>
+                  A node factory instance.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.knime.core.node.NodeFactory:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         0.0.1
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         Copyright © 2013 Mind Eratosthenes Kft.
+Licence: http://www.apache.org/licenses/LICENSE-2.0
+      </documentation>
+   </annotation>
+
+</schema>
