@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page class="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" name="RapidMiner Preferences">
+      </page>
+      <!--page
+            name="RapidMiner Page"
+            nameFilter="*"
+            class="com.mind_era.knime_rapidminer.knime.nodes.common.properties.RapidMinerPropertyPage"
+            id="com.mind_era.knime_rapidminer.knime.nodes.common.properties.samplePropertyPage">
+         <enabledWhen>
+            <instanceof
+                  value="org.eclipse.core.resources.IFile">
+            </instanceof>
+         </enabledWhen>
+      </page-->
+   </extension>
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

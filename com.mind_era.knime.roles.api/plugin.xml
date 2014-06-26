@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="com.mind_era.knime.roles.Consumer" name="RegisterRoleConsumer" schema="schema/com.mind_era.knime.roles.Consumer.exsd"/>
+   <extension-point id="com.mind_era.knime.roles.Provider" name="RegisterRoleProvider" schema="schema/com.mind_era.knime.roles.Provider.exsd"/>
+   <extension-point id="com.mind_era.knime.roles.Register" name="RegisterRole" schema="schema/com.mind_era.knime.roles.Register.exsd"/>
+   <extension-point id="com.mind_era.knime.roles.Visualiser" name="RegisterRoleVisualiser" schema="schema/com.mind_era.knime.roles.Visualiser.exsd"/>
+
+</plugin>

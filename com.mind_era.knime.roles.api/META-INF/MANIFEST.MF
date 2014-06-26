@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Support for KNIME roles
+Bundle-SymbolicName: com.mind_era.knime.roles.api;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: com.mind_era.knime.roles.internal.Activator
+Bundle-Vendor: Mind Eratosthenes Kft.
+Require-Bundle: org.eclipse.core.runtime,
+ org.knime.core;bundle-version="[2.7.0,3.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: com.mind_era.knime.roles
