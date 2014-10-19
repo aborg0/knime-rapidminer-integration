@@ -80,20 +80,14 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 
 			@Override
 			public void exit(final boolean relaunch) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void updateRecentFileList() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			protected void setTitle() {
-				// TODO Auto-generated method stub
-
 			}
 		};
 		RapidMinerGUI.setMainFrame(state);

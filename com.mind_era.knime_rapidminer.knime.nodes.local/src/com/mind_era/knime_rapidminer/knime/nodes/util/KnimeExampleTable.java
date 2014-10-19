@@ -50,6 +50,7 @@ import com.rapidminer.example.table.DataRowFactory;
 import com.rapidminer.example.table.DataRowReader;
 import com.rapidminer.example.table.ExampleTable;
 import com.rapidminer.example.table.MemoryExampleTable;
+import com.rapidminer.example.table.NonWritableDataRow;
 import com.rapidminer.tools.Ontology;
 
 /**
@@ -261,8 +262,66 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	private static DataRow createRow(final org.knime.core.data.DataRow row,
 			final Attribute[] attributes, final DataRowFactory dataRowFactory,
 			final boolean withRowIds, final String rowIdColumnName) {
-		return dataRowFactory.create(
-				createData(row, withRowIds, rowIdColumnName), attributes);
+//		DADataRow ret = new DADataRow(createDoubleData(row, withRowIds, rowIdColumnName, attributes));
+//		ret.ensureNumberOfColumns(attributes.length	);
+//		//return new NonWritableDataRow(ret);
+//		return ret;
+		return new NonWritableDataRow(dataRowFactory.create(
+				createData(row, withRowIds, rowIdColumnName), attributes));
+	}
+
+	/**
+	 * @param row
+	 * @param withRowIds
+	 * @param rowIdColumnName
+	 * @param attributes
+	 * @return
+	 */
+	private static double[] createDoubleData(org.knime.core.data.DataRow row,
+			boolean withRowIds, String rowIdColumnName, final Attribute[] attributes) {
+		final ArrayList<Double> dataList = Lists.newArrayList(Iterables
+				.transform(Iterables.filter(Zip.zipWithIndex(row, 0),
+						new Predicate<Entry<DataCell, Integer>>() {
+							@Override
+							public boolean apply(
+									final Entry<DataCell, Integer> entry) {
+								final DataCell cell = entry.getKey();
+								return cell instanceof DoubleValue
+										|| cell instanceof org.knime.core.data.StringValue
+										|| cell instanceof DateAndTimeValue
+										|| cell.isMissing();
+							}
+						}), new Function<Entry<DataCell, Integer>, Double>() {
+					@Override
+					public Double apply(final Entry<DataCell, Integer> entry) {
+						final DataCell cell = entry.getKey();
+						if (cell.isMissing()) {
+							return Double.NaN;
+						}
+						if (cell instanceof IntValue) {
+							return Double.valueOf(((IntValue) cell)
+									.getIntValue());
+						}
+						if (cell instanceof DateAndTimeValue) {
+							return Double.valueOf(((DateAndTimeValue) cell)
+									.getUTCTimeInMillis());
+						}
+						if (cell instanceof DoubleValue) {
+							return ((DoubleValue) cell)
+									.getDoubleValue();
+						}
+						return Double.valueOf(attributes[entry.getValue()].getMapping().getIndex(((org.knime.core.data.StringValue) cell)
+								.getStringValue()));
+					}
+				}));
+		if (withRowIds) {
+			dataList.add(0, Double.valueOf(attributes[0].getMapping().getIndex(row.getKey().getString())));
+		}
+		double[] ret = new double[dataList.size()];
+		for (int i = ret.length; i-->0;) {
+			ret[i] = dataList.get(i).doubleValue();
+		}
+		return ret;
 	}
 
 	/**

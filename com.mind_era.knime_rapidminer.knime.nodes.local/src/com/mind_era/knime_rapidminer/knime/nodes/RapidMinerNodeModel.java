@@ -96,6 +96,7 @@ import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.gui.processeditor.results.ResultDisplay;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.Operator;
+import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ports.OutputPort;
 import com.rapidminer.operator.ports.metadata.AttributeMetaData;
 import com.rapidminer.operator.ports.metadata.ExampleSetMetaData;
@@ -203,7 +204,6 @@ public class RapidMinerNodeModel extends NodeModel implements
 			}
 		});
 		process.getRootOperator().getLogger().addHandler(new Handler() {
-
 			@Override
 			public void publish(final LogRecord record) {
 				System.out.println(record.getMessage());
@@ -211,14 +211,10 @@ public class RapidMinerNodeModel extends NodeModel implements
 
 			@Override
 			public void flush() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
-			public void close() throws SecurityException {
-				// TODO Auto-generated method stub
-
+			public void close() {
 			}
 		});
 		final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 1,
@@ -226,7 +222,7 @@ public class RapidMinerNodeModel extends NodeModel implements
 		final Future<IOContainer> future = executor
 				.submit(new Callable<IOContainer>() {
 					@Override
-					public IOContainer call() throws Exception {
+					public IOContainer call() throws OperatorException {
 						return process.run(
 								new IOContainer(Iterables.toArray(Collections2
 										.transform(
@@ -243,13 +239,10 @@ public class RapidMinerNodeModel extends NodeModel implements
 													@Override
 													public ExampleSet apply(
 															final PortObject input) {
+														//TODO probably support a readonly large table
 														return MemoryExampleTable
 																.createCompleteCopy(
-																		/*
-																		 * new
-																		 * SimpleExampleSet
-																		 * (
-																		 */new KnimeExampleTable(
+																		new KnimeExampleTable(
 																				new WrappedTable(
 																						(BufferedDataTable) input),
 																				rowIdColumnName
