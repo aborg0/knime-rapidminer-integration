@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.swing.UIManager;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
 
@@ -53,6 +55,10 @@ public class RapidMinerInit {
 			isInitializing = false;
 
 	public static synchronized void init(final boolean force) {
+		boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean(). getInputArguments().toString().contains(/*"-agentlib:"+*/"jdwp");
+		if (isDebug) {
+			UIManager.put("FileChooser.noPlacesBar", Boolean.TRUE);
+		}
 		if (!isInitialized || force) {
 			if (isInitializing && !force) {
 				Logger.getAnonymousLogger()
