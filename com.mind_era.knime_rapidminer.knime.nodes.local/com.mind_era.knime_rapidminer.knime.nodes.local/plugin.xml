@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?><plugin>
+
+   <!-- This is an example for providing an own category 
+      <extension
+         point="org.knime.workbench.repository.categories">
+      <category
+            description="Category containing my nodes"
+            icon="icons/default.png"
+            level-id="myNodes"
+            name="My nodes"
+            path="/"/>
+   </extension>
+   -->
+   
+   <extension point="org.knime.workbench.repository.nodes">
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory"/>
+   </extension>
+   <extension point="org.eclipse.ui.preferencePages">
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" name="General">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GuiPreferencePage" name="Gui">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.InitPreferencePage" name="Init">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ParallelPreferencePage" name="Parallel">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.SystemPreferencePage" name="System">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.ToolsPreferencePage" name="Tools">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.UpdatePreferencePage" name="Update">
+      </page>
+      <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.OtherPreferencePage" name="Other">
+      </page>
+   </extension>
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="com.mind_era.knime_rapidminer.knime.nodes.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension point="org.knime.workbench.repository.categories">
+      <category icon="icons/rapidminer.png" level-id="rapidminer" name="RapidMiner" path="/community">
+      </category>
+   </extension>
+   <extension point="org.knime.product.splashExtension">
+      <splashExtension icon="icons/rapidminer_frame_icon_48.png" id="com.mind_era.knime_rapidminer.knime.nodes.local.splashExtension1" tooltip="RapidMiner integration for KNIME">
+      </splashExtension>
+   </extension>
+   
+</plugin>
