@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
@@ -43,11 +44,15 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mind_era.guava.helper.data.Zip;
+import com.mind_era.knime.roles.Role;
+import com.mind_era.knime.roles.RoleHandler;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling.AbstractProjectHandling;
 import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
+import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeRepository;
+import com.mind_era.knime_rapidminer.knime.nodes.util.RoleRepresentationMapping;
 import com.rapidminer.Process;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.gui.AbstractUIState;
@@ -325,9 +330,18 @@ public class DialogComponentRapidMinerProject extends
 		return new ExampleSetMetaData(Lists.transform(KnimeExampleTable
 				.createAttributes(spec, withRowIds, rowIdColumnName),
 				new Function<Attribute, AttributeMetaData>() {
+			private final RoleHandler roleHandler = new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry());
+			private final Map<String, Collection<? extends Role>> roles = roleHandler.roles(spec);
 					@Override
 					public AttributeMetaData apply(final Attribute attribute) {
-						return new AttributeMetaData(attribute);
+						AttributeMetaData ret = new AttributeMetaData(attribute);
+						Collection<? extends Role> collection = roles.get(attribute.getName());
+						if (collection != null && collection.size() > 0) {
+							ret.setRole(RoleRepresentationMapping.getInstance()
+									.rapidMinerRoleNameOf(
+											collection.iterator().next()));
+						}
+						return ret;
 					}
 				}));
 	}

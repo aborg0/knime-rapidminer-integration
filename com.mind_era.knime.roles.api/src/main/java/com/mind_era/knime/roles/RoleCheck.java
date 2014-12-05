@@ -16,6 +16,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.knime.core.data.DataCell;
 import org.knime.core.data.DataColumnSpec;
 import org.knime.core.data.DataTableSpec;
 import org.knime.core.data.DataType;
@@ -284,7 +285,9 @@ public class RoleCheck {
 					}
 				}
 				final DataType type = columnSpec.getType();
-				if (columnSpec.getDomain().getValues().isEmpty()) {
+				Set<DataCell> values = columnSpec.getDomain().getValues();
+				values = values == null ? Collections.<DataCell>emptySet() : values;
+				if (values.isEmpty()) {
 					if (role.shouldBeNominal(type)
 							|| role.isNominalPreferred(type)) {
 						(role.shouldBeNominal(type) ? errors : warnings)

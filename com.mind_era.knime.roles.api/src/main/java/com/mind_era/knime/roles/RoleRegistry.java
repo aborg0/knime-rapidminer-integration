@@ -13,11 +13,17 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
+import javax.swing.Icon;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.knime.core.data.DataColumnSpec;
+import org.knime.core.data.DataType;
 import org.knime.core.node.NodeLogger;
+import org.knime.core.node.NodeModel;
+import org.knime.core.node.port.PortObjectSpec;
 
 /**
  * The role registry class will be offered as a service to perform various role
@@ -229,5 +235,95 @@ public class RoleRegistry {
 			ret.add(role.representation());
 		}
 		return Collections.unmodifiableList(ret);
+	}
+
+	/**
+	 * Constructs a role with a predefined name and type.
+	 * 
+	 * @param roleName The role's name.
+	 * @param colType The preferred column type.
+	 * @param colName The preferred column name.
+	 * @return The newly created role.
+	 */
+	public Role createDynamicRole(final String roleName,
+			final DataType colType, final String colName) {
+		final Role role = new Role() {
+			@Override
+			public boolean shouldBeNominal(DataType type) {
+				return false;
+			}
+			
+			@Override
+			public String representation() {
+				return roleName;
+			}
+			
+			@Override
+			public DataType preferredDataType() {
+				return colType;
+			}
+			
+			@Override
+			public boolean isUniquePreferred() {
+				return false;
+			}
+			
+			@Override
+			public boolean isUnique() {
+				return false;
+			}
+			
+			@Override
+			public boolean isNominalPreferred(DataType type) {
+				return false;
+			}
+			
+			@Override
+			public boolean isExclusivePreferred() {
+				return false;
+			}
+			
+			@Override
+			public boolean isExclusive() {
+				return false;
+			}
+			
+			@Override
+			public Icon icon() {
+				return null;
+			}
+			
+			@Override
+			public Collection<DataType> disallowedDataTypes() {
+				return Collections.emptyList();
+			}
+			
+			@Override
+			public String description() {
+				return "Dynamically generated role: " + roleName;
+			}
+			
+			@Override
+			public String defaultName() {
+				return colName;
+			}
+			
+			@Override
+			public void configurationChecks(NodeModel model,
+					PortObjectSpec[] tableSpecs, DataColumnSpec... columnSpecs) {
+				//No checks
+			}
+			
+			@Override
+			public Collection<String> alternativeNames() {
+				return Collections.singletonList(defaultName());
+			}
+			
+			@Override
+			public Collection<DataType> allowedDataTypes() {
+				return Collections.emptyList();
+			}
+		};
+		return role;
 	}
 }

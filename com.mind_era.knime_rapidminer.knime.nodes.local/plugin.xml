@@ -48,5 +48,46 @@
       <splashExtension icon="icons/rapidminer_frame_icon_48.png" id="com.mind_era.knime_rapidminer.knime.nodes.local.splashExtension1" tooltip="RapidMiner integration for KNIME">
       </splashExtension>
    </extension>
+   <extension
+         point="com.mind_era.knime.roles.Register">
+      <Role
+            class="com.mind_era.knime_rapidminer.knime.nodes.internal.CostRole"/>
+      <Role
+            class="com.mind_era.knime_rapidminer.knime.nodes.internal.WeightRole"/>
+      <Role
+            class="com.mind_era.knime_rapidminer.knime.nodes.internal.IdRole"/>
+      <Role
+            class="com.mind_era.knime_rapidminer.knime.nodes.internal.BatchRole"/>
+   </extension>
+   <extension
+         point="com.mind_era.knime.roles.Consumer">
+      <NodeFactoryReference
+            id="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"
+            instance="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory">
+      </NodeFactoryReference>
+      <RoleReference
+            reference="com.mind_era.knime_rapidminer.knime.nodes.internal.IdRole">
+      </RoleReference>
+   </extension>
+   <extension
+         point="com.mind_era.knime.roles.Consumer">
+      <NodeFactoryReference
+            id="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory"
+            instance="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory">
+      </NodeFactoryReference>
+      <RoleReference
+            reference="com.mind_era.knime_rapidminer.knime.nodes.internal.IdRole">
+      </RoleReference>
+   </extension>
+   <extension
+         point="com.mind_era.knime.roles.Provider">
+      <NodeFactoryReference
+            id="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"
+            instance="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory">
+      </NodeFactoryReference>
+      <RoleReference
+            reference="com.mind_era.knime_rapidminer.knime.nodes.internal.IdRole">
+      </RoleReference>
+   </extension>
    
 </plugin>
