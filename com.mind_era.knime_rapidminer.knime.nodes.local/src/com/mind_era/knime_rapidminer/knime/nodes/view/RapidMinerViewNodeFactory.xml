@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE knimeNode PUBLIC "-//UNIKN//DTD KNIME Node 2.0//EN" "http://www.knime.org/Node.dtd">
+<knimeNode icon="./default.png" type="Visualizer">
+    <name>RapidMiner Viewer</name>
+    
+    <shortDescription>
+        Visualize the node with RapidMiner, allowing to plot the results in 3D, export the images.
+    </shortDescription>
+    
+    <fullDescription>
+        <intro><p>You can adjust the data visualization settings interactively, so you can get the best results.</p>
+        <p>
+        HiLite do not work in this node.
+        </p>
+        </intro>
+        
+        
+        <!-- option name="short name of first option (like in the dialog)">description of first option</option>
+        <option name="short name of second option (like in the dialog)">description of second option</option-->
+    </fullDescription>
+    
+    <ports>
+        <inPort index="0" name="data">Input port containing data to visualize.</inPort>
+        <!-- possibly more input ports here-->
+        <!-- outPort index="0" name="Out-Port name">Description of first output port...</outPort-->
+        <!-- possibly more output ports here-->
+    </ports>    
+    <views>
+        <view index="0" name="RapidMiner View">Various options to customize the data view.</view>
+        <!--view index="1" name="name of second view">Description of second view...</view-->
+    </views>
+</knimeNode>
