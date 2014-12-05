@@ -1,6 +1,0 @@
-analyseLocally=false
-eclipse.preferences.version=1
-extraProperties=
-projectKey=com.mind_era.knime_rapidminer.knime.nodes.local
-serverUrl=https\://community.knime.org/sonar
-version=2
