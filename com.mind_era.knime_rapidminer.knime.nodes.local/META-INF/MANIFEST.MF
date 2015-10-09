@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RapidMiner integration for KNIME
 Bundle-SymbolicName: com.mind_era.knime_rapidminer.knime.nodes.local;singleton:=true
-Bundle-Version: 0.5.3.qualifier
+Bundle-Version: 0.5.400.qualifier
 Bundle-ClassPath: rapidminer.jar,
  gen_lib/rapidminer.jar,
  lib/bcmail.jar,
@@ -80,15 +80,14 @@ Bundle-ClassPath: rapidminer.jar,
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
- org.knime.workbench.core;bundle-version="[2.11.0,3.0.0)",
- org.knime.workbench.repository;bundle-version="[2.11.0,3.0.0)",
- org.knime.base;bundle-version="[2.11.0,3.0.0)",
+ org.knime.workbench.core;bundle-version="[3.0.0,4.0.0)",
+ org.knime.workbench.repository;bundle-version="[3.0.0,4.0.0)",
+ org.knime.base;bundle-version="[3.0.0,4.0.0)",
  com.mind_era.guava.helper;bundle-version="0.0.2",
  org.eclipse.ui;bundle-version="[3.7.0,4.0.0)",
  com.google.guava;bundle-version="16.0.1",
- org.knime.product;bundle-version="2.11.0";resolution:=optional,
- org.fife.rsyntaxtextarea;bundle-version="[2.5.3,3.0.0)";resolution:=optional,
- org.knime.ext.svg;bundle-version="2.8.0";resolution:=optional,
+ org.knime.product;bundle-version="[3.0.0,4.0.0)";resolution:=optional,
+ org.knime.ext.svg;bundle-version="[3.0.0,4.0.0)";resolution:=optional,
  com.mind_era.knime_rapidminer.knime.nodes.common;bundle-version="0.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
