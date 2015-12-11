@@ -71,6 +71,8 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 	private ProjectHandling<ProjectType> editor;
 	protected transient volatile boolean isLoading = false;
 
+	private JPanel controlsPanel;
+
 	public DialogComponentProject(final Model model) {
 		this(model, false);
 	}
@@ -93,7 +95,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 		editable.setSelected(model.isEditability());
 		editable.setRolloverEnabled(false);
 		alwaysReload.setSelected(!model.isSnapshot());
-		final JPanel controlsPanel = new JPanel();
+		controlsPanel = new JPanel();
 		final Box box = Box.createHorizontalBox();
 		controlsPanel.add(locationText);
 		controlsPanel.add(location);
@@ -221,6 +223,13 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 		});
 		editableListener.stateChanged(null);
 		safeUpdateComponent(true);
+	}
+	
+	/**
+	 * @return the controlsPanel
+	 */
+	protected JPanel getControlsPanel() {
+		return controlsPanel;
 	}
 
 	/**

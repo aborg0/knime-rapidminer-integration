@@ -41,7 +41,8 @@ public class RapidMinerNodeFactory extends NodeFactory<RapidMinerNodeModel> {
 	 */
 	@Override
 	public int getNrNodeViews() {
-		return 1;
+		//Disabling log views for now.
+		return 0;
 	}
 
 	/**

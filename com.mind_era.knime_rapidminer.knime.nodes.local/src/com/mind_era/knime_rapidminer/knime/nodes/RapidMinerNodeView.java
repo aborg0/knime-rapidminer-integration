@@ -16,12 +16,7 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes;
 
-import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.LayoutManager;
-
-import javax.swing.JPanel;
 
 import org.knime.core.node.NodeView;
 
@@ -49,7 +44,7 @@ public class RapidMinerNodeView extends NodeView<RapidMinerNodeModel> {
 			@Override
 			protected void onCloseDataTable(final DataTableViewer viewer) {
 				getNodeModel().removeLogDataTable(viewer.getDataTable());
-				clear();
+				clearAll();
 				for (final DataTable logTable : getNodeModel()
 						.getLogDataTables()) {
 					addDataTable(logTable);
@@ -87,22 +82,22 @@ public class RapidMinerNodeView extends NodeView<RapidMinerNodeModel> {
 	 */
 	@Override
 	protected void modelChanged() {
-		resultDisplay.clear();
+//		resultDisplay.clear();
 		for (final DataTable table : getNodeModel().getLogDataTables()) {
 			resultDisplay.addDataTable(table);
 		}
-		if (resultDisplay.getCurrentlyDisplayedComponent() instanceof DataTableViewer) {
-			final DataTableViewer viewer = (DataTableViewer) resultDisplay
-					.getCurrentlyDisplayedComponent();
-			final Component c0 = viewer.getComponents()[0];
-			if (c0 instanceof JPanel) {
-				final JPanel jp = (JPanel) c0;
-				final LayoutManager layout = jp.getLayout();
-				if (layout instanceof CardLayout) {
-					final CardLayout card = (CardLayout) layout;
-					card.show(jp, DataTableViewer.TABLE_MODE);
-				}
-			}
-		}
+//		if (resultDisplay.getCurrentlyDisplayedComponent() instanceof DataTableViewer) {
+//			final DataTableViewer viewer = (DataTableViewer) resultDisplay
+//					.getCurrentlyDisplayedComponent();
+//			final Component c0 = viewer.getComponents()[0];
+//			if (c0 instanceof JPanel) {
+//				final JPanel jp = (JPanel) c0;
+//				final LayoutManager layout = jp.getLayout();
+//				if (layout instanceof CardLayout) {
+//					final CardLayout card = (CardLayout) layout;
+//					card.show(jp, DataTableViewer.TABLE_MODE);
+//				}
+//			}
+//		}
 	}
 }

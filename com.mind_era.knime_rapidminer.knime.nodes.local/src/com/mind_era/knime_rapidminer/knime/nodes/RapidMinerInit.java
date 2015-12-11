@@ -30,8 +30,6 @@ import com.mind_era.knime_rapidminer.knime.nodes.common.preferences.PreferenceCo
 import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.mind_era.knime_rapidminer.knime.nodes.preferences.PreferenceInitializer;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeRepository;
-import com.rapid_i.Launcher;
-import com.rapid_i.deployment.update.client.ManagedExtension;
 import com.rapidminer.RapidMiner;
 import com.rapidminer.gui.AbstractUIState;
 import com.rapidminer.gui.MainFrame;
@@ -44,6 +42,8 @@ import com.rapidminer.repository.RepositoryAccessor;
 import com.rapidminer.repository.RepositoryFactory;
 import com.rapidminer.repository.RepositoryManager;
 import com.rapidminer.tools.ParameterService;
+import com.rapidminer.tools.PlatformUtilities;
+import com.rapidminer.tools.plugin.ManagedExtension;
 
 /**
  * Initialize RapidMiner based on eclipse settings.
@@ -70,7 +70,7 @@ public class RapidMinerInit {
 			final String rapidMinerHome = Activator.getDefault()
 					.getPreferenceStore()
 					.getString(PreferenceConstants.RAPIDMINER_PATH);
-			System.setProperty(Launcher.PROPERTY_RAPIDMINER_HOME,
+			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
 					rapidMinerHome);
 			RapidMiner
 					.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);

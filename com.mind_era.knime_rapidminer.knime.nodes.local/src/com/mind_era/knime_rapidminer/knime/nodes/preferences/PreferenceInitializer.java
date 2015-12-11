@@ -25,14 +25,10 @@ import com.rapidminer.parameter.ParameterType;
 import com.rapidminer.parameter.ParameterTypeBoolean;
 import com.rapidminer.parameter.ParameterTypeCategory;
 import com.rapidminer.parameter.ParameterTypeChar;
-import com.rapidminer.parameter.ParameterTypeDatabaseConnection;
-import com.rapidminer.parameter.ParameterTypeDatabaseSchema;
-import com.rapidminer.parameter.ParameterTypeDatabaseTable;
 import com.rapidminer.parameter.ParameterTypeDouble;
 import com.rapidminer.parameter.ParameterTypeInnerOperator;
 import com.rapidminer.parameter.ParameterTypeInt;
 import com.rapidminer.parameter.ParameterTypeParameterValue;
-import com.rapidminer.parameter.ParameterTypeSQLQuery;
 import com.rapidminer.parameter.ParameterTypeString;
 import com.rapidminer.parameter.ParameterTypeStringCategory;
 import com.rapidminer.parameter.ParameterTypeValue;
@@ -93,10 +89,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				final ParameterTypeStringCategory stringCatType = (ParameterTypeStringCategory) parameterType;
 				store.setDefault(key, stringCatType.getDefaultValueAsString());
 			}
-			if (parameterType instanceof ParameterTypeSQLQuery) {
-				final ParameterTypeSQLQuery sqlType = (ParameterTypeSQLQuery) parameterType;
-				store.setDefault(key, sqlType.getDefaultValueAsString());
-			}
+//			if (parameterType instanceof ParameterTypeSQLQuery) {
+//				final ParameterTypeSQLQuery sqlType = (ParameterTypeSQLQuery) parameterType;
+//				store.setDefault(key, sqlType.getDefaultValueAsString());
+//			}
 			if (parameterType instanceof ParameterTypeCategory) {
 				final ParameterTypeCategory categoryType = (ParameterTypeCategory) parameterType;
 				store.setDefault(key, categoryType.getDefault());
@@ -118,20 +114,20 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				store.setDefault(key, innerType.getDefaultValueAsString());
 			}
 			// TODO should support?
-			if (parameterType instanceof ParameterTypeDatabaseConnection) {
-				final ParameterTypeDatabaseConnection dbConnType = (ParameterTypeDatabaseConnection) parameterType;
-				store.setDefault(key, dbConnType.getDefaultValueAsString());
-			}
-			// TODO should support?
-			if (parameterType instanceof ParameterTypeDatabaseSchema) {
-				final ParameterTypeDatabaseSchema dbSchemaType = (ParameterTypeDatabaseSchema) parameterType;
-				store.setDefault(key, dbSchemaType.getDefaultValueAsString());
-			}
-			// TODO should support?
-			if (parameterType instanceof ParameterTypeDatabaseTable) {
-				final ParameterTypeDatabaseTable dbTableType = (ParameterTypeDatabaseTable) parameterType;
-				store.setDefault(key, dbTableType.getDefaultValueAsString());
-			}
+//			if (parameterType instanceof ParameterTypeDatabaseConnection) {
+//				final ParameterTypeDatabaseConnection dbConnType = (ParameterTypeDatabaseConnection) parameterType;
+//				store.setDefault(key, dbConnType.getDefaultValueAsString());
+//			}
+//			// TODO should support?
+//			if (parameterType instanceof ParameterTypeDatabaseSchema) {
+//				final ParameterTypeDatabaseSchema dbSchemaType = (ParameterTypeDatabaseSchema) parameterType;
+//				store.setDefault(key, dbSchemaType.getDefaultValueAsString());
+//			}
+//			// TODO should support?
+//			if (parameterType instanceof ParameterTypeDatabaseTable) {
+//				final ParameterTypeDatabaseTable dbTableType = (ParameterTypeDatabaseTable) parameterType;
+//				store.setDefault(key, dbTableType.getDefaultValueAsString());
+//			}
 			// if (parameterType instanceof ParameterTypeFile) {
 			// final ParameterTypeFile fileType = (ParameterTypeFile)
 			// parameterType;

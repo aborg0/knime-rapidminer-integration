@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.rapidminer.gui.processeditor.results.TabbedResultDisplay;
+import com.rapidminer.gui.processeditor.results.DockableResultDisplay;
 import com.rapidminer.gui.viewer.DataTableViewer;
 
 /**
@@ -36,7 +36,7 @@ import com.rapidminer.gui.viewer.DataTableViewer;
  * 
  * @author Gabor Bakos
  */
-public class CloseableTabbedResultDisplay extends TabbedResultDisplay {
+public class CloseableTabbedResultDisplay extends DockableResultDisplay {
 	private static final long serialVersionUID = -7873107853694395187L;
 
 	/**
@@ -57,7 +57,7 @@ public class CloseableTabbedResultDisplay extends TabbedResultDisplay {
 
 							@Override
 							public void actionPerformed(final ActionEvent e) {
-								final Component currentlyDisplayedComponent = getCurrentlyDisplayedComponent();
+								final Component currentlyDisplayedComponent = getComponent();
 								if (currentlyDisplayedComponent instanceof DataTableViewer) {
 									final DataTableViewer viewer = (DataTableViewer) currentlyDisplayedComponent;
 									onCloseDataTable(viewer);
