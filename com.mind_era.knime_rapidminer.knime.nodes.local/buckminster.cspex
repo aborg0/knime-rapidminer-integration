@@ -3,25 +3,25 @@
 	xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
 	<actions>
 		<!-- Dynamically build the files for the Eclipse help. -->
-		<private name="knime.create.helpfiles" actor="knime.docBuilder">
+		<!-- For some reason this fails CI build ... private name="knime.create.helpfiles" actor="knime.docBuilder"-->
 			<!-- Example how to selectively build help
 				<actorProperties>
 					<property key="pluginPattern" value="\Qorg.knime.base\E" />
 				</actorProperties>
 			-->
-			<prerequisites>
+			<!-- prerequisites>
 				<attribute name="eclipse.build.source" />
 				<attribute name="manifest" />
 			</prerequisites>
 			<products alias="action.output" base="${buckminster.output}/knime.helpfiles/"
 				upToDatePolicy="ACTOR" />
-		</private>
+		</private-->
 	</actions>
-	<alterGroups>
+	<!-- alterGroups>
 		<private name="jar.contents">
 			<attribute name="knime.create.helpfiles" />
 		</private>
-	</alterGroups>
+	</alterGroups-->
 	<alterArtifacts>
 		<private name="bin.includes">
 			<!-- The plugin.xml is taken from the created help files because the TOC 
