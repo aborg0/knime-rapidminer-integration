@@ -2,7 +2,7 @@
 <feature
       id="com.mind_era.knime_rapidminer.knime.feature"
       label="RapidMiner Integration for KNIME"
-      version="0.5.400.qualifier"
+      version="0.6.502.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <description url="http://rapidminer.knime.mind-era.com/">
@@ -204,6 +204,21 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
       <discovery label="KNIME Community Contributions nightly update site" url="http://tech.knime.org/update/community-contributions/nightly"/>
    </url>
 
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="compatible"/>
+      <import plugin="org.knime.workbench.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.knime.workbench.repository" version="3.0.0" match="compatible"/>
+      <import plugin="com.fifesoft.rsyntaxtextarea" version="2.5.7" match="compatible"/>
+      <import plugin="org.knime.base" version="3.0.0" match="compatible"/>
+      <import plugin="com.mind_era.guava.helper" version="0.0.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="com.mind_era.knime.roles.api" version="0.0.100" match="greaterOrEqual"/>
+      <import plugin="com.rapidminer.studio.rapidminer-studio" version="6.5.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.11.0" match="compatible"/>
+      <import plugin="org.knime.core" version="3.0.0" match="compatible"/>
+      <import plugin="com.google.guava" version="16.0.1" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="com.mind_era.guava.helper"
          download-size="0"
@@ -215,7 +230,8 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          id="com.mind_era.knime_rapidminer.knime.nodes.local"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="com.mind_era.knime_rapidminer.knime.nodes.common"
