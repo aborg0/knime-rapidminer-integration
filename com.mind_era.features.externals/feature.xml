@@ -13,13 +13,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.fifesoft.autocomplete.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.fifesoft.rsyntaxtextarea"
          download-size="0"
          install-size="0"
@@ -49,20 +42,6 @@
 
    <plugin
          id="org.apache.commons.lang3.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="rapidminer-api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="rapidminer-api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -69,7 +69,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					// No problems
 				}
 				RapidMinerInit.init(false);
-				final AbstractUIState state = new AbstractUIState("design",
+				final AbstractUIState state = new AbstractUIState(/*"design",*/
 						null, new JPanel()) {
 
 					@Override

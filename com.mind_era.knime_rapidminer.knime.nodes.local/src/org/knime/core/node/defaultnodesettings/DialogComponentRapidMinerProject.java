@@ -33,7 +33,6 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 import org.knime.core.data.DataTableSpec;
 import org.knime.core.node.NotConfigurableException;
@@ -59,7 +58,6 @@ import com.rapidminer.example.Attribute;
 import com.rapidminer.gui.AbstractUIState;
 import com.rapidminer.gui.MainUIState;
 import com.rapidminer.gui.RapidMinerGUI;
-import com.rapidminer.gui.tour.comic.gui.ComicDialog;
 import com.rapidminer.operator.ports.metadata.AttributeMetaData;
 import com.rapidminer.operator.ports.metadata.ExampleSetMetaData;
 import com.rapidminer.operator.ports.metadata.MetaData;
@@ -91,7 +89,7 @@ public class DialogComponentRapidMinerProject extends
 	public DialogComponentRapidMinerProject(
 			final SettingsModelRapidMinerProject model) {
 		super(model, true, ".rmp", "");
-		SwingUtilities.invokeLater(() -> getControlsPanel().add(ComicDialog.makeDropDownButton()));
+//		SwingUtilities.invokeLater(() -> getControlsPanel().add(ComicDialog.makeDropDownButton()));
 	}
 
 	/*
@@ -135,7 +133,7 @@ public class DialogComponentRapidMinerProject extends
 		final JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(1100, 800));
 		panel.setMaximumSize(new Dimension(1100, 800));
-		state = new AbstractUIState("design", null, panel) {
+		state = new AbstractUIState(/*"design",*/ null, panel) {
 
 			@Override
 			public void exit(final boolean relaunch) {

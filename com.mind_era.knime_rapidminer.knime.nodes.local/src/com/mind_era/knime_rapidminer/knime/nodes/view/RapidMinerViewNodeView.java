@@ -35,6 +35,7 @@ import com.rapidminer.Process;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.MemoryExampleTable;
 import com.rapidminer.gui.AbstractUIState;
+import com.rapidminer.gui.PerspectiveModel;
 import com.rapidminer.gui.RapidMinerGUI;
 import com.rapidminer.operator.IOContainer;
 import com.rapidminer.operator.OperatorException;
@@ -70,7 +71,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		final JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(1100, 800));
 		panel.setMaximumSize(new Dimension(1100, 800));
-		state = new AbstractUIState(KnimePerspective.RESULT, null, panel) {
+		state = new AbstractUIState(/*KnimePerspective.RESULT,*/ null, panel) {
 
 			@Override
 			public boolean close() {
@@ -104,7 +105,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 		final JScrollPane pane = new JScrollPane(toolBarContainer);
 		pane.getViewport().setPreferredSize(new Dimension(1000, 850));
 		toolBarContainer.add(dockingDesktop, BorderLayout.CENTER);
-		perspective.showPerspective(KnimePerspective.RESULT);
+		state.getPerspectiveController().showPerspective(state.getPerspectiveController().getModel().getPerspective(PerspectiveModel.RESULT));
 		setComponent(pane);
 		try {
 			process = new Process();

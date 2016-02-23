@@ -6,7 +6,7 @@
 	<groupId>com.mind_era</groupId>
 	<artifactId>maven-2-osgi</artifactId>
 	<packaging>pom</packaging>
-	<version>6.5.2</version>
+	<version>7.0.1</version>
 	<repositories>
 	    <repository>
 	      <id>RapidMiner</id>
@@ -37,12 +37,12 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:6.5.2.20151213</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.0.1.20160223</id>
 									<source>true</source>
 									<transitive>false</transitive>
 								</artifact>
 								<artifact>
-									<id>com.rapidminer:rapidminer-api:0.1.1</id>
+									<id>com.rapidminer:rapidminer-api:0.2.0</id>
 									<source>true</source>
 								</artifact>
 								<artifact>
@@ -285,6 +285,10 @@
                                     <id>com.fifesoft:rstaui:2.5.7</id>
                                     <source>true</source>
                                 </artifact-->
+								<artifact>
+									<id>org.apache.tika:tika-core:1.11</id>
+									<source>true</source>
+								</artifact>
             				</artifacts>
 						</configuration>
 					</execution>
