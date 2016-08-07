@@ -46,7 +46,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 /**
  * {@link NodeView} for the "RapidMinerView" Node. Visualize the node with
  * RapidMiner, allowing to plot the results in 3D, export the images.
- * 
+ *
  * @author Gabor Bakos
  */
 public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
@@ -59,7 +59,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 
 	/**
 	 * Creates a new view.
-	 * 
+	 *
 	 * @param nodeModel
 	 *            The model (class: {@link RapidMinerViewNodeModel})
 	 */
@@ -88,7 +88,7 @@ public class RapidMinerViewNodeView extends NodeView<RapidMinerViewNodeModel> {
 			}
 
 			@Override
-			protected void setTitle() {
+			public void setTitle() {
 			}
 		};
 		RapidMinerGUI.setMainFrame(state);

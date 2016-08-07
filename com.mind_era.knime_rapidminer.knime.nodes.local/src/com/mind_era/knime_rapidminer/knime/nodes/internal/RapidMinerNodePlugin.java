@@ -31,7 +31,7 @@ import com.rapidminer.gui.RapidMinerGUI;
  * won't have to do anything in here, as this class is only needed by the
  * eclipse platform/plugin mechanism. If you want to move/rename this file, make
  * sure to change the plugin.xml file in the project root directory accordingly.
- * 
+ *
  * @author Gabor Bakos
  */
 public class RapidMinerNodePlugin extends AbstractUIPlugin {
@@ -49,7 +49,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 
 	/**
 	 * This method is called upon plug-in activation.
-	 * 
+	 *
 	 * @param context
 	 *            The OSGI bundle context
 	 * @throws Exception
@@ -60,6 +60,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 		super.start(context);
 		// Start a new thread to avoid errors reported because of class loading.
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					// Wait a bit to make sure the bundle is properly
@@ -89,7 +90,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					}
 
 					@Override
-					protected void setTitle() {
+					public void setTitle() {
 						// Do nothing
 					}
 				};
@@ -104,7 +105,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 
 	/**
 	 * This method is called when the plug-in is stopped.
-	 * 
+	 *
 	 * @param context
 	 *            The OSGI bundle context
 	 * @throws Exception
@@ -118,7 +119,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance.
-	 * 
+	 *
 	 * @return Singleton instance of the Plugin
 	 */
 	public static RapidMinerNodePlugin getDefault() {

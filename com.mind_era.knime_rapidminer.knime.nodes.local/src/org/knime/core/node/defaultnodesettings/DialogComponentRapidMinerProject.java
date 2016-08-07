@@ -70,7 +70,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 /**
  * A {@link DialogComponent} suitable for {@link SettingsModelRapidMinerProject}
  * with editor for the project/{@link Process}.
- * 
+ *
  * @author Gabor Bakos
  */
 public class DialogComponentRapidMinerProject extends
@@ -81,7 +81,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/**
 	 * Constructs the {@link DialogComponentRapidMinerProject}.
-	 * 
+	 *
 	 * @param model
 	 *            The {@link SettingsModelRapidMinerProject} containing the
 	 *            settings.
@@ -94,7 +94,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.HasTableSpec#getFilteredTableSpecs
 	 * ()
@@ -120,7 +120,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.DialogComponentProject#createEditor
 	 * (org.knime.core.node.defaultnodesettings.SettingsModelProject)
@@ -152,7 +152,7 @@ public class DialogComponentRapidMinerProject extends
 			}
 
 			@Override
-			protected void setTitle() {
+			public void setTitle() {
 				// Do nothing
 			}
 		};
@@ -211,7 +211,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.knime.core.node.defaultnodesettings.DialogComponentProject#
 	 * checkConfigurabilityBeforeLoad(org.knime.core.node.port.PortObjectSpec[])
 	 */
@@ -243,7 +243,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/**
 	 * Sets the input ports to the KNIME input data.
-	 * 
+	 *
 	 * @param state
 	 *            The RapidMiner {@link MainUIState}.
 	 */
@@ -257,7 +257,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/**
 	 * Generates the input repository locations with the KNIME inputs.
-	 * 
+	 *
 	 * @param process
 	 *            The {@link Process} where the special locations will be used.
 	 * @param hasTableSpec
@@ -289,7 +289,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/**
 	 * Creates the {@link MetaData} for the {@code lastTableSpec} array.
-	 * 
+	 *
 	 * @param lastTableSpecs
 	 *            The table specs.
 	 * @return A list of the {@link MetaData} created from the
@@ -335,8 +335,8 @@ public class DialogComponentRapidMinerProject extends
 			private final Map<String, Collection<? extends Role>> roles = roleHandler.roles(spec);
 					@Override
 					public AttributeMetaData apply(final Attribute attribute) {
-						AttributeMetaData ret = new AttributeMetaData(attribute);
-						Collection<? extends Role> collection = roles.get(attribute.getName());
+						final AttributeMetaData ret = new AttributeMetaData(attribute);
+						final Collection<? extends Role> collection = roles.get(attribute.getName());
 						if (collection != null && collection.size() > 0) {
 							ret.setRole(RoleRepresentationMapping.getInstance()
 									.rapidMinerRoleNameOf(
@@ -349,7 +349,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -362,7 +362,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -413,7 +413,7 @@ public class DialogComponentRapidMinerProject extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId#isWithRowIds
 	 * ()
