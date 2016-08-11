@@ -490,20 +490,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.rapidminer.studio.rapidminer-studio"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.rapidminer.studio.rapidminer-studio.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.tika.core"
          download-size="0"
          install-size="0"
@@ -512,6 +498,20 @@
 
    <plugin
          id="org.apache.tika.core.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.mind_era.rapidminer.studio"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.mind_era.rapidminer.studio.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
