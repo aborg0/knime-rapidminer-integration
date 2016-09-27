@@ -17,7 +17,7 @@
    </license>
 
    <includes
-         id="com.mind_era.features.externals"
+         id="com.mind_era.knime_rapidminer.knime.feature"
          version="0.0.0"/>
 
    <plugin
@@ -347,6 +347,7 @@
          id="com.mind_era.rapidminer.studio"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
