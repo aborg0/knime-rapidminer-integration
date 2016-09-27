@@ -17,10 +17,6 @@
    </license>
 
    <includes
-         id="com.mind_era.knime_rapidminer.knime.feature"
-         version="0.0.0"/>
-
-   <includes
          id="com.mind_era.features.externals"
          version="0.0.0"/>
 
@@ -351,7 +347,6 @@
          id="com.mind_era.rapidminer.studio"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
 </feature>
