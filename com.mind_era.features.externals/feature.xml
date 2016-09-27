@@ -6,20 +6,6 @@
       provider-name="Mind Eratosthenes Kft.">
 
    <plugin
-         id="com.fifesoft.autocomplete"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fifesoft.rsyntaxtextarea"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="javax.activation"
          download-size="0"
          install-size="0"
