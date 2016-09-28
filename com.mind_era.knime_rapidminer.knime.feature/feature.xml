@@ -218,6 +218,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
       <import plugin="org.knime.core" version="3.0.0" match="compatible"/>
       <import plugin="com.google.guava" version="16.0.1" match="greaterOrEqual"/>
       <import plugin="com.mind_era.rapidminer.studio"/>
+      <import plugin="org.apache.servicemix.bundles.poi" version="3.11" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -243,6 +244,13 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="com.mind_era.knime.roles.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.servicemix.bundles.poi"
          download-size="0"
          install-size="0"
          version="0.0.0"
