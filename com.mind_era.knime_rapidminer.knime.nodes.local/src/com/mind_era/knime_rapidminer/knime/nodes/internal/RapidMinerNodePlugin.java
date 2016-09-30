@@ -19,6 +19,7 @@ package com.mind_era.knime_rapidminer.knime.nodes.internal;
 import javax.swing.JPanel;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.knime.core.node.util.ViewUtils;
 import org.osgi.framework.BundleContext;
 
 import com.mind_era.knime.roles.RoleRegistry;
@@ -95,7 +96,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					}
 				};
 				RapidMinerGUI.setMainFrame(state);
-				state.getValidateAutomaticallyAction().setSelected(true);
+				ViewUtils.invokeLaterInEDT(() -> state.getValidateAutomaticallyAction().setSelected(true));
 				state.close();
 				RapidMinerInit.setPreferences();
 			};
