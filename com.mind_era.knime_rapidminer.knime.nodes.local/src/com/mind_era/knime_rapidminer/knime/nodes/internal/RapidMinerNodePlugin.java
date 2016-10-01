@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.knime.core.node.NodeLogger;
 import org.knime.core.node.util.ViewUtils;
 import org.osgi.framework.BundleContext;
 
@@ -67,46 +68,51 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 			@Override
 			public void run() {
 				try {
-					// Wait a bit to make sure the bundle is properly
-					// initialized
-					Thread.sleep(200);
-				} catch (final InterruptedException e) {
-					// No problems
+					try {
+						// Wait a bit to make sure the bundle is properly
+						// initialized
+						Thread.sleep(500);
+					} catch (final InterruptedException e) {
+						// No problems
+					}
+					RapidMinerInit.init(false);
+					final AbstractUIState state = new AbstractUIState(/* "design", */
+							null, new JPanel()) {
+
+						@Override
+						public void exit(final boolean relaunch) {
+							// Do nothing, we do not exit
+						}
+
+						@Override
+						public boolean close() {
+							metaDataUpdateQueue.shutdown();
+							return true;
+						}
+
+						@Override
+						public void updateRecentFileList() {
+							// Do noting
+						}
+
+						@Override
+						public void setTitle() {
+							// Do nothing
+						}
+					};
+					RapidMinerGUI.setMainFrame(state);
+					try {
+						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
+					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
+						e.printStackTrace();
+						// Not too interesting in case we cannot set the
+						// automatical validation to true.
+					}
+					state.close();
+					RapidMinerInit.setPreferences();
+				} catch (Throwable t) {
+					t.printStackTrace();
 				}
-				RapidMinerInit.init(false);
-				final AbstractUIState state = new AbstractUIState(/*"design",*/
-						null, new JPanel()) {
-
-					@Override
-					public void exit(final boolean relaunch) {
-						// Do nothing, we do not exit
-					}
-
-					@Override
-					public boolean close() {
-						metaDataUpdateQueue.shutdown();
-						return true;
-					}
-
-					@Override
-					public void updateRecentFileList() {
-						// Do noting
-					}
-
-					@Override
-					public void setTitle() {
-						// Do nothing
-					}
-				};
-				RapidMinerGUI.setMainFrame(state);
-				try {
-					SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
-				} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
-					e.printStackTrace();
-					//Not too interesting in case we cannot set the automatical validation to true.
-				}
-				state.close();
-				RapidMinerInit.setPreferences();
 			};
 		}.start();
 		roleRegistry = new RoleRegistry();
