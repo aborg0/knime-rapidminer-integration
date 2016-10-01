@@ -16,7 +16,10 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.internal;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.knime.core.node.util.ViewUtils;
@@ -96,7 +99,12 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					}
 				};
 				RapidMinerGUI.setMainFrame(state);
-				ViewUtils.invokeLaterInEDT(() -> state.getValidateAutomaticallyAction().setSelected(true));
+				try {
+					SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
+				} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
+					e.printStackTrace();
+					//Not too interesting in case we cannot set the automatical validation to true.
+				}
 				state.close();
 				RapidMinerInit.setPreferences();
 			};
