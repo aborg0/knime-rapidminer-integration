@@ -95,7 +95,7 @@ public class RapidMinerInit {
 			// AbstractUIPlugin
 			@SuppressWarnings("unused")
 			String _ = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
-					+ AbstractUIState.DOCK_GROUP_ROOT.getName();
+					+ AbstractUIState.TITLE;
 			// End of static init.
 
 			isInitialized = true;
