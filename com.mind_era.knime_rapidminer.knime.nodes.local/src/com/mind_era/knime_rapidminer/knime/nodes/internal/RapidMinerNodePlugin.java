@@ -71,7 +71,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					try {
 						// Wait a bit to make sure the bundle is properly
 						// initialized
-						Thread.sleep(500);
+						Thread.sleep(200);
 					} catch (final InterruptedException e) {
 						// No problems
 					}
