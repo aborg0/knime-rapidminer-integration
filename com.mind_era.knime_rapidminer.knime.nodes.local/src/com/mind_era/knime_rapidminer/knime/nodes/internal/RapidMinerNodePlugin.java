@@ -22,8 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.knime.core.node.NodeLogger;
-import org.knime.core.node.util.ViewUtils;
 import org.osgi.framework.BundleContext;
 
 import com.mind_era.knime.roles.RoleRegistry;
@@ -42,7 +40,7 @@ import com.rapidminer.gui.RapidMinerGUI;
 public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	// The shared instance.
 	private static RapidMinerNodePlugin plugin;
-	private RoleRegistry roleRegistry;
+	private volatile RoleRegistry roleRegistry;
 
 	/**
 	 * The constructor.
@@ -110,12 +108,11 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					}
 					state.close();
 					RapidMinerInit.setPreferences();
-				} catch (Throwable t) {
+				} catch (final Throwable t) {
 					t.printStackTrace();
 				}
 			};
 		}.start();
-		roleRegistry = new RoleRegistry();
 	}
 
 	/**
@@ -144,7 +141,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	/**
 	 * @return the roleRegistry
 	 */
-	public RoleRegistry getRoleRegistry() {
-		return roleRegistry;
+	public synchronized RoleRegistry getRoleRegistry() {
+		return roleRegistry == null ? roleRegistry = new RoleRegistry() : roleRegistry;
 	}
 }

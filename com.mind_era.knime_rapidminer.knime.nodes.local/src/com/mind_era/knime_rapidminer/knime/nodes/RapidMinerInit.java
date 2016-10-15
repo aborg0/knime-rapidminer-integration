@@ -47,7 +47,7 @@ import com.rapidminer.tools.plugin.ManagedExtension;
 
 /**
  * Initialize RapidMiner based on eclipse settings.
- * 
+ *
  * @author Gabor
  */
 public class RapidMinerInit {
@@ -55,7 +55,7 @@ public class RapidMinerInit {
 			isInitializing = false;
 
 	public static synchronized void init(final boolean force) {
-		boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean(). getInputArguments().toString().contains(/*"-agentlib:"+*/"jdwp");
+		final boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean(). getInputArguments().toString().contains(/*"-agentlib:"+*/"jdwp");
 		if (isDebug) {
 			UIManager.put("FileChooser.noPlacesBar", Boolean.TRUE);
 		}
@@ -67,9 +67,14 @@ public class RapidMinerInit {
 				return;
 			}
 			isInitializing = true;
-			final String rapidMinerHome = Activator.getDefault()
+			String rapidMinerHome;
+			try {
+				rapidMinerHome = Activator.getDefault()
 					.getPreferenceStore()
 					.getString(PreferenceConstants.RAPIDMINER_PATH);
+			} catch (final Exception e) {
+				rapidMinerHome = "/c:/Program Files/RapidMiner/RapidMiner Studio";
+			}
 			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
 					rapidMinerHome);
 			RapidMiner
@@ -94,7 +99,8 @@ public class RapidMinerInit {
 			// Initialize the static initializers for MainFrame and
 			// AbstractUIPlugin
 			@SuppressWarnings("unused")
-			String _ = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
+			final
+			String unused = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
 					+ AbstractUIState.TITLE;
 			// End of static init.
 
@@ -104,7 +110,7 @@ public class RapidMinerInit {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public static synchronized void setPreferences() {
 		final IPreferenceStore store = RapidMinerNodePlugin.getDefault()
@@ -112,7 +118,7 @@ public class RapidMinerInit {
 		for (final String parameterKey : ParameterService.getParameterKeys()) {
 			final ParameterType type = ParameterService
 					.getParameterType(parameterKey);
-			String storeKey = PreferenceInitializer
+			final String storeKey = PreferenceInitializer
 					.getRapidminerPreferenceKey(parameterKey);
 			if (type instanceof ParameterTypeBoolean) {
 				ParameterService.setParameterValue(parameterKey,
