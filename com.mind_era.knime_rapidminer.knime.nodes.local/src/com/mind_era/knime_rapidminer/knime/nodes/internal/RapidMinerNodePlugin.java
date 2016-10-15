@@ -113,6 +113,11 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 				}
 			};
 		}.start();
+		try {
+			getRoleRegistry();
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

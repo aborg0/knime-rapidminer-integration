@@ -74,6 +74,7 @@ public class RapidMinerInit {
 					.getString(PreferenceConstants.RAPIDMINER_PATH);
 			} catch (final Exception e) {
 				rapidMinerHome = "/c:/Program Files/RapidMiner/RapidMiner Studio";
+				e.printStackTrace();
 			}
 			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
 					rapidMinerHome);

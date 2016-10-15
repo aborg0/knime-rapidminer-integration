@@ -232,7 +232,8 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          id="com.mind_era.knime_rapidminer.knime.nodes.local"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="com.mind_era.knime_rapidminer.knime.nodes.common"
