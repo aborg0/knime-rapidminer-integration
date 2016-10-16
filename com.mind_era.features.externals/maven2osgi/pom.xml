@@ -6,7 +6,7 @@
 	<groupId>com.mind_era</groupId>
 	<artifactId>maven-2-osgi</artifactId>
 	<packaging>pom</packaging>
-	<version>7.2.2</version>
+	<version>7.2.3</version>
 	<repositories>
 	    <repository>
 	      <id>RapidMiner</id>
@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.2.20160926</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161016</id>
 									<source>true</source>
 									<transitive>false</transitive>
 								</artifact>
@@ -121,10 +121,10 @@
 									<id>org.swinglabs.swingx:swingx-all:1.6.5</id>
 									<source>true</source>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>gov.nist.math:jama:1.0.3</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<artifact>
 									<id>commons-lang:commons-lang:2.6</id>
 									<source>true</source>
