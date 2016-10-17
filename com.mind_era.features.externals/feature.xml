@@ -2,7 +2,7 @@
 <feature
       id="com.mind_era.features.externals"
       label="Feature with all external plug-ins for RapidMiner"
-      version="7.2.2.qualifier"
+      version="7.2.3.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <plugin
@@ -70,20 +70,6 @@
 
    <plugin
          id="concurrent.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="gov.nist.math.jama"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="gov.nist.math.jama.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
