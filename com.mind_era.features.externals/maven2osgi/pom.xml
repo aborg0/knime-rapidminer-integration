@@ -121,10 +121,10 @@
 									<id>org.swinglabs.swingx:swingx-all:1.6.5</id>
 									<source>true</source>
 								</artifact>
-								<!-- artifact>
+								<artifact>
 									<id>gov.nist.math:jama:1.0.3</id>
 									<source>true</source>
-								</artifact-->
+								</artifact>
 								<artifact>
 									<id>commons-lang:commons-lang:2.6</id>
 									<source>true</source>
