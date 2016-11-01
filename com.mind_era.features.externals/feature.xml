@@ -13,20 +13,6 @@
          unpack="false"/>
 
    <plugin
-         id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="concurrent"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="groovy-all"
          download-size="0"
          install-size="0"
