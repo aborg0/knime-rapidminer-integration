@@ -292,20 +292,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="com.rapidminer.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.rapidminer.external.jmathplot"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="groovy-all"
          download-size="0"
          install-size="0"
@@ -342,20 +328,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="net.sourceforge.collections.generic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="net.sourceforge.jexcelapi.jxl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.antlr.antlr4-runtime-osgi"
          download-size="0"
          install-size="0"
@@ -384,27 +356,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="org.freehep.graphics2d"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.freehep.graphicsio-ps"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.freehep.graphicsio-svg"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.swinglabs.swingx.all"
          download-size="0"
          install-size="0"
@@ -420,20 +371,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.jgoodies.looks"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.lowagie.itext"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -475,34 +412,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="net.sf.jung.algorithms"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="net.sf.jung.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="net.sf.jung.graph-impl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="net.sf.jung.visualization"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.abego.treelayout.org.abego.treelayout.core"
          download-size="0"
          install-size="0"
@@ -525,48 +434,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="org.apache.servicemix.bundles.xstream"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.bouncycastle.bcmail-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.bouncycastle.bcprov-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.bouncycastle.bctsp-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.freehep.graphicsbase"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.freehep.graphicsio"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.freehep.io"
          download-size="0"
          install-size="0"
          version="0.0.0"

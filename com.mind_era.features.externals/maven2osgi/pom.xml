@@ -33,11 +33,11 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161016</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161101</id>
 									<source>true</source>
 									<transitive>false</transitive>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.rapidminer:rapidminer-api:0.2.0</id>
 									<source>true</source>
 								</artifact>
@@ -71,7 +71,7 @@
 								<artifact>
 									<id>net.sourceforge.jexcelapi:jxl:2.6.12</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<!-- artifact>
 									<id>org.apache.poi:poi-ooxml:3.11</id>
 									<source>true</source>
@@ -93,7 +93,7 @@
 									<id>org.apache.servicemix.bundles:org.apache.servicemix.bundles.xmlresolver:1.2_5</id>
 									<source>true</source>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.jgoodies:looks:2.2.2</id>
 									<source>true</source>
 									<instructions>
@@ -112,7 +112,7 @@
 								<artifact>
 									<id>javax.mail:mail:1.4.7</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<artifact>
 									<id>org.codehaus.groovy:groovy-all:2.3.3</id>
 									<source>true</source>
@@ -121,10 +121,10 @@
 									<id>org.swinglabs.swingx:swingx-all:1.6.5</id>
 									<source>true</source>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>gov.nist.math:jama:1.0.3</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<artifact>
 									<id>commons-lang:commons-lang:2.6</id>
 									<source>true</source>
@@ -133,10 +133,10 @@
 									<id>org.antlr:antlr4-runtime:4.5</id>
 									<source>true</source>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.rapidminer.external:jmathplot:1.0.0</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<artifact>
 									<id>org.slf4j:slf4j-api:1.7.12</id>
 									<source>true</source>
