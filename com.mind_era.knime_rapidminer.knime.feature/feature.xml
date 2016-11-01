@@ -313,14 +313,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="javax.transaction"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
          id="junit"
          download-size="0"
          install-size="0"
@@ -364,20 +356,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="avalon-framework"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="concurrent"
          download-size="0"
          install-size="0"
          version="0.0.0"
