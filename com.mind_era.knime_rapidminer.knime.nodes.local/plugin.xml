@@ -14,9 +14,9 @@
    -->
    
    <extension point="org.knime.workbench.repository.nodes">
-      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"/>
-      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory"/>
-      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory" id="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.RapidMinerNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.view.RapidMinerViewNodeFactory"/>
+      <node category-path="/community/rapidminer" factory-class="com.mind_era.knime_rapidminer.knime.nodes.report.RapidMinerReportNodeFactory"/>
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
       <page category="com.mind_era.knime_rapidminer.knime.nodes.common.preferences.RapidMinerPreferencePage" class="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" id="com.mind_era.knime_rapidminer.knime.nodes.preferences.GeneralPreferencePage" name="General">
