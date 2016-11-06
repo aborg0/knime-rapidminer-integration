@@ -207,18 +207,15 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
    </url>
 
    <requires>
-      <import plugin="org.knime.workbench.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.knime.workbench.repository" version="3.0.0" match="compatible"/>
-      <import plugin="com.fifesoft.rsyntaxtextarea" version="2.5.7" match="compatible"/>
-      <import plugin="org.knime.base" version="3.0.0" match="compatible"/>
-      <import plugin="com.mind_era.guava.helper" version="0.0.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="com.mind_era.knime.roles.api" version="0.0.100" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.11.0" match="compatible"/>
-      <import plugin="org.knime.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.knime.workbench.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.knime.workbench.repository" version="3.2.0" match="compatible"/>
+      <import plugin="com.fifesoft.rsyntaxtextarea" version="2.5.7" match="greaterOrEqual"/>
       <import plugin="com.google.guava" version="16.0.1" match="greaterOrEqual"/>
-      <import plugin="com.mind_era.rapidminer.studio"/>
-      <import plugin="org.apache.servicemix.bundles.poi" version="3.11" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.11.0" match="compatible"/>
+      <import plugin="org.knime.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.knime.base" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="compatible"/>
+      <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
@@ -324,14 +321,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="javax.transaction"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
          unpack="false"/>
 
    <plugin
@@ -617,6 +606,27 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="commons-logging"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jfree.chart"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jfree.jcommon"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xml-apis"
          download-size="0"
          install-size="0"
          version="0.0.0"

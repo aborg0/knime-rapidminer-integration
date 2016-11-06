@@ -20,6 +20,10 @@
          id="com.mind_era.knime_rapidminer.knime.feature"
          version="0.0.0"/>
 
+   <requires>
+      <import plugin="org.eclipse.osgi"/>
+   </requires>
+
    <plugin
          id="com.google.guava"
          download-size="0"
@@ -281,13 +285,6 @@
          unpack="false"/>
 
    <plugin
-         id="stax2-api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="xpp3.min"
          download-size="0"
          install-size="0"
@@ -345,6 +342,27 @@
 
    <plugin
          id="com.mind_era.rapidminer.studio"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jfree.chart"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jfree.jcommon"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="xml-apis"
          download-size="0"
          install-size="0"
          version="0.0.0"

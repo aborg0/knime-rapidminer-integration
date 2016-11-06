@@ -33,9 +33,14 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161101</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161106</id>
 									<source>true</source>
 									<transitive>false</transitive>
+								</artifact>
+								<artifact>
+									<id>org.jfree:jfreechart:1.0.17</id>
+									<source>true</source>
+									<transitive>true</transitive>
 								</artifact>
 								<artifact>
 									<id>com.rapidminer:rapidminer-api:0.2.0</id>
