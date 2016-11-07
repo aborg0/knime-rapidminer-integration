@@ -16,10 +16,12 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -76,34 +78,42 @@ public class RapidMinerInit {
 				rapidMinerHome = "/c:/Program Files/RapidMiner/RapidMiner Studio";
 				e.printStackTrace();
 			}
-			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
-					rapidMinerHome);
-			RapidMiner
-					.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
-			RepositoryManager.registerFactory(new RepositoryFactory() {
+			final String home = rapidMinerHome;
+			try {
+				SwingUtilities.invokeAndWait(() -> {
+				System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
+						home);
+				RapidMiner
+						.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
+				RepositoryManager.registerFactory(new RepositoryFactory() {
 
-				@Override
-				public List<? extends Repository> createRepositoriesFor(
-						final RepositoryAccessor accessor) {
-					if (accessor instanceof HasTableSpecAndRowId) {
-						final HasTableSpecAndRowId model = (HasTableSpecAndRowId) accessor;
-						return Collections.singletonList(new KnimeRepository(
-								model));
+					@Override
+					public List<? extends Repository> createRepositoriesFor(
+							final RepositoryAccessor accessor) {
+						if (accessor instanceof HasTableSpecAndRowId) {
+							final HasTableSpecAndRowId model = (HasTableSpecAndRowId) accessor;
+							return Collections.singletonList(new KnimeRepository(
+									model));
 
+						}
+						return Collections.emptyList();
 					}
-					return Collections.emptyList();
-				}
-			});
-			ManagedExtension.init();
+				});
+				ManagedExtension.init();
 
-			RapidMiner.init();
-			// Initialize the static initializers for MainFrame and
-			// AbstractUIPlugin
-			@SuppressWarnings("unused")
-			final
-			String unused = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
-					+ AbstractUIState.TITLE;
-			// End of static init.
+				RapidMiner.init();
+				// Initialize the static initializers for MainFrame and
+				// AbstractUIPlugin
+				@SuppressWarnings("unused")
+				final
+				String unused = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
+						+ AbstractUIState.TITLE;
+				// End of static init.
+				});
+			} catch (InvocationTargetException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			isInitialized = true;
 			isInitializing = false;
