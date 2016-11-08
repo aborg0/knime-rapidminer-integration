@@ -62,10 +62,10 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		// Start a new thread to avoid errors reported because of class loading.
-		new Thread() {
-			@Override
-			public void run() {
-				try {
+//		new Thread() {
+//			@Override
+//			public void run() {
+//				try {
 					try {
 						// Wait a bit to make sure the bundle is properly
 						// initialized
@@ -98,7 +98,8 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 							// Do nothing
 						}
 					};
-					RapidMinerGUI.setMainFrame(state);
+					SwingUtilities.invokeLater(() ->
+					RapidMinerGUI.setMainFrame(state));
 					try {
 						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
 					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
@@ -108,11 +109,11 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					}
 					state.close();
 					RapidMinerInit.setPreferences();
-				} catch (final Throwable t) {
-					t.printStackTrace();
-				}
-			};
-		}.start();
+//				} catch (final Throwable t) {
+//					t.printStackTrace();
+//				}
+//			};
+//		}.start();
 		try {
 			getRoleRegistry();
 		} catch (final Exception e) {
