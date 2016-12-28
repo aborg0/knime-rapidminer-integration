@@ -36,15 +36,24 @@
 									<id>com.mind_era.rapidminer:rapidminer-studio:7.3.1.20161228</id>
 									<source>true</source>
 									<transitive>false</transitive>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.jfree:jfreechart:1.0.17</id>
 									<source>true</source>
 									<transitive>true</transitive>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>com.rapidminer:rapidminer-api:0.2.0</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>org.freehep:freehep-graphicsio-ps:2.3</id>
@@ -53,6 +62,9 @@
 										<exclude>junit:junit::</exclude>
 										<exclude>org.freehep:freehep-graphicsio-tests::</exclude>
 									</excludes>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>org.freehep:freehep-graphicsio-svg:2.3</id>
@@ -61,12 +73,16 @@
 										<exclude>junit:junit::</exclude>
 										<exclude>org.freehep:freehep-graphicsio-tests::</exclude>
 									</excludes>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>com.lowagie:itext:2.1.7</id>
 									<source>true</source>
 									<instructions>
 										<Import-Package>!com.apple.mrj,!com.lowagie.toolbox,!org.bouncycastle.*,*</Import-Package>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 									<override>true</override>
 									<excludes>
@@ -88,71 +104,117 @@
 								<artifact>
 									<id>org.apache.servicemix.bundles:org.apache.servicemix.bundles.poi:3.11_1</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.apache.santuario:xmlsec:2.0.5</id>
 									<source>true</source>
 									<transitive>false</transitive>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.apache.servicemix.bundles:org.apache.servicemix.bundles.xmlresolver:1.2_5</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>com.jgoodies:looks:2.2.2</id>
 									<source>true</source>
 									<instructions>
 										<Import-Package>!com.sun.*,*</Import-Package>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 									<override>true</override>
 								</artifact>
 								<artifact>
 									<id>net.sf.jung:jung-visualization:2.0.1</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>net.sf.jung:jung-graph-impl:2.0.1</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>javax.mail:mail:1.4.7</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.codehaus.groovy:groovy-all:2.3.3</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.swinglabs.swingx:swingx-all:1.6.5</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>gov.nist.math:jama:1.0.3</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>commons-lang:commons-lang:2.6</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.antlr:antlr4-runtime:4.5</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>com.rapidminer.external:jmathplot:1.0.0</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>org.slf4j:slf4j-api:1.7.12</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>org.slf4j:slf4j-log4j12:1.7.13</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>junit:junit:4.12</id>
 									<source>true</source>
+									<instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions>
 								</artifact>
 								<!-- artifact>
 									<id>com.thoughtworks.xstream:xstream:1.4.7</id>
@@ -165,6 +227,9 @@
 								<artifact>
 									<id>org.apache.servicemix.bundles:org.apache.servicemix.bundles.xstream:1.4.8_1</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<!-- artifact>
 									<id>com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.2</id>
@@ -289,6 +354,9 @@
 								<artifact>
 									<id>org.apache.tika:tika-core:1.11</id>
 									<source>true</source>
+									<!--instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
             				</artifacts>
 						</configuration>
