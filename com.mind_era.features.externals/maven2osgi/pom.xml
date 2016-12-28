@@ -6,7 +6,7 @@
 	<groupId>com.mind_era</groupId>
 	<artifactId>maven-2-osgi</artifactId>
 	<packaging>pom</packaging>
-	<version>7.2.3</version>
+	<version>7.3.1</version>
 	<repositories>
 	    <repository>
 	      <id>RapidMiner</id>
@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:7.2.3.20161106</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.3.1.20161228</id>
 									<source>true</source>
 									<transitive>false</transitive>
 								</artifact>
