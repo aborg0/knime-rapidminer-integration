@@ -2,7 +2,7 @@
 <feature
       id="com.mind_era.features.externals"
       label="Feature with all external plug-ins for RapidMiner"
-      version="7.2.3.qualifier"
+      version="7.4.0.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <plugin
