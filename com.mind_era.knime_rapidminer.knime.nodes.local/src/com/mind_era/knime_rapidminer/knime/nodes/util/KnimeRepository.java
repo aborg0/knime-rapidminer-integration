@@ -21,18 +21,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.Action;
 
 import org.knime.core.data.DataTableSpec;
 import org.knime.core.node.defaultnodesettings.HasTableSpecAndRowId;
+import org.knime.core.util.MutableInteger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-import com.mind_era.guava.helper.data.Zip;
-import com.rapidminer.example.Attribute;
 import com.rapidminer.operator.IOObject;
 import com.rapidminer.operator.Operator;
 import com.rapidminer.operator.ports.metadata.AttributeMetaData;
@@ -54,7 +52,7 @@ import com.rapidminer.tools.ProgressListener;
 
 /**
  * The RapidMiner representation of the KNIME data sources.
- * 
+ *
  * @author Gabor Bakos
  */
 public class KnimeRepository implements Repository {
@@ -66,7 +64,7 @@ public class KnimeRepository implements Repository {
 
 	/**
 	 * @author Gabor
-	 * 
+	 *
 	 */
 	public class KnimeIOObjectEntry implements IOObjectEntry {
 
@@ -90,7 +88,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getType()
 		 */
 		@Override
@@ -100,7 +98,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.DataEntry#getSize()
 		 */
 		@Override
@@ -111,7 +109,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.DataEntry#getDate()
 		 */
 		@Override
@@ -121,7 +119,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getName()
 		 */
 		@Override
@@ -131,7 +129,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getOwner()
 		 */
 		@Override
@@ -141,7 +139,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getDescription()
 		 */
 		@Override
@@ -151,7 +149,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#isReadOnly()
 		 */
 		@Override
@@ -161,7 +159,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#rename(java.lang.String)
 		 */
 		@Override
@@ -171,7 +169,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder
 		 * )
@@ -183,7 +181,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getContainingFolder()
 		 */
 		@Override
@@ -193,7 +191,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#willBlock()
 		 */
 		@Override
@@ -203,7 +201,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getLocation()
 		 */
 		@Override
@@ -218,7 +216,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#delete()
 		 */
 		@Override
@@ -228,7 +226,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.Entry#getCustomActions()
 		 */
 		@Override
@@ -238,7 +236,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.DataEntry#getRevision()
 		 */
 		@Override
@@ -249,7 +247,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * com.rapidminer.repository.IOObjectEntry#retrieveData(com.rapidminer
 		 * .tools.ProgressListener)
@@ -263,25 +261,18 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.IOObjectEntry#retrieveMetaData()
 		 */
 		@Override
 		public MetaData retrieveMetaData() throws RepositoryException {
-			return new ExampleSetMetaData(Lists.transform(
-					KnimeExampleTable.createAttributes(spec,
-							model.isWithRowIds(), model.getRowIdColumnName()),
-					new Function<Attribute, AttributeMetaData>() {
-						@Override
-						public AttributeMetaData apply(final Attribute attribute) {
-							return new AttributeMetaData(attribute);
-						}
-					}));
+			return new ExampleSetMetaData(KnimeExampleTable.createAttributes(spec,
+							model.isWithRowIds(), model.getRowIdColumnName()).stream().map(a -> new AttributeMetaData(a)).collect(Collectors.toList()));
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see com.rapidminer.repository.IOObjectEntry#getObjectClass()
 		 */
 		@Override
@@ -292,7 +283,7 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * com.rapidminer.repository.IOObjectEntry#storeData(com.rapidminer.
 		 * operator.IOObject, com.rapidminer.operator.Operator,
@@ -307,12 +298,13 @@ public class KnimeRepository implements Repository {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder
 		 * , java.lang.String)
 		 */
 		// @Override
+		@Override
 		public boolean move(final Folder arg0, final String arg1)
 				throws RepositoryException {
 			throw new RepositoryException("Move is not supported");
@@ -320,7 +312,7 @@ public class KnimeRepository implements Repository {
 
 	}
 
-	private List<RepositoryListener> listeners = new ArrayList<RepositoryListener>();
+	private List<RepositoryListener> listeners = new ArrayList<>();
 	private final HasTableSpecAndRowId model;
 
 	/**
@@ -332,28 +324,18 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#getDataEntries()
 	 */
 	@Override
 	public List<DataEntry> getDataEntries() throws RepositoryException {
-		return Lists
-				.transform(
-						Zip.zipWithIndexList(model.getFilteredTableSpecs(), 1),
-						new Function<java.util.Map.Entry<DataTableSpec, Integer>, DataEntry>() {
-							@Override
-							public DataEntry apply(
-									final java.util.Map.Entry<DataTableSpec, Integer> inputEntry) {
-								return new KnimeIOObjectEntry(inputEntry
-										.getKey(), inputEntry.getValue()
-										.intValue());
-							}
-						});
+		final MutableInteger i = new MutableInteger(0);
+		return model.getFilteredTableSpecs().stream().map(spec -> new KnimeIOObjectEntry(spec, i.inc())).collect(Collectors.toList());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#getSubfolders()
 	 */
 	@Override
@@ -363,7 +345,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#refresh()
 	 */
 	@Override
@@ -379,7 +361,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#containsEntry(java.lang.String)
 	 */
 	@Override
@@ -394,7 +376,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#createFolder(java.lang.String)
 	 */
 	@Override
@@ -404,7 +386,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Folder#createIOObjectEntry(java.lang.String,
 	 * com.rapidminer.operator.IOObject, com.rapidminer.operator.Operator,
@@ -419,7 +401,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Folder#createProcessEntry(java.lang.String,
 	 * java.lang.String)
@@ -432,7 +414,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#createBlobEntry(java.lang.String)
 	 */
 	@Override
@@ -443,7 +425,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getName()
 	 */
 	@Override
@@ -453,7 +435,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getType()
 	 */
 	@Override
@@ -463,7 +445,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getOwner()
 	 */
 	@Override
@@ -473,7 +455,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getDescription()
 	 */
 	@Override
@@ -484,7 +466,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#isReadOnly()
 	 */
 	@Override
@@ -494,7 +476,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#rename(java.lang.String)
 	 */
 	@Override
@@ -504,7 +486,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder)
 	 */
@@ -515,7 +497,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getContainingFolder()
 	 */
 	@Override
@@ -525,7 +507,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#willBlock()
 	 */
 	@Override
@@ -535,7 +517,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getLocation()
 	 */
 	@Override
@@ -549,7 +531,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#delete()
 	 */
 	@Override
@@ -559,7 +541,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Entry#getCustomActions()
 	 */
 	@Override
@@ -569,7 +551,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Repository#addRepositoryListener(com.rapidminer
 	 * .repository.RepositoryListener)
@@ -581,7 +563,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Repository#removeRepositoryListener(com.rapidminer
 	 * .repository.RepositoryListener)
@@ -593,7 +575,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#locate(java.lang.String)
 	 */
 	@Override
@@ -613,7 +595,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#getState()
 	 */
 	@Override
@@ -623,7 +605,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#getIconName()
 	 */
 	@Override
@@ -634,7 +616,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#createXML(org.w3c.dom.Document)
 	 */
 	@Override
@@ -645,7 +627,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#shouldSave()
 	 */
 	@Override
@@ -656,7 +638,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#postInstall()
 	 */
 	@Override
@@ -667,7 +649,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#preRemove()
 	 */
 	@Override
@@ -678,7 +660,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#isConfigurable()
 	 */
 	@Override
@@ -688,7 +670,7 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Repository#makeConfigurationPanel()
 	 */
 	@Override
@@ -698,10 +680,11 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.repository.Folder#canRefreshChild(java.lang.String)
 	 */
 	// @Override
+	@Override
 	public boolean canRefreshChild(final String arg0)
 			throws RepositoryException {
 		// TODO Auto-generated method stub
@@ -710,12 +693,13 @@ public class KnimeRepository implements Repository {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.rapidminer.repository.Entry#move(com.rapidminer.repository.Folder,
 	 * java.lang.String)
 	 */
 	// @Override
+	@Override
 	public boolean move(final Folder arg0, final String arg1)
 			throws RepositoryException {
 		throw new RepositoryException("Move is not supported.");

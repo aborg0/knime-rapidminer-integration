@@ -21,10 +21,11 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
@@ -45,14 +46,12 @@ import org.knime.core.node.NotConfigurableException;
 import org.knime.core.node.port.PortObjectSpec;
 import org.knime.core.util.SimpleFileFilter;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling;
 import com.mind_era.knime_rapidminer.knime.nodes.util.XJTextField;
 
 /**
  * The common {@link DialogComponent} for various {@link SettingsModelProject}s.
- * 
+ *
  * @author Gabor
  * @param <ProjectType>
  *            The type of the project.
@@ -113,15 +112,9 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 				final JFileChooser chooser = new JFileChooser(location
 						.getText());
 				chooser.setDialogType(JFileChooser.OPEN_DIALOG);
-				final List<FileFilter> fileFilter = Lists.transform(
-						Arrays.asList(extensions),
-						new Function<String, FileFilter>() {
-							@Override
-							public FileFilter apply(final String extension) {
-								return new SimpleFileFilter(extension
-										.split("\\|"));
-							}
-						});
+				final List<FileFilter> fileFilter = Stream.of(extensions).map(extension -> new SimpleFileFilter(extension
+										.split("\\|"))
+						).collect(Collectors.toList());
 				// if extensions are defined
 				if (fileFilter != null && fileFilter.size() > 0) {
 					// disable "All Files" selection
@@ -224,7 +217,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 		editableListener.stateChanged(null);
 		safeUpdateComponent(true);
 	}
-	
+
 	/**
 	 * @return the controlsPanel
 	 */
@@ -243,7 +236,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.DialogComponent#updateComponent()
 	 */
@@ -256,7 +249,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/**
 	 * @param setText
-	 * 
+	 *
 	 */
 	protected void safeUpdateComponent(final boolean setText) {
 		@SuppressWarnings("unchecked")
@@ -280,7 +273,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.knime.core.node.defaultnodesettings.DialogComponent#
 	 * validateSettingsBeforeSave()
 	 */
@@ -329,7 +322,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.knime.core.node.defaultnodesettings.DialogComponent#
 	 * checkConfigurabilityBeforeLoad(org.knime.core.node.port.PortObjectSpec[])
 	 */
@@ -343,7 +336,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.DialogComponent#setEnabledComponents
 	 * (boolean)
@@ -356,7 +349,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.knime.core.node.defaultnodesettings.DialogComponent#setToolTipText
 	 * (java.lang.String)
@@ -370,7 +363,7 @@ public abstract class DialogComponentProject<ProjectType, Model extends Settings
 	 * Updates the underlying model with questions about saving the current
 	 * model or discarding the current one (if it is not the default) in favor
 	 * of the new one.
-	 * 
+	 *
 	 * @param model
 	 *            The {@link SettingsModel} of the
 	 *            {@link DialogComponentProject}.

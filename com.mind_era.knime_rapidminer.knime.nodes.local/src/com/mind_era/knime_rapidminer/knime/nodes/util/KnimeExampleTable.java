@@ -18,7 +18,8 @@ package com.mind_era.knime_rapidminer.knime.nodes.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Nullable;
 
@@ -34,12 +35,9 @@ import org.knime.core.data.date.DateAndTimeValue;
 import org.knime.core.data.def.StringCell;
 import org.knime.core.node.BufferedDataTable;
 import org.knime.core.node.BufferedDataTable.KnowsRowCountTable;
+import org.knime.core.util.MutableInteger;
+import org.knime.core.util.Pair;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.mind_era.guava.helper.data.Zip;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.AbstractDataRowReader;
@@ -61,13 +59,13 @@ import com.rapidminer.tools.Ontology;
  * for that purpose, like this:
  * {@code MemoryExampleTable.createCompleteCopy(new KnimeExampleTable(inData[0])).createExampleSet()}
  * .
- * 
+ *
  * @author Gabor Bakos
  */
 public class KnimeExampleTable extends AbstractExampleTable {
 	private static final long serialVersionUID = -5181159369963469224L;
 	/**
-	 * 
+	 *
 	 */
 	private static final DataRowFactory DATA_ROW_FACTORY = new DataRowFactory(
 			DataRowFactory.TYPE_DOUBLE_ARRAY, '.');
@@ -85,7 +83,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.util.Iterator#hasNext()
 		 */
 		@Override
@@ -95,7 +93,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.util.Iterator#next()
 		 */
 		@Override
@@ -106,7 +104,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.lang.Object#finalize()
 		 */
 		@Override
@@ -159,7 +157,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	 */
 	public static List<Attribute> createAttributes(final DataTableSpec spec,
 			final boolean withRowIds, final @Nullable String rowIdColumnName) {
-		final List<Attribute> ret = new ArrayList<Attribute>(
+		final List<Attribute> ret = new ArrayList<>(
 				spec.getNumColumns());
 		if (withRowIds) {
 			ret.add(createAttribute(new DataColumnSpecCreator(rowIdColumnName,
@@ -196,7 +194,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.example.table.ExampleTable#size()
 	 */
 	@Override
@@ -206,7 +204,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.example.table.ExampleTable#getDataRowReader()
 	 */
 	@Override
@@ -216,7 +214,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.rapidminer.example.table.ExampleTable#getDataRow(int)
 	 */
 	@Override
@@ -245,7 +243,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 
 	/**
 	 * Creates a RapidMiner {@link DataRow} based on the parameters.
-	 * 
+	 *
 	 * @param row
 	 *            A KNIME {@link org.knime.core.data.DataRow}.
 	 * @param attributes
@@ -277,24 +275,20 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	 * @param attributes
 	 * @return
 	 */
-	private static double[] createDoubleData(org.knime.core.data.DataRow row,
-			boolean withRowIds, String rowIdColumnName, final Attribute[] attributes) {
-		final ArrayList<Double> dataList = Lists.newArrayList(Iterables
-				.transform(Iterables.filter(Zip.zipWithIndex(row, 0),
-						new Predicate<Entry<DataCell, Integer>>() {
-							@Override
-							public boolean apply(
-									final Entry<DataCell, Integer> entry) {
-								final DataCell cell = entry.getKey();
+	private static double[] createDoubleData(final org.knime.core.data.DataRow row,
+			final boolean withRowIds, final String rowIdColumnName, final Attribute[] attributes) {
+		final MutableInteger idx = new MutableInteger(-1);
+		final List<Double> dataList =
+				StreamSupport.stream(row.spliterator(), false).map(e -> Pair.create(e, idx.inc())).filter(
+									pair->{
+								final DataCell cell = pair.getFirst();
 								return cell instanceof DoubleValue
 										|| cell instanceof org.knime.core.data.StringValue
 										|| cell instanceof DateAndTimeValue
 										|| cell.isMissing();
-							}
-						}), new Function<Entry<DataCell, Integer>, Double>() {
-					@Override
-					public Double apply(final Entry<DataCell, Integer> entry) {
-						final DataCell cell = entry.getKey();
+							}).map(pair ->
+							{
+						final DataCell cell = pair.getFirst();
 						if (cell.isMissing()) {
 							return Double.NaN;
 						}
@@ -310,14 +304,13 @@ public class KnimeExampleTable extends AbstractExampleTable {
 							return ((DoubleValue) cell)
 									.getDoubleValue();
 						}
-						return Double.valueOf(attributes[entry.getValue()].getMapping().getIndex(((org.knime.core.data.StringValue) cell)
+						return Double.valueOf(attributes[pair.getSecond()].getMapping().getIndex(((org.knime.core.data.StringValue) cell)
 								.getStringValue()));
-					}
-				}));
+					}).collect(Collectors.toList());
 		if (withRowIds) {
 			dataList.add(0, Double.valueOf(attributes[0].getMapping().getIndex(row.getKey().getString())));
 		}
-		double[] ret = new double[dataList.size()];
+		final double[] ret = new double[dataList.size()];
 		for (int i = ret.length; i-->0;) {
 			ret[i] = dataList.get(i).doubleValue();
 		}
@@ -327,7 +320,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	/**
 	 * Intermediate {@link String} representation of RapidMiner data. Missing
 	 * values are represented as {@code null} values.
-	 * 
+	 *
 	 * @param row
 	 *            A KNIME {@link org.knime.core.data.DataRow}.
 	 * @param withRowIds
@@ -339,22 +332,16 @@ public class KnimeExampleTable extends AbstractExampleTable {
 	 */
 	private static String[] createData(final org.knime.core.data.DataRow row,
 			final boolean withRowIds, final String rowIdColumnName) {
-		final ArrayList<String> dataList = Lists.newArrayList(Iterables
-				.transform(Iterables.filter(Zip.zipWithIndex(row, 0),
-						new Predicate<Entry<DataCell, Integer>>() {
-							@Override
-							public boolean apply(
-									final Entry<DataCell, Integer> entry) {
-								final DataCell cell = entry.getKey();
+		final MutableInteger idx = new MutableInteger(-1);
+		final List<String> dataList =
+				StreamSupport.stream(row.spliterator(), false).map(c -> Pair.create(c, idx.inc())).filter(pair -> {
+								final DataCell cell = pair.getFirst();
 								return cell instanceof DoubleValue
 										|| cell instanceof org.knime.core.data.StringValue
 										|| cell instanceof DateAndTimeValue
 										|| cell.isMissing();
-							}
-						}), new Function<Entry<DataCell, Integer>, String>() {
-					@Override
-					public String apply(final Entry<DataCell, Integer> entry) {
-						final DataCell cell = entry.getKey();
+							}).map(pair -> {
+						final DataCell cell = pair.getFirst();
 						if (cell.isMissing()) {
 							return null;
 						}
@@ -373,7 +360,7 @@ public class KnimeExampleTable extends AbstractExampleTable {
 						return ((org.knime.core.data.StringValue) cell)
 								.getStringValue();
 					}
-				}));
+				).collect(Collectors.toList());
 		if (withRowIds) {
 			dataList.add(0, row.getKey().getString());
 		}

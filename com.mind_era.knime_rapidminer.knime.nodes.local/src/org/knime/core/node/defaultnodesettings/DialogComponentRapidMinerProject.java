@@ -22,13 +22,15 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 import javax.swing.JPanel;
@@ -37,13 +39,8 @@ import javax.swing.JScrollPane;
 import org.knime.core.data.DataTableSpec;
 import org.knime.core.node.NotConfigurableException;
 import org.knime.core.node.port.PortObjectSpec;
+import org.knime.core.util.MutableInteger;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.mind_era.guava.helper.data.Zip;
 import com.mind_era.knime.roles.Role;
 import com.mind_era.knime.roles.RoleHandler;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling;
@@ -105,17 +102,11 @@ public class DialogComponentRapidMinerProject extends
 		if (getLastTableSpecs() == null) {
 			return Collections.emptyList();
 		}
-		@SuppressWarnings("rawtypes")
-		final Collection filtered = Collections2.filter(
-				Arrays.asList(getLastTableSpecs()),
-				new Predicate<PortObjectSpec>() {
+		return Arrays.stream(getLastTableSpecs()).flatMap(typeFilterFlatMap(DataTableSpec.class)).collect(Collectors.toList());
+	}
 
-					@Override
-					public boolean apply(final PortObjectSpec input) {
-						return input != null && input instanceof DataTableSpec;
-					}
-				});
-		return new ArrayList<DataTableSpec>(filtered);
+	private static<I, T> Function<? super I, Stream<? extends T>> typeFilterFlatMap(final Class<? extends T> cls) {
+		return o -> cls.isInstance(o) ? Stream.of(cls.cast(o)) : Stream.<T>empty();
 	}
 
 	/*
@@ -220,22 +211,12 @@ public class DialogComponentRapidMinerProject extends
 			throws NotConfigurableException {
 		super.checkConfigurabilityBeforeLoad(specs);
 		state.getProcess().setRepositoryAccessor(this);
+		final MutableInteger idx = new MutableInteger(0);
 		state.getProcess()
 				.getContext()
 				.setInputRepositoryLocations(
-						Lists.transform(
-								Zip.zipWithIndexList(getFilteredTableSpecs(), 1),
-								new Function<Entry<DataTableSpec, Integer>, String>() {
-									@Override
-									public String apply(
-											final Entry<DataTableSpec, Integer> input) {
-										return "//"
-												+ KnimeRepository.KNIME
-												+ "/"
-												+ KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
-												+ input.getValue();
-									}
-								}));
+						getFilteredTableSpecs().stream().map(t -> "//" + KnimeRepository.KNIME +  "/"
+								+ KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE + idx.inc()).collect(Collectors.toList()));
 
 		state.getProcess().getRootOperator()
 				.deliverInputMD(createMetaData(specs));
@@ -266,24 +247,16 @@ public class DialogComponentRapidMinerProject extends
 	 */
 	public static List<String> generateLocations(final Process process,
 			final HasTableSpecAndRowId hasTableSpec) {
-		final ArrayList<String> newLocations = Lists.newArrayList(Lists
-				.transform(
-						Zip.zipWithIndexList(
-								hasTableSpec.getFilteredTableSpecs(), 1),
-						new Function<Entry<DataTableSpec, Integer>, String>() {
-							@Override
-							public String apply(
-									final Entry<DataTableSpec, Integer> input) {
-								return "//"
-										+ KnimeRepository.KNIME
-										+ "/"
-										+ KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
-										+ input.getValue();
-							}
-						}));
-		newLocations.addAll(Lists.newArrayList(Iterables.skip(process
-				.getContext().getInputRepositoryLocations(), newLocations
-				.size())));
+		final MutableInteger idx = new MutableInteger(0);
+		final List<String> newLocations =
+				hasTableSpec.getFilteredTableSpecs().stream().map(t -> "//"
+						+ KnimeRepository.KNIME
+						+ "/"
+						+ KnimeRepository.KnimeIOObjectEntry.KNIME_TABLE
+						+ idx.inc()).collect(Collectors.toList());
+		newLocations.addAll(process
+				.getContext().getInputRepositoryLocations().stream().skip(newLocations
+				.size()).collect(Collectors.toList()));
 		return newLocations;
 	}
 
@@ -295,24 +268,9 @@ public class DialogComponentRapidMinerProject extends
 	 * @return A list of the {@link MetaData} created from the
 	 *         {@link DataTableSpec}s.
 	 */
-	protected ArrayList<MetaData> createMetaData(
+	protected List<MetaData> createMetaData(
 			final PortObjectSpec[] lastTableSpecs) {
-		final ArrayList<MetaData> metadata = Lists.newArrayList(Collections2
-				.transform(Collections2.filter(Arrays.asList(lastTableSpecs),
-						new Predicate<PortObjectSpec>() {
-
-							@Override
-							public boolean apply(final PortObjectSpec input) {
-								return input != null;
-							}
-						}), new Function<PortObjectSpec, MetaData>() {
-					@Override
-					public MetaData apply(final PortObjectSpec input) {
-						return createMetaData(input, rowIdColumnName != null,
-								rowIdColumnName);
-					}
-				}));
-		return metadata;
+		return Arrays.stream(lastTableSpecs).filter(meta -> meta != null).map(meta -> createMetaData(meta, rowIdColumnName != null, rowIdColumnName)).collect(Collectors.toList());
 	}
 
 	/**
@@ -328,8 +286,8 @@ public class DialogComponentRapidMinerProject extends
 	public static MetaData createMetaData(final PortObjectSpec tableSpec,
 			final boolean withRowIds, final String rowIdColumnName) {
 		final DataTableSpec spec = (DataTableSpec) tableSpec;
-		return new ExampleSetMetaData(Lists.transform(KnimeExampleTable
-				.createAttributes(spec, withRowIds, rowIdColumnName),
+		return new ExampleSetMetaData(KnimeExampleTable
+				.createAttributes(spec, withRowIds, rowIdColumnName).stream().map(
 				new Function<Attribute, AttributeMetaData>() {
 			private final RoleHandler roleHandler = new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry());
 			private final Map<String, Collection<? extends Role>> roles = roleHandler.roles(spec);
@@ -344,7 +302,7 @@ public class DialogComponentRapidMinerProject extends
 						}
 						return ret;
 					}
-				}));
+				}).collect(Collectors.toList()));
 	}
 
 	/*
