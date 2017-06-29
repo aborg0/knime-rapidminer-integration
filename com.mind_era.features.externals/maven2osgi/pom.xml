@@ -6,7 +6,7 @@
 	<groupId>com.mind_era</groupId>
 	<artifactId>maven-2-osgi</artifactId>
 	<packaging>pom</packaging>
-	<version>7.4.0</version>
+	<version>7.5.1</version>
 	<repositories>
 	    <repository>
 	      <id>RapidMiner</id>
@@ -26,18 +26,37 @@
 			<plugin>
 				<groupId>org.reficio</groupId>
 				<artifactId>p2-maven-plugin</artifactId>
-				<version>1.1.1</version>
+				<version>1.2.0</version>
 				<executions>
 					<execution>
 						<id>default-cli</id>
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:7.4.0.20170219</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:7.5.1.20170628</id>
 									<source>true</source>
 									<transitive>false</transitive>
-									<!--instructions>
+									<!-- instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
+								</artifact>
+								<artifact>
+									<id>com.rapidminer.license:rapidminer-license-api:3.2.0</id>
+									<source>true</source>
+									<transitive>false</transitive>
+									<!-- instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
+								</artifact>
+								<artifact>
+									<id>com.rapidminer.license:rapidminer-license-commons:3.2.1</id>
+									<source>true</source>
+									<transitive>false</transitive>
+									<!-- instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
+									<!-- instructions>
+										<Require-Capability>osgi.ee; filter="(&(osgi.ee=JavaSE)(version=1.7))</Require-Capability>
 									</instructions-->
 								</artifact>
 								<artifact>
@@ -124,6 +143,13 @@
 									</instructions-->
 								</artifact>
 								<artifact>
+									<id>com.h2database:h2:1.4.196</id>
+									<source>true</source>
+									<!-- instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
+								</artifact>
+								<artifact>
 									<id>com.jgoodies:looks:2.2.2</id>
 									<source>true</source>
 									<instructions>
@@ -154,7 +180,7 @@
 									</instructions-->
 								</artifact>
 								<artifact>
-									<id>org.codehaus.groovy:groovy-all:2.3.3</id>
+									<id>org.codehaus.groovy:groovy-all:2.4.11</id>
 									<source>true</source>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
