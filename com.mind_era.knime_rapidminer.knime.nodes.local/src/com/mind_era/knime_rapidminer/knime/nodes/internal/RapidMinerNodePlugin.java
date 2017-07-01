@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -73,6 +74,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					} catch (final InterruptedException e) {
 						// No problems
 					}
+					Display.getCurrent().asyncExec(() -> {
 					RapidMinerInit.init(false);
 					final AbstractUIState state = new AbstractUIState(/* "design", */
 							null, new JPanel()) {
@@ -100,15 +102,16 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					};
 					SwingUtilities.invokeLater(() ->
 					RapidMinerGUI.setMainFrame(state));
-					try {
-						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
-					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
-						e.printStackTrace();
-						// Not too interesting in case we cannot set the
-						// automatical validation to true.
-					}
+//					try {
+//						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
+//					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
+//						e.printStackTrace();
+//						// Not too interesting in case we cannot set the
+//						// automatic validation to true.
+//					}
 					state.close();
 					RapidMinerInit.setPreferences();
+					});
 //				} catch (final Throwable t) {
 //					t.printStackTrace();
 //				}
