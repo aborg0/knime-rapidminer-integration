@@ -6,13 +6,13 @@
       provider-name="Mind Eratosthenes Kft.">
 
    <description url="http://rapidminer.knime.mind-era.com/">
-      The nodes included in this feature allows to use RapidMiner 7.4.0
+      The nodes included in this feature allows to use RapidMiner 7.5.1
 within KNIME. You can execute, edit workflows, use RapidMiner
 to visualize your data.
    </description>
 
    <copyright>
-      Copyright © 2012-2013 Mind Eratosthenes Kft.
+      Copyright © 2012-2017 Mind Eratosthenes Kft.
    </copyright>
 
    <license url="http://www.gnu.org/licenses/agpl.html">

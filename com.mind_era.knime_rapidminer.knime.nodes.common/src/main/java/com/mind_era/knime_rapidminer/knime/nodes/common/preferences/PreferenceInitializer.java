@@ -40,7 +40,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 				.getPreferenceStore();
 		store.setDefault(
 				PreferenceConstants.RAPIDMINER_PATH,
-				Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files (x86)\\Rapid-I\\RapidMiner5"
+				Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files\\RapidMiner\\RapidMiner Studio"
 						: "");	}
 
 	/**
