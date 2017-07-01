@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.12.0,4.0.0)",
  com.mind_era.knime.roles.api;bundle-version="0.0.100",
  com.mind_era.rapidminer.studio;bundle-version="7.5.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

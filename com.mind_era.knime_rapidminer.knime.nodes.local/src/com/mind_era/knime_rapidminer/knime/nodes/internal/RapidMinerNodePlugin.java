@@ -67,51 +67,51 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 //			@Override
 //			public void run() {
 //				try {
-					try {
-						// Wait a bit to make sure the bundle is properly
-						// initialized
-						Thread.sleep(200);
-					} catch (final InterruptedException e) {
-						// No problems
-					}
-					Display.getCurrent().asyncExec(() -> {
-					RapidMinerInit.init(false);
-					final AbstractUIState state = new AbstractUIState(/* "design", */
-							null, new JPanel()) {
-
-						@Override
-						public void exit(final boolean relaunch) {
-							// Do nothing, we do not exit
-						}
-
-						@Override
-						public boolean close() {
-							metaDataUpdateQueue.shutdown();
-							return true;
-						}
-
-						@Override
-						public void updateRecentFileList() {
-							// Do noting
-						}
-
-						@Override
-						public void setTitle() {
-							// Do nothing
-						}
-					};
-					SwingUtilities.invokeLater(() ->
-					RapidMinerGUI.setMainFrame(state));
 //					try {
-//						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
-//					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
-//						e.printStackTrace();
-//						// Not too interesting in case we cannot set the
-//						// automatic validation to true.
+//						// Wait a bit to make sure the bundle is properly
+//						// initialized
+//						Thread.sleep(200);
+//					} catch (final InterruptedException e) {
+//						// No problems
 //					}
-					state.close();
-					RapidMinerInit.setPreferences();
-					});
+//					Display.getCurrent().asyncExec(() -> {
+//					RapidMinerInit.init(false);
+//					final AbstractUIState state = new AbstractUIState(/* "design", */
+//							null, new JPanel()) {
+//
+//						@Override
+//						public void exit(final boolean relaunch) {
+//							// Do nothing, we do not exit
+//						}
+//
+//						@Override
+//						public boolean close() {
+//							metaDataUpdateQueue.shutdown();
+//							return true;
+//						}
+//
+//						@Override
+//						public void updateRecentFileList() {
+//							// Do noting
+//						}
+//
+//						@Override
+//						public void setTitle() {
+//							// Do nothing
+//						}
+//					};
+//					SwingUtilities.invokeLater(() ->
+//					RapidMinerGUI.setMainFrame(state));
+////					try {
+////						SwingUtilities.invokeAndWait(() -> state.getValidateAutomaticallyAction().setSelected(true));
+////					} catch (InvocationTargetException | InterruptedException | RuntimeException e) {
+////						e.printStackTrace();
+////						// Not too interesting in case we cannot set the
+////						// automatic validation to true.
+////					}
+//					state.close();
+//					RapidMinerInit.setPreferences();
+//					});
 //				} catch (final Throwable t) {
 //					t.printStackTrace();
 //				}

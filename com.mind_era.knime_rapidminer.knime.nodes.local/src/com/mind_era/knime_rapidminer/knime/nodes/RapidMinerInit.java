@@ -51,44 +51,39 @@ import com.rapidminer.tools.plugin.ManagedExtension;
  * @author Gabor
  */
 public class RapidMinerInit {
-	private static volatile boolean isInitialized = false,
-			isInitializing = false;
+	private static volatile boolean isInitialized = false, isInitializing = false;
+	private static volatile boolean preferencesSet = false;
 
 	public static synchronized void init(final boolean force) {
-		final boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean(). getInputArguments().toString().contains(/*"-agentlib:"+*/"jdwp");
+		final boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString()
+				.contains(/* "-agentlib:"+ */"jdwp");
 		if (isDebug) {
 			UIManager.put("FileChooser.noPlacesBar", Boolean.TRUE);
 		}
 		if (!isInitialized || force) {
 			if (isInitializing && !force) {
-				Logger.getAnonymousLogger()
-						.warning(
-								"Initializing RapidMiner from another initializer, or the first initialization was not finished properly.");
+				Logger.getAnonymousLogger().warning(
+						"Initializing RapidMiner from another initializer, or the first initialization was not finished properly.");
 				return;
 			}
 			isInitializing = true;
 			String rapidMinerHome;
 			try {
-				rapidMinerHome = Activator.getDefault()
-					.getPreferenceStore()
-					.getString(PreferenceConstants.RAPIDMINER_PATH);
+				rapidMinerHome = Activator.getDefault().getPreferenceStore()
+						.getString(PreferenceConstants.RAPIDMINER_PATH);
 			} catch (final Exception e) {
 				rapidMinerHome = "/c:/Program Files/RapidMiner/RapidMiner Studio";
 				e.printStackTrace();
 			}
-			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME,
-					rapidMinerHome);
-			RapidMiner
-					.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
+			System.setProperty(PlatformUtilities.PROPERTY_RAPIDMINER_HOME, rapidMinerHome);
+			RapidMiner.setExecutionMode(RapidMiner.ExecutionMode.EMBEDDED_WITH_UI);
 			RepositoryManager.registerFactory(new RepositoryFactory() {
 
 				@Override
-				public List<? extends Repository> createRepositoriesFor(
-						final RepositoryAccessor accessor) {
+				public List<? extends Repository> createRepositoriesFor(final RepositoryAccessor accessor) {
 					if (accessor instanceof HasTableSpecAndRowId) {
 						final HasTableSpecAndRowId model = (HasTableSpecAndRowId) accessor;
-						return Collections.singletonList(new KnimeRepository(
-								model));
+						return Collections.singletonList(new KnimeRepository(model));
 
 					}
 					return Collections.emptyList();
@@ -100,9 +95,7 @@ public class RapidMinerInit {
 			// Initialize the static initializers for MainFrame and
 			// AbstractUIPlugin
 			@SuppressWarnings("unused")
-			final
-			String unused = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString()
-					+ AbstractUIState.TITLE;
+			final String unused = MainFrame.PROPERTY_RAPIDMINER_GUI_LOG_LEVEL.toString() + AbstractUIState.TITLE;
 			// End of static init.
 
 			isInitialized = true;
@@ -114,32 +107,30 @@ public class RapidMinerInit {
 	 *
 	 */
 	public static synchronized void setPreferences() {
-		final IPreferenceStore store = RapidMinerNodePlugin.getDefault()
-				.getPreferenceStore();
-		for (final String parameterKey : ParameterService.getParameterKeys()) {
-			final ParameterType type = ParameterService
-					.getParameterType(parameterKey);
-			final String storeKey = PreferenceInitializer
-					.getRapidminerPreferenceKey(parameterKey);
-			if (type instanceof ParameterTypeBoolean) {
-				ParameterService.setParameterValue(parameterKey,
-						Boolean.toString(store.getBoolean(storeKey)));
-			} else if (type instanceof ParameterTypeInt) {
-				ParameterService.setParameterValue(parameterKey,
-						Integer.toString(store.getInt(storeKey)));
-			} else if (type instanceof ParameterTypeStringCategory) {
-				ParameterService.setParameterValue(parameterKey,
-						Integer.toString(store.getInt(storeKey)));
-			} else {
-				if (type != null
-						&& type.getDefaultValueAsString() != null
-						&& !type.getDefaultValueAsString().equals(
-								store.getDefaultString(storeKey))) {
-					store.setDefault(storeKey, type.getDefaultValueAsString());
+		setPreferences(true);
+	}
+
+	public static synchronized void setPreferences(boolean force) {
+		if (!preferencesSet || force) {
+			final IPreferenceStore store = RapidMinerNodePlugin.getDefault().getPreferenceStore();
+			for (final String parameterKey : ParameterService.getParameterKeys()) {
+				final ParameterType type = ParameterService.getParameterType(parameterKey);
+				final String storeKey = PreferenceInitializer.getRapidminerPreferenceKey(parameterKey);
+				if (type instanceof ParameterTypeBoolean) {
+					ParameterService.setParameterValue(parameterKey, Boolean.toString(store.getBoolean(storeKey)));
+				} else if (type instanceof ParameterTypeInt) {
+					ParameterService.setParameterValue(parameterKey, Integer.toString(store.getInt(storeKey)));
+				} else if (type instanceof ParameterTypeStringCategory) {
+					ParameterService.setParameterValue(parameterKey, Integer.toString(store.getInt(storeKey)));
+				} else {
+					if (type != null && type.getDefaultValueAsString() != null
+							&& !type.getDefaultValueAsString().equals(store.getDefaultString(storeKey))) {
+						store.setDefault(storeKey, type.getDefaultValueAsString());
+					}
+					ParameterService.setParameterValue(parameterKey, store.getString(storeKey));
 				}
-				ParameterService.setParameterValue(parameterKey,
-						store.getString(storeKey));
 			}
+			preferencesSet = true;
 		}
 	}
 }
