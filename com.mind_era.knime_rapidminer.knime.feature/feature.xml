@@ -2,11 +2,11 @@
 <feature
       id="com.mind_era.knime_rapidminer.knime.feature"
       label="RapidMiner Integration for KNIME"
-      version="0.7.501.qualifier"
+      version="0.8.000.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <description url="http://rapidminer.knime.mind-era.com/">
-      The nodes included in this feature allows to use RapidMiner 7.5.1
+      The nodes included in this feature allows to use RapidMiner 8.0.0
 within KNIME. You can execute, edit workflows, use RapidMiner
 to visualize your data.
    </description>
@@ -443,7 +443,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="javax.mail"
+         id="com.sun.mail.javax.mail"
          download-size="0"
          install-size="0"
          version="0.0.0"

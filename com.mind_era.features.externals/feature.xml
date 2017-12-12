@@ -2,7 +2,7 @@
 <feature
       id="com.mind_era.features.externals"
       label="Feature with all external plug-ins for RapidMiner"
-      version="7.5.1.qualifier"
+      version="8.0.0.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <plugin
@@ -90,14 +90,14 @@
          unpack="false"/>
 
    <plugin
-         id="javax.mail"
+         id="com.sun.mail.javax.mail"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.mail.source"
+         id="com.sun.mail.javax.mail.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
