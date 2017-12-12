@@ -491,13 +491,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="org.abego.treelayout.org.abego.treelayout.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="org.apache.santuario.xmlsec"
          download-size="0"
@@ -634,6 +627,20 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="org.h2"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.core.jackson-core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.core.jackson-databind"
          download-size="0"
          install-size="0"
          version="0.0.0"

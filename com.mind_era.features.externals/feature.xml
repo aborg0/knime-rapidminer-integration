@@ -342,20 +342,6 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="org.abego.treelayout.org.abego.treelayout.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.abego.treelayout.org.abego.treelayout.core.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="net.sf.jung.algorithms"
          download-size="0"
@@ -652,6 +638,20 @@
 
    <plugin
          id="org.h2"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.core.jackson-core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.fasterxml.jackson.core.jackson-databind"
          download-size="0"
          install-size="0"
          version="0.0.0"
