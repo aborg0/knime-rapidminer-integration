@@ -265,6 +265,10 @@
 									<id>com.fasterxml.jackson.core:jackson-databind:2.8.10</id>
 									<source>true</source>
 								</artifact>
+								<artifact>
+									<id>com.fasterxml.jackson.core:jackson-annotations:2.8.10</id>
+									<source>true</source>
+								</artifact>
 								<!-- artifact>
 									<id>com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.2</id>
 									<source>true</source>
