@@ -83,12 +83,13 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!-- Seems it conflicts with org.eclipse.core.runtime dependency -->
+   <!--plugin
          id="javax.activation"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="com.sun.mail.javax.mail"
