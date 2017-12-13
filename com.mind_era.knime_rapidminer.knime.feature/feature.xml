@@ -309,12 +309,12 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="javax.annotation"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="javax.servlet"
