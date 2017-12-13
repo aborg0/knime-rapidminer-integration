@@ -2,17 +2,17 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RapidMiner integration for KNIME
 Bundle-SymbolicName: com.mind_era.knime_rapidminer.knime.nodes.local;singleton:=true
-Bundle-Version: 0.7.501.qualifier
+Bundle-Version: 0.8.000.qualifier
 Bundle-ClassPath: rapidminer.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.12.0,4.0.0)",
  org.knime.workbench.core;bundle-version="[3.3.0,4.0.0)",
  org.knime.workbench.repository;bundle-version="[3.3.0,4.0.0)",
- com.fifesoft.rsyntaxtextarea;bundle-version="[2.5.8,3.0.0)",
- org.knime.base;bundle-version="[3.3.0,4.0.0)",
+ com.fifesoft.rsyntaxtextarea;bundle-version="[2.6.0,3.0.0)",
+ org.knime.base;bundle-version="[3.5.0,4.0.0)",
  org.eclipse.ui;bundle-version="[3.108.0,4.0.0)",
- org.knime.product;bundle-version="[3.3.0,4.0.0)";resolution:=optional,
+ org.knime.product;bundle-version="[3.5.0,4.0.0)";resolution:=optional,
  org.knime.ext.svg;bundle-version="[3.3.0,4.0.0)";resolution:=optional,
  com.mind_era.knime_rapidminer.knime.nodes.common;bundle-version="0.0.0",
  com.mind_era.knime.roles.api;bundle-version="0.0.100",
