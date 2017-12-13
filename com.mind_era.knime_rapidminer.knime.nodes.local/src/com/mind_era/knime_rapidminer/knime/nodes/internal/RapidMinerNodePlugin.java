@@ -74,7 +74,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					} catch (final InterruptedException e) {
 						// No problems
 					}
-					Display.getCurrent().asyncExec(() -> {
+					Runnable start = () -> {
 						System.out.println("calling init");
 					RapidMinerInit.init(false);
 					System.out.println("after init");
@@ -115,7 +115,12 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					state.close();
 					System.out.println("Setting preferences");
 					RapidMinerInit.setPreferences();
-					});
+					};
+					if (Display.getCurrent() == null) {
+						start.run();
+					} else {
+						Display.getCurrent().asyncExec(start);
+					}
 				} catch (final Throwable t) {
 					t.printStackTrace();
 				}
