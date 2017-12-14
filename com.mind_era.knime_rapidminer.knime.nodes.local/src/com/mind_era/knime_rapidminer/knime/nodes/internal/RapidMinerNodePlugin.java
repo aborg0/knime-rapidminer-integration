@@ -145,7 +145,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	@Override
 	public void stop(final BundleContext context) throws Exception {
 		super.stop(context);
-		plugin = null;
+//		plugin = null;
 	}
 
 	/**
