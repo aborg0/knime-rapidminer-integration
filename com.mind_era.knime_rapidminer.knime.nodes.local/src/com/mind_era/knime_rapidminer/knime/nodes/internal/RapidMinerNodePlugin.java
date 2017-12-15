@@ -116,11 +116,11 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					System.out.println("Setting preferences");
 					RapidMinerInit.setPreferences();
 					};
-					if (Display.getCurrent() == null) {
+//					if (Display.getCurrent() == null) {
 						start.run();
-					} else {
-						Display.getCurrent().asyncExec(start);
-					}
+//					} else {
+//						Display.getCurrent().asyncExec(start);
+//					}
 				} catch (final Throwable t) {
 					t.printStackTrace();
 				}
