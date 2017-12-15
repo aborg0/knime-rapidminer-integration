@@ -63,7 +63,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		// Start a new thread to avoid errors reported because of class loading.
-		new Thread(() -> {
+//		new Thread(() -> {
 				try {
 //					try {
 //						// Wait a bit to make sure the bundle is properly
@@ -123,7 +123,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					t.printStackTrace();
 				}
 //			}
-		}).start();
+//		}).start();
 		try {
 			getRoleRegistry();
 			System.out.println("Role registry ok: " + roleRegistry.roles());
