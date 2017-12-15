@@ -33,32 +33,32 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171212</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171213</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<!-- instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.rapidminer.license:rapidminer-license-api:4.0.0</id>
 									<source>true</source>
 									<transitive>false</transitive>
-									<!-- instructions>
+									<!- - instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
-								</artifact>
-								<artifact>
+								<!-- /artifact-->
+								<!-- artifact>
 									<id>com.rapidminer.license:rapidminer-license-commons:4.0.0</id>
 									<source>true</source>
 									<transitive>false</transitive>
-									<!-- instructions>
+									<!- - instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-									</instructions-->
-									<!-- instructions>
+									</instructions- ->
+									<!- - instructions>
 										<Require-Capability>osgi.ee; filter="(&(osgi.ee=JavaSE)(version=1.7))</Require-Capability>
 									</instructions-->
-								</artifact>
+								<!-- /artifact-->
 								<artifact>
 									<id>org.jfree:jfreechart:1.0.17</id>
 									<source>true</source>
@@ -67,13 +67,13 @@
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.rapidminer:rapidminer-api:0.2.1</id>
 									<source>true</source>
 									<instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
-								</artifact>
+								</artifact-->
 								<artifact>
 									<id>org.freehep:freehep-graphicsio-ps:2.3</id>
 									<source>true</source>

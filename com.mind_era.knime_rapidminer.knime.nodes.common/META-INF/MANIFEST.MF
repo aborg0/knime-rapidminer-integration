@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: common part of RapidMiner integration
 Bundle-SymbolicName: com.mind_era.knime_rapidminer.knime.nodes.common; singleton:=true
-Bundle-Version: 0.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.common.Activator
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.ui,
