@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171213</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171212</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<!-- instructions>
