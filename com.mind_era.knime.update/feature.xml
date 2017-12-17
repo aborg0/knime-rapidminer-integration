@@ -20,7 +20,7 @@
          id="com.mind_era.knime_rapidminer.knime.feature"
          version="0.0.0"/>
 
-   <plugin
+   <!--plugin
          id="com.google.guava"
          download-size="0"
          install-size="0"
@@ -29,27 +29,6 @@
 
    <plugin
          id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.jgoodies.looks"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <!--plugin
-         id="com.lowagie.itext"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="com.rapidminer.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -62,19 +41,19 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="concurrent"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="gov.nist.math.jama"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="groovy-all"
@@ -83,14 +62,6 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!-- Seems it conflicts with org.eclipse.core.runtime dependency -->
-   <!--plugin
-         id="javax.activation"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="com.sun.mail.javax.mail"
          download-size="0"
@@ -98,15 +69,8 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="javax.servlet.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
    <!--plugin
-         id="junit"
+         id="javax.servlet.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -168,19 +132,19 @@
          version="1.9.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="org.apache.commons.lang"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="org.apache.santuario.xmlsec"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.apache.servicemix.bundles.poi"
@@ -252,7 +216,7 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="slf4j.api"
          download-size="0"
          install-size="0"
@@ -265,21 +229,21 @@
          install-size="0"
          version="0.0.0"
          fragment="true"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="stax.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="xpp3.min"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.apache.tika.core"
@@ -288,19 +252,19 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="avalon-framework"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="commons-logging"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.apache.commons.math3"
@@ -309,26 +273,26 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="logkit"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="org.apache.servicemix.bundles.xmlresolver"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <plugin
+   <!--plugin
          id="xmlpull"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="com.mind_era.rapidminer.studio"
@@ -351,12 +315,12 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="xml-apis"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.h2"
@@ -365,25 +329,11 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="com.fasterxml.jackson.core.jackson-annotations"
+   <plugin
+         id="com.mxgraph"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="com.fasterxml.jackson.core.jackson-core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fasterxml.jackson.core.jackson-databind"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
 </feature>

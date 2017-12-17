@@ -218,12 +218,12 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
       <import plugin="org.eclipse.osgi"/>
    </requires>
 
-   <plugin
+   <!--plugin
          id="com.mind_era.guava.helper"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="com.mind_era.knime_rapidminer.knime.nodes.local"
@@ -254,32 +254,11 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <!--plugin
-         id="com.fifesoft.autocomplete"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fifesoft.languagesupport"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.fifesoft.rsyntaxtextarea"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <plugin
          id="com.google.guava"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="com.mind_era.rapidminer.studio"
@@ -287,13 +266,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="com.rapidminer.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="com.rapidminer.external.jmathplot"
@@ -310,21 +282,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <!--plugin
-         id="javax.annotation"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <plugin
          id="javax.servlet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <!--plugin
-         id="junit"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -358,12 +316,12 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="org.apache.commons.lang"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.apache.tika.core"
@@ -400,44 +358,29 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="avalon-framework"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.jgoodies.looks"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
    <!--plugin
-         id="com.lowagie.itext"
+         id="avalon-framework"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/-->
 
-   <plugin
-         id="concurrent"
+   <!--plugin
+         id="colt"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
-   <!-- Seems it conflicts with org.eclipse.core.runtime dependency -->
    <!--plugin
-         id="javax.activation"
+         id="com.jgoodies.looks"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/-->
+
+   <!--plugin
+         id="concurrent"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -512,27 +455,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="org.bouncycastle.bcmail-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.bouncycastle.bcprov-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.bouncycastle.bctsp-jdk14"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="org.freehep.graphicsbase"
@@ -649,6 +571,13 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="com.fasterxml.jackson.core.jackson-databind"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.mxgraph"
          download-size="0"
          install-size="0"
          version="0.0.0"

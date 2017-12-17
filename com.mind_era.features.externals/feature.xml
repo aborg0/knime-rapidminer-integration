@@ -6,20 +6,6 @@
       provider-name="Mind Eratosthenes Kft.">
 
    <plugin
-         id="com.jgoodies.looks"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.jgoodies.looks.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.rapidminer.external.jmathplot"
          download-size="0"
          install-size="0"
@@ -329,20 +315,6 @@
 
    <plugin
          id="com.mind_era.rapidminer.studio.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="commons-logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="commons-logging.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
