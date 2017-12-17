@@ -41,12 +41,12 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="com.lowagie.itext"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <!--plugin
          id="com.rapidminer.api"
@@ -105,12 +105,12 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="junit"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="net.sf.jung.algorithms"

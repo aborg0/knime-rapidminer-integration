@@ -323,12 +323,12 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="junit"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="net.sourceforge.collections.generic"
@@ -421,12 +421,12 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="com.lowagie.itext"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="concurrent"
@@ -513,7 +513,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+   <!--plugin
          id="org.bouncycastle.bcmail-jdk14"
          download-size="0"
          install-size="0"
@@ -532,7 +532,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/-->
 
    <plugin
          id="org.freehep.graphicsbase"

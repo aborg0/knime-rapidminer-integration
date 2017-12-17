@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171212</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:8.0.0.20171216</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<!-- instructions>
@@ -96,7 +96,7 @@
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.lowagie:itext:2.1.7</id>
 									<source>true</source>
 									<instructions>
@@ -107,6 +107,25 @@
 									<excludes>
 										<exclude>bouncycastle:::</exclude>
 									</excludes>
+								</artifact-->
+								<!-- artifact>
+									<id>com.github.tdbear:microba:0.4.4.3</id>
+									<source>true</source>
+									<instructions>
+										<Import-Package>!.,*</Import-Package>
+									</instructions>
+								</artifact-->
+								<artifact>
+									<id>com.rapidminer.external:jgraphx:2.1.0.2</id>
+									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<Export-Package>com.mxgraph.layout.hierarchical,com.mxgraph.model,com.mxgraph.view,com.mxgraph.util</Export-Package>
+									</instructions>
+								</artifact>
+								<artifact>
+									<id>com.rapidminer.external:alphanumeric-sorting:1.0.1</id>
+									<source>true</source>
 								</artifact>
 								<artifact>
 									<id>net.sourceforge.jexcelapi:jxl:2.6.12</id>
@@ -193,20 +212,20 @@
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>gov.nist.math:jama:1.0.3</id>
 									<source>true</source>
 									<instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
-								</artifact>
-								<artifact>
+								</artifact-->
+								<!-- artifact>
 									<id>commons-lang:commons-lang:2.6</id>
 									<source>true</source>
-									<!--instructions>
+									<!- -instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-									</instructions-->
-								</artifact>
+									</instructions- ->
+								</artifact-->
 								<artifact>
 									<id>org.antlr:antlr4-runtime:4.5</id>
 									<source>true</source>
@@ -235,13 +254,13 @@
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>junit:junit:4.12</id>
 									<source>true</source>
 									<instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
-								</artifact>
+								</artifact-->
 								<!-- artifact>
 									<id>com.thoughtworks.xstream:xstream:1.4.7</id>
 									<source>true</source>
@@ -257,7 +276,7 @@
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
 								</artifact>
-								<artifact>
+								<!-- artifact>
 									<id>com.fasterxml.jackson.core:jackson-core:2.8.10</id>
 									<source>true</source>
 								</artifact>
@@ -268,7 +287,7 @@
 								<artifact>
 									<id>com.fasterxml.jackson.core:jackson-annotations:2.8.10</id>
 									<source>true</source>
-								</artifact>
+								</artifact-->
 								<!-- artifact>
 									<id>com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.2</id>
 									<source>true</source>
