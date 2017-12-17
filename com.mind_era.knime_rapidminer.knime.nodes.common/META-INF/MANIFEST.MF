@@ -6,7 +6,9 @@ Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.common.Activator
 Bundle-Vendor: Mind Eratosthenes Kft.
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.knime.workbench.repository;bundle-version="3.5.0",
+ org.knime.product;bundle-version="3.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.mind_era.knime_rapidminer.knime.nodes.common,
