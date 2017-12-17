@@ -20,40 +20,12 @@
          id="com.mind_era.knime_rapidminer.knime.feature"
          version="0.0.0"/>
 
-   <!--plugin
-         id="com.google.guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="colt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="com.rapidminer.external.jmathplot"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="concurrent"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="gov.nist.math.jama"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="groovy-all"
@@ -68,13 +40,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="javax.servlet.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="net.sf.jung.algorithms"
@@ -131,20 +96,6 @@
          install-size="0"
          version="1.9.0"
          unpack="false"/>
-
-   <!--plugin
-         id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="org.apache.santuario.xmlsec"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="org.apache.servicemix.bundles.poi"
@@ -216,35 +167,6 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="slf4j.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="slf4j.log4j12"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/-->
-
-   <!--plugin
-         id="stax.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="xpp3.min"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="org.apache.tika.core"
          download-size="0"
@@ -252,47 +174,12 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="avalon-framework"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="commons-logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="org.apache.commons.math3"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="logkit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="org.apache.servicemix.bundles.xmlresolver"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
-   <!--plugin
-         id="xmlpull"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="com.mind_era.rapidminer.studio"
@@ -315,13 +202,6 @@
          version="0.0.0"
          unpack="false"/>
 
-   <!--plugin
-         id="xml-apis"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
-
    <plugin
          id="org.h2"
          download-size="0"
@@ -331,6 +211,13 @@
 
    <plugin
          id="com.mxgraph"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.rapidminer.external.alphanumeric-sorting"
          download-size="0"
          install-size="0"
          version="0.0.0"
