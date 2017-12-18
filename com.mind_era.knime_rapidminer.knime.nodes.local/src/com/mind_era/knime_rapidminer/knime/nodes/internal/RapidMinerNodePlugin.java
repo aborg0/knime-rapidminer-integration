@@ -63,16 +63,16 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		// Start a new thread to avoid errors reported because of class loading.
-//		new Thread(() -> {
+		new Thread(() -> {
 				try {
-//					try {
-//						// Wait a bit to make sure the bundle is properly
-//						// initialized
-//						Thread.sleep(400);
-//					} catch (final InterruptedException e) {
-//						// No problems
-//					}
-//					Runnable start = () -> {
+					try {
+						// Wait a bit to make sure the bundle is properly
+						// initialized
+						Thread.sleep(400);
+					} catch (final InterruptedException e) {
+						// No problems
+					}
+					Runnable start = () -> {
 						System.out.println("calling init");
 					RapidMinerInit.init(false);
 					System.out.println("after init");
@@ -113,7 +113,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					state.close();
 					System.out.println("Setting preferences");
 					RapidMinerInit.setPreferences();
-//					};
+					};
 //					if (Display.getCurrent() == null) {
 //						start.run();
 //					} else {
@@ -123,7 +123,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 					t.printStackTrace();
 				}
 //			}
-//		}).start();
+		}).start();
 		try {
 			getRoleRegistry();
 			System.out.println("Role registry ok: " + roleRegistry.roles());
@@ -143,7 +143,7 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	@Override
 	public void stop(final BundleContext context) throws Exception {
 		super.stop(context);
-//		plugin = null;
+		plugin = null;
 	}
 
 	/**
