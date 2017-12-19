@@ -6,8 +6,8 @@ Bundle-Version: 0.8.000.qualifier
 Bundle-ClassPath: rapidminer.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
-Require-Bundle: org.eclipse.core.runtime, 
- org.eclipse.jface;bundle-version="3.12.0",
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui;bundle-version="[3.108.0,4.0.0)",
  org.knime.workbench.core;bundle-version="[3.5.0,4.0.0)",
  org.knime.core;bundle-version="[3.5.0,4.0.0)",
  org.knime.workbench.repository;bundle-version="[3.5.0,4.0.0)",
