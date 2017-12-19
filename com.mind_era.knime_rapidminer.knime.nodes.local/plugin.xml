@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?eclipse version="3.0"?><plugin>
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
 
    <!-- This is an example for providing an own category 
       <extension
@@ -44,7 +45,7 @@
       <category icon="icons/rapidminer.png" level-id="rapidminer" name="RapidMiner" path="/community">
       </category>
    </extension>
-   <extension
+   <!--extension
          point="com.mind_era.knime.roles.Register">
       <Role
             class="com.mind_era.knime_rapidminer.knime.nodes.internal.CostRole"/>
@@ -84,6 +85,6 @@
       <RoleReference
             reference="com.mind_era.knime_rapidminer.knime.nodes.internal.IdRole">
       </RoleReference>
-   </extension>
+   </extension-->
    
 </plugin>
