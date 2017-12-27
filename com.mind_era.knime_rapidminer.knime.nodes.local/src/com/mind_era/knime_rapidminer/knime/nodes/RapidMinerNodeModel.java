@@ -78,23 +78,14 @@ import org.knime.core.node.port.PortObject;
 import org.knime.core.node.port.PortType;
 import org.knime.core.node.workflow.FlowVariable;
 
-import com.mind_era.knime.roles.Role;
-import com.mind_era.knime.roles.RoleCheck;
-import com.mind_era.knime.roles.RoleCheck.CheckResult;
-import com.mind_era.knime.roles.RoleCheck.CheckResult.Violation;
-import com.mind_era.knime.roles.RoleHandler;
-import com.mind_era.knime.roles.RoleRegistry;
-import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.mind_era.knime_rapidminer.knime.nodes.util.AttributeWithRole;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
-import com.mind_era.knime_rapidminer.knime.nodes.util.RoleRepresentationMapping;
 import com.rapidminer.LoggingListener;
 import com.rapidminer.MacroHandler;
 import com.rapidminer.Process;
 import com.rapidminer.datatable.DataTable;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.example.AttributeRole;
-import com.rapidminer.example.Attributes;
 import com.rapidminer.example.Example;
 import com.rapidminer.example.ExampleSet;
 import com.rapidminer.example.table.DataRow;
@@ -587,8 +578,8 @@ public class RapidMinerNodeModel extends NodeModel implements
 			final DataTableSpec referenceTableSpec) {
 		final Entry<? extends Iterable<AttributeWithRole>, AttributeWithRole> attribsEntry = selectAttributesWithRoles(
 				examples, withRowIds, rowIdColumn, referenceTableSpec);
-		final RoleRegistry registry = RapidMinerNodePlugin.getDefault().getRoleRegistry();
-		final RoleHandler rh = new RoleHandler(registry);
+//		final RoleRegistry registry = RapidMinerNodePlugin.getDefault().getRoleRegistry();
+//		final RoleHandler rh = new RoleHandler(registry);
 		final DataTableSpec ret = new DataTableSpec(//Iterables.toArray(Iterables.transform(
 				StreamSupport.stream(attribsEntry.getKey().spliterator(), false).map(aWithRole ->{
 						final Attribute a = aWithRole.getAttribute();
@@ -601,10 +592,10 @@ public class RapidMinerNodeModel extends NodeModel implements
 														|| a.getValueType() == Ontology.TIME ? DateAndTimeCell.TYPE
 														: DoubleCell.TYPE);
 						final DataColumnSpec spec = dataColumnSpecCreator.createSpec();
-						if (aWithRole.getRole().isSpecial()) {
-							final Role role = RoleRepresentationMapping.getInstance().fromRapidMinerRoleName(aWithRole.getRole().getSpecialName(), spec.getType(), spec.getName());
-							return rh.addRoles(spec, role);
-						}
+//						if (aWithRole.getRole().isSpecial()) {
+//							final Role role = RoleRepresentationMapping.getInstance().fromRapidMinerRoleName(aWithRole.getRole().getSpecialName(), spec.getType(), spec.getName());
+//							return rh.addRoles(spec, role);
+//						}
 						return spec;
 					}).toArray(n -> new DataColumnSpec[n]));
 		return ret;
@@ -626,21 +617,21 @@ public class RapidMinerNodeModel extends NodeModel implements
 	@Override
 	protected DataTableSpec[] configure(final DataTableSpec[] inSpecs)
 			throws InvalidSettingsException {
-		final RoleCheck roleCheck = new RoleCheck(new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry()));
-		final StringBuilder warnings = new StringBuilder();
-		for (int i = 0; i < (inSpecs == null ? 0 : inSpecs.length); i++) {
-			final DataTableSpec dataTableSpec = inSpecs[i];
-			if (dataTableSpec == null) {
-				continue;
-			}
-			final CheckResult result = roleCheck.check(dataTableSpec);
-			if (!result.getErrors().isEmpty()) {
-				throw new InvalidSettingsException("The roles for the table [" + (i+1) + "] are not supported: " +result.getErrors().toString());
-			}
-			for (final Violation violation : result.getWarnings()) {
-				warnings.append(violation).append("\n");
-			}
-		}
+//		final RoleCheck roleCheck = new RoleCheck(new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry()));
+//		final StringBuilder warnings = new StringBuilder();
+//		for (int i = 0; i < (inSpecs == null ? 0 : inSpecs.length); i++) {
+//			final DataTableSpec dataTableSpec = inSpecs[i];
+//			if (dataTableSpec == null) {
+//				continue;
+//			}
+//			final CheckResult result = roleCheck.check(dataTableSpec);
+//			if (!result.getErrors().isEmpty()) {
+//				throw new InvalidSettingsException("The roles for the table [" + (i+1) + "] are not supported: " +result.getErrors().toString());
+//			}
+//			for (final Violation violation : result.getWarnings()) {
+//				warnings.append(violation).append("\n");
+//			}
+//		}
 		// logTables.clear();
 		lastTableSpecs = inSpecs == null ? null : inSpecs.clone();
 		if (inSpecs != null) {
@@ -981,17 +972,17 @@ public class RapidMinerNodeModel extends NodeModel implements
 				KnimeExampleTable.createAttributes(input,
 						rowIdColumnName.isEnabled(),
 						rowIdColumnName.getStringValue())).createExampleSet();
-		final Attributes attributes = ret.getAttributes();
-		final RoleHandler rh = new RoleHandler(RapidMinerNodePlugin
-				.getDefault().getRoleRegistry());
-		final Map<String, Collection<? extends Role>> roles = rh.roles(input);
-		for (final Entry<String, Collection<? extends Role>> entry : roles
-				.entrySet()) {
-			if (entry.getValue().size() > 0) {
-				attributes.setSpecialAttribute(attributes.get(entry.getKey()),
-						RoleRepresentationMapping.getInstance().rapidMinerRoleNameOf(entry.getValue().iterator().next()));
-			}
-		}
+//		final Attributes attributes = ret.getAttributes();
+//		final RoleHandler rh = new RoleHandler(RapidMinerNodePlugin
+//				.getDefault().getRoleRegistry());
+//		final Map<String, Collection<? extends Role>> roles = rh.roles(input);
+//		for (final Entry<String, Collection<? extends Role>> entry : roles
+//				.entrySet()) {
+//			if (entry.getValue().size() > 0) {
+//				attributes.setSpecialAttribute(attributes.get(entry.getKey()),
+//						RoleRepresentationMapping.getInstance().rapidMinerRoleNameOf(entry.getValue().iterator().next()));
+//			}
+//		}
 		return ret;
 	}
 
@@ -1006,18 +997,18 @@ public class RapidMinerNodeModel extends NodeModel implements
 						(BufferedDataTable) input),
 						rowIdColumnName.isEnabled(), rowIdColumnName
 								.getStringValue())).createExampleSet();
-		final Attributes attributes = ret.getAttributes();
-		final RoleHandler rh = new RoleHandler(RapidMinerNodePlugin
-				.getDefault().getRoleRegistry());
-		final DataTableSpec spec = (DataTableSpec) input.getSpec();
-		final Map<String, Collection<? extends Role>> roles = rh.roles(spec);
-		for (final Entry<String, Collection<? extends Role>> entry : roles
-				.entrySet()) {
-			if (entry.getValue().size() > 0) {
-				attributes.setSpecialAttribute(attributes.get(entry.getKey()),
-						RoleRepresentationMapping.getInstance().rapidMinerRoleNameOf(entry.getValue().iterator().next()));
-			}
-		}
+//		final Attributes attributes = ret.getAttributes();
+//		final RoleHandler rh = new RoleHandler(RapidMinerNodePlugin
+//				.getDefault().getRoleRegistry());
+//		final DataTableSpec spec = (DataTableSpec) input.getSpec();
+//		final Map<String, Collection<? extends Role>> roles = rh.roles(spec);
+//		for (final Entry<String, Collection<? extends Role>> entry : roles
+//				.entrySet()) {
+//			if (entry.getValue().size() > 0) {
+//				attributes.setSpecialAttribute(attributes.get(entry.getKey()),
+//						RoleRepresentationMapping.getInstance().rapidMinerRoleNameOf(entry.getValue().iterator().next()));
+//			}
+//		}
 		return ret;
 	}
 }

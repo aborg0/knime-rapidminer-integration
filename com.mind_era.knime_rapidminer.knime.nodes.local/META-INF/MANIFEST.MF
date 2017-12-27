@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.knime.core;bundle-version="[3.5.0,4.0.0)",
  org.knime.workbench.repository;bundle-version="[3.5.0,4.0.0)",
  org.knime.base;bundle-version="[3.5.0,4.0.0)",
- com.mind_era.knime.roles.api;bundle-version="0.0.100",
  com.mind_era.knime_rapidminer.knime.nodes.common;bundle-version="0.0.0",
  org.knime.ext.svg;bundle-version="[3.3.0,4.0.0)";resolution:=optional,
  com.mind_era.rapidminer.studio;bundle-version="8.0.0"

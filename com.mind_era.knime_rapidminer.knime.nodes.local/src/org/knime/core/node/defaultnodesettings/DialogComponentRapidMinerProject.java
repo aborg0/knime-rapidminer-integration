@@ -23,10 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -41,15 +39,11 @@ import org.knime.core.node.NotConfigurableException;
 import org.knime.core.node.port.PortObjectSpec;
 import org.knime.core.util.MutableInteger;
 
-import com.mind_era.knime.roles.Role;
-import com.mind_era.knime.roles.RoleHandler;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling;
 import com.mind_era.knime_rapidminer.knime.nodes.ProjectHandling.AbstractProjectHandling;
 import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
-import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeExampleTable;
 import com.mind_era.knime_rapidminer.knime.nodes.util.KnimeRepository;
-import com.mind_era.knime_rapidminer.knime.nodes.util.RoleRepresentationMapping;
 import com.rapidminer.Process;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.gui.AbstractUIState;
@@ -289,17 +283,17 @@ public class DialogComponentRapidMinerProject extends
 		return new ExampleSetMetaData(KnimeExampleTable
 				.createAttributes(spec, withRowIds, rowIdColumnName).stream().map(
 				new Function<Attribute, AttributeMetaData>() {
-			private final RoleHandler roleHandler = new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry());
-			private final Map<String, Collection<? extends Role>> roles = roleHandler.roles(spec);
+//			private final RoleHandler roleHandler = new RoleHandler(RapidMinerNodePlugin.getDefault().getRoleRegistry());
+//			private final Map<String, Collection<? extends Role>> roles = roleHandler.roles(spec);
 					@Override
 					public AttributeMetaData apply(final Attribute attribute) {
 						final AttributeMetaData ret = new AttributeMetaData(attribute);
-						final Collection<? extends Role> collection = roles.get(attribute.getName());
-						if (collection != null && collection.size() > 0) {
-							ret.setRole(RoleRepresentationMapping.getInstance()
-									.rapidMinerRoleNameOf(
-											collection.iterator().next()));
-						}
+//						final Collection<? extends Role> collection = roles.get(attribute.getName());
+//						if (collection != null && collection.size() > 0) {
+//							ret.setRole(RoleRepresentationMapping.getInstance()
+//									.rapidMinerRoleNameOf(
+//											collection.iterator().next()));
+//						}
 						return ret;
 					}
 				}).collect(Collectors.toList()));

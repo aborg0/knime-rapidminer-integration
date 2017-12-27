@@ -16,16 +16,12 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.internal;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import com.mind_era.knime.roles.RoleRegistry;
 import com.mind_era.knime_rapidminer.knime.nodes.RapidMinerInit;
 import com.rapidminer.gui.AbstractUIState;
 import com.rapidminer.gui.RapidMinerGUI;
@@ -41,7 +37,7 @@ import com.rapidminer.gui.RapidMinerGUI;
 public class RapidMinerNodePlugin extends AbstractUIPlugin {
 	// The shared instance.
 	private static RapidMinerNodePlugin plugin;
-	private volatile RoleRegistry roleRegistry;
+//	private volatile RoleRegistry roleRegistry;
 
 	/**
 	 * The constructor.
@@ -124,12 +120,12 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 				}
 //			}
 		}).start();
-		try {
-			getRoleRegistry();
-			System.out.println("Role registry ok: " + roleRegistry.roles());
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			getRoleRegistry();
+//			System.out.println("Role registry ok: " + roleRegistry.roles());
+//		} catch (final Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**
@@ -155,10 +151,10 @@ public class RapidMinerNodePlugin extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	/**
-	 * @return the roleRegistry
-	 */
-	public synchronized RoleRegistry getRoleRegistry() {
-		return roleRegistry == null ? roleRegistry = new RoleRegistry() : roleRegistry;
-	}
+//	/**
+//	 * @return the roleRegistry
+//	 */
+//	public synchronized RoleRegistry getRoleRegistry() {
+//		return roleRegistry == null ? roleRegistry = new RoleRegistry() : roleRegistry;
+//	}
 }

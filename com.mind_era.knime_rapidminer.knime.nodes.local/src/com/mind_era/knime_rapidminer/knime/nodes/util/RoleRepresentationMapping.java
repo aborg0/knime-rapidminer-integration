@@ -16,64 +16,53 @@
  */
 package com.mind_era.knime_rapidminer.knime.nodes.util;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.knime.core.data.DataType;
-
-import com.mind_era.knime.roles.PredefinedRoles;
-import com.mind_era.knime.roles.Role;
-import com.mind_era.knime.roles.RoleRegistry;
-import com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin;
-import com.rapidminer.example.Attributes;
-
-/**
- * Mapping between KNIME and RapidMiner role representations.
- * 
- * @author Gabor Bakos
- */
-public class RoleRepresentationMapping {
-	private static final RoleRepresentationMapping instance = new RoleRepresentationMapping();
-	private Map<Role, String> roleToRapidMinerRepresentation = new LinkedHashMap<>();
-	private Map<String, Role> rapidMinerRepresentationToRole = new LinkedHashMap<>();
-	{
-		rapidMinerRepresentationToRole.put(Attributes.LABEL_NAME, PredefinedRoles.label);
-		roleToRapidMinerRepresentation.put(PredefinedRoles.label, Attributes.LABEL_NAME);
-	}
-	private RoleRegistry registry = RapidMinerNodePlugin.getDefault().getRoleRegistry();
-
-	/**
-	 * 
-	 */
-	private RoleRepresentationMapping() {
-		super();
-	}
-	
-	/**
-	 * @return the instance
-	 */
-	public static RoleRepresentationMapping getInstance() {
-		return instance;
-	}
-	
-	public Role fromRapidMinerRoleName(String roleName) {
-		return fromRapidMinerRoleName(roleName, DataType.getMissingCell().getType(), roleName);
-	}
-
-	public Role fromRapidMinerRoleName(String roleName, DataType colType, String colName) {
-		if (rapidMinerRepresentationToRole.containsKey(roleName)) {
-			return rapidMinerRepresentationToRole.get(roleName);
-		}
-		if (registry.roleRepresentations().contains(roleName)) {
-			return registry.role(roleName);
-		}
-		return registry.createDynamicRole(roleName, colType, colName);
-	}
-	
-	public String rapidMinerRoleNameOf(Role role) {
-		if (roleToRapidMinerRepresentation.containsKey(role)) {
-			return roleToRapidMinerRepresentation.get(role);
-		}
-		return role.representation();
-	}
-}
+///**
+// * Mapping between KNIME and RapidMiner role representations.
+// * 
+// * @author Gabor Bakos
+// */
+//public class RoleRepresentationMapping {
+//	private static final RoleRepresentationMapping instance = new RoleRepresentationMapping();
+//	private Map<Role, String> roleToRapidMinerRepresentation = new LinkedHashMap<>();
+//	private Map<String, Role> rapidMinerRepresentationToRole = new LinkedHashMap<>();
+//	{
+//		rapidMinerRepresentationToRole.put(Attributes.LABEL_NAME, PredefinedRoles.label);
+//		roleToRapidMinerRepresentation.put(PredefinedRoles.label, Attributes.LABEL_NAME);
+//	}
+//	private RoleRegistry registry = RapidMinerNodePlugin.getDefault().getRoleRegistry();
+//
+//	/**
+//	 * 
+//	 */
+//	private RoleRepresentationMapping() {
+//		super();
+//	}
+//	
+//	/**
+//	 * @return the instance
+//	 */
+//	public static RoleRepresentationMapping getInstance() {
+//		return instance;
+//	}
+//	
+//	public Role fromRapidMinerRoleName(String roleName) {
+//		return fromRapidMinerRoleName(roleName, DataType.getMissingCell().getType(), roleName);
+//	}
+//
+//	public Role fromRapidMinerRoleName(String roleName, DataType colType, String colName) {
+//		if (rapidMinerRepresentationToRole.containsKey(roleName)) {
+//			return rapidMinerRepresentationToRole.get(roleName);
+//		}
+//		if (registry.roleRepresentations().contains(roleName)) {
+//			return registry.role(roleName);
+//		}
+//		return registry.createDynamicRole(roleName, colType, colName);
+//	}
+//	
+//	public String rapidMinerRoleNameOf(Role role) {
+//		if (roleToRapidMinerRepresentation.containsKey(role)) {
+//			return roleToRapidMinerRepresentation.get(role);
+//		}
+//		return role.representation();
+//	}
+//}
