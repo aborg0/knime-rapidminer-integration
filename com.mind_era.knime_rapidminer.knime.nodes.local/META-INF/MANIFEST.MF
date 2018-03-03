@@ -92,3 +92,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  com.mind_era.knime_rapidminer.knime.nodes.common;bundle-version="0.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+DynamicImport-Package: *
