@@ -445,7 +445,7 @@
                                     <source>true</source>
                                 </artifact>
                                 <artifact>
-                                    <id>commons-codec:commons-codecc:1.10</id>
+                                    <id>commons-codec:commons-codec:1.10</id>
                                     <source>true</source>
                                 </artifact>
 								<artifact>
