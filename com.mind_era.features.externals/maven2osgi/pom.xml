@@ -444,6 +444,10 @@
                                     <id>net.java.dev.jna:jna-platform:4.5.1</id>
                                     <source>true</source>
                                 </artifact>
+                                <artifact>
+                                    <id>org.apache.commons.codec:1.10</id>
+                                    <source>true</source>
+                                </artifact>
 								<artifact>
 									<id>org.apache.tika:tika-core:1.18</id>
 									<source>true</source>
