@@ -218,6 +218,19 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
       <import plugin="org.eclipse.osgi"/>
    </requires>
 
+   <!--plugin
+         id="com.mind_era.knime_rapidminer.knime.nodes.local"
+         download-size="0"
+         install-size="0"
+         version="0.9.000.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="com.mind_era.knime_rapidminer.knime.nodes.common"
+         download-size="0"
+         install-size="0"
+         version="0.9.000.qualifier"
+         unpack="false"/-->
    <plugin
          id="com.mind_era.knime_rapidminer.knime.nodes.local"
          download-size="0"
@@ -327,7 +340,7 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          id="com.sun.mail.javax.mail"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.6.0"
          unpack="false"/>
 
    <plugin
@@ -585,6 +598,13 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="org.apache.lucene.sandbox"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jsoup"
          download-size="0"
          install-size="0"
          version="0.0.0"

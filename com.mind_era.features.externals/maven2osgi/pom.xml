@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:9.0.0.20180821</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:9.0.0.20180822</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<!-- instructions>
@@ -44,6 +44,10 @@
 									<id>com.rapidminer:belt:0.2.0</id>
 									<source>true</source>
 									<transitive>false</transitive>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!-- instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -52,6 +56,10 @@
 									<id>com.rapidminer:belt-adapter:0.1.0</id>
 									<source>true</source>
 									<transitive>false</transitive>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!-- instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -79,7 +87,9 @@
 									<id>org.jfree:jfreechart:1.0.17</id>
 									<source>true</source>
 									<transitive>true</transitive>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
@@ -97,7 +107,9 @@
 										<exclude>junit:junit::</exclude>
 										<exclude>org.freehep:freehep-graphicsio-tests::</exclude>
 									</excludes>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
@@ -108,7 +120,9 @@
 										<exclude>junit:junit::</exclude>
 										<exclude>org.freehep:freehep-graphicsio-tests::</exclude>
 									</excludes>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
@@ -136,16 +150,25 @@
 									<source>true</source>
 									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Export-Package>com.mxgraph.layout.hierarchical,com.mxgraph.model,com.mxgraph.view,com.mxgraph.util</Export-Package>
 									</instructions>
 								</artifact>
 								<artifact>
 									<id>com.rapidminer.external:alphanumeric-sorting:1.0.1</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 								</artifact>
 								<artifact>
 									<id>net.sourceforge.jexcelapi:jxl:2.6.12</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 								</artifact>
 								<!-- artifact>
 									<id>org.apache.poi:poi-ooxml:3.11</id>
@@ -158,6 +181,10 @@
 								<artifact>
 									<id>org.apache.servicemix.bundles:org.apache.servicemix.bundles.poi:3.17_1</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -166,6 +193,10 @@
 									<id>org.apache.santuario:xmlsec:2.0.5</id>
 									<source>true</source>
 									<transitive>false</transitive>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -188,6 +219,7 @@
 									<id>com.jgoodies:looks:2.2.2</id>
 									<source>true</source>
 									<instructions>
+										<_noee>true</_noee>
 										<Import-Package>!com.sun.*,*</Import-Package>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
@@ -196,20 +228,30 @@
 								<artifact>
 									<id>net.sf.jung:jung-visualization:2.0.1</id>
 									<source>true</source>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
 								<artifact>
 									<id>net.sf.jung:jung-graph-impl:2.0.1</id>
 									<source>true</source>
+									<override>true</override>
 									<instructions>
-										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+										<_noee>true</_noee>
 									</instructions>
+									<!-- instructions>
+										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+									</instructions-->
 								</artifact>
 								<artifact>
 									<id>com.sun.mail:javax.mail:1.6.0</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -224,7 +266,9 @@
 								<artifact>
 									<id>org.swinglabs.swingx:swingx-all:1.6.5</id>
 									<source>true</source>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
@@ -245,6 +289,10 @@
 								<artifact>
 									<id>org.antlr:antlr4-runtime:4.5.1</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
@@ -252,7 +300,9 @@
 								<artifact>
 									<id>com.rapidminer.external:jmathplot:1.0.0</id>
 									<source>true</source>
+									<override>true</override>
 									<instructions>
+										<_noee>true</_noee>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions>
 								</artifact>
@@ -427,34 +477,66 @@
                                 <artifact>
                                     <id>org.apache.lucene:lucene-queryparser:7.2.0</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>org.apache.lucene:lucene-highlighter:7.2.0</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>commons-io:commons-io:2.6</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>org.jsoup:jsoup:1.8.3</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>net.java.dev.jna:jna-platform:4.5.1</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>commons-codec:commons-codec:1.10</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
                                 <artifact>
                                     <id>org.apache.commons:commons-collections4:4.2</id>
                                     <source>true</source>
+                                    <override>true</override>
+                                    <instructions>
+                                        <_noee>true</_noee>
+                                    </instructions>
                                 </artifact>
 								<artifact>
 									<id>org.apache.tika:tika-core:1.18</id>
 									<source>true</source>
+									<override>true</override>
+									<instructions>
+										<_noee>true</_noee>
+									</instructions>
 									<!--instructions>
 										<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
 									</instructions-->
