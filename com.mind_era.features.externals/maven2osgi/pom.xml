@@ -448,6 +448,10 @@
                                     <id>commons-codec:commons-codec:1.10</id>
                                     <source>true</source>
                                 </artifact>
+                                <artifact>
+                                    <id>org.apache.commons:commons-collections4:4.2</id>
+                                    <source>true</source>
+                                </artifact>
 								<artifact>
 									<id>org.apache.tika:tika-core:1.18</id>
 									<source>true</source>

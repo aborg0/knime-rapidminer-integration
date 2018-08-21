@@ -2,7 +2,7 @@
 <feature
       id="com.mind_era.knime_rapidminer.knime.feature"
       label="RapidMiner Integration for KNIME"
-      version="0.8.000.qualifier"
+      version="0.9.000.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <description url="http://rapidminer.knime.mind-era.com/">
@@ -231,13 +231,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <!--plugin
-         id="com.mind_era.knime.roles.api"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/-->
 
    <plugin
          id="org.apache.servicemix.bundles.poi"
@@ -529,6 +522,13 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="com.rapidminer.external.alphanumeric-sorting"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.collections4"
          download-size="0"
          install-size="0"
          version="0.0.0"
