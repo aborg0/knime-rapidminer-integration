@@ -218,19 +218,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
       <import plugin="org.eclipse.osgi"/>
    </requires>
 
-   <!--plugin
-         id="com.mind_era.knime_rapidminer.knime.nodes.local"
-         download-size="0"
-         install-size="0"
-         version="0.9.000.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="com.mind_era.knime_rapidminer.knime.nodes.common"
-         download-size="0"
-         install-size="0"
-         version="0.9.000.qualifier"
-         unpack="false"/-->
    <plugin
          id="com.mind_era.knime_rapidminer.knime.nodes.local"
          download-size="0"
@@ -428,13 +415,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
          unpack="false"/>
 
    <plugin
-         id="org.hamcrest.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="stax.api"
          download-size="0"
          install-size="0"
@@ -542,62 +522,6 @@ If the disclaimer of warranty and limitation of liability provided above cannot 
 
    <plugin
          id="org.apache.commons.collections4"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.analyzers-common"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.highlighter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.join"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.memory"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.queries"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.queryparser"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.lucene.sandbox"
          download-size="0"
          install-size="0"
          version="0.0.0"
