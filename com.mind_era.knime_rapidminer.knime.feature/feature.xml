@@ -2,11 +2,11 @@
 <feature
       id="com.mind_era.knime_rapidminer.knime.feature"
       label="RapidMiner Integration for KNIME"
-      version="0.9.000.qualifier"
+      version="0.9.100.qualifier"
       provider-name="Mind Eratosthenes Kft.">
 
    <description url="http://rapidminer.knime.mind-era.com/">
-      The nodes included in this feature allows to use RapidMiner 9.0.0
+      The nodes included in this feature allows to use RapidMiner 9.1.0
 within KNIME. You can execute, edit workflows, use RapidMiner
 to visualize your data.
    </description>

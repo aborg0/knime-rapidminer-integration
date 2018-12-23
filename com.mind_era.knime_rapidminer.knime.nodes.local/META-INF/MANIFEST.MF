@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RapidMiner integration for KNIME
 Bundle-SymbolicName: com.mind_era.knime_rapidminer.knime.nodes.local;singleton:=true
-Bundle-Version: 0.9.000.qualifier
+Bundle-Version: 0.9.100.qualifier
 Bundle-ClassPath: rapidminer.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.

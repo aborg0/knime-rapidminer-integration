@@ -6,7 +6,7 @@
 	<groupId>com.mind_era</groupId>
 	<artifactId>maven-2-osgi</artifactId>
 	<packaging>pom</packaging>
-	<version>9.0.0</version>
+	<version>9.1.0</version>
 	<repositories>
 	    <repository>
 	      <id>RapidMiner</id>
@@ -33,7 +33,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<id>com.mind_era.rapidminer:rapidminer-studio:9.0.0.20180824</id>
+									<id>com.mind_era.rapidminer:rapidminer-studio:9.1.0.20181223</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<!-- instructions>
@@ -41,7 +41,7 @@
 									</instructions-->
 								</artifact>
 								<artifact>
-									<id>com.rapidminer:belt:0.2.0</id>
+									<id>com.rapidminer:belt:0.3</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<override>true</override>
@@ -53,7 +53,7 @@
 									</instructions-->
 								</artifact>
 								<artifact>
-									<id>com.rapidminer:belt-adapter:0.1.0</id>
+									<id>com.rapidminer:belt-adapter:0.2</id>
 									<source>true</source>
 									<transitive>false</transitive>
 									<override>true</override>
@@ -594,7 +594,7 @@
                                     </instructions>
                                 </artifact>
                                 <artifact>
-                                    <id>net.java.dev.jna:jna:4.5.1</id>
+                                    <id>net.java.dev.jna:jna:4.5.2</id>
                                     <source>true</source>
                                     <override>true</override>
                                     <instructions>
@@ -602,7 +602,7 @@
                                     </instructions>
                                 </artifact>
                                 <artifact>
-                                    <id>net.java.dev.jna:jna-platform:4.5.1</id>
+                                    <id>net.java.dev.jna:jna-platform:4.5.2</id>
                                     <source>true</source>
                                     <override>true</override>
                                     <instructions>
