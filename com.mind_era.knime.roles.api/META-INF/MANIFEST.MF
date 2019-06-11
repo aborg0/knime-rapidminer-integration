@@ -5,8 +5,8 @@ Bundle-SymbolicName: com.mind_era.knime.roles.api;singleton:=true
 Bundle-Version: 0.0.100.qualifier
 Bundle-Activator: com.mind_era.knime.roles.internal.Activator
 Bundle-Vendor: Mind Eratosthenes Kft.
-Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.11.0,4.0.0)",
- org.knime.core;bundle-version="[3.0.0,4.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.13.0,4.0.0)",
+ org.knime.core;bundle-version="[4.0.0,5.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.mind_era.knime.roles

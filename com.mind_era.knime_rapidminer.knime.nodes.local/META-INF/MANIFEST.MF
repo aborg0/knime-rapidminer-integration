@@ -79,17 +79,17 @@ Bundle-ClassPath: rapidminer.jar,
  lib/swingx-all-1.6.4.jar
 Bundle-Activator: com.mind_era.knime_rapidminer.knime.nodes.internal.RapidMinerNodePlugin
 Bundle-Vendor: Mind Eratosthenes Kft.
-Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
- org.knime.workbench.core;bundle-version="[3.0.0,4.0.0)",
- org.knime.workbench.repository;bundle-version="[3.0.0,4.0.0)",
- com.fifesoft.rsyntaxtextarea;bundle-version="2.5.8",
- org.knime.base;bundle-version="[3.0.0,4.0.0)",
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.13.0,4.0.0)",
+ org.knime.workbench.core;bundle-version="[4.0.0,5.0.0)",
+ org.knime.workbench.repository;bundle-version="[4.0.0,5.0.0)",
+ com.fifesoft.rsyntaxtextarea;bundle-version="2.6.0",
+ org.knime.base;bundle-version="[4.0.0,5.0.0)",
  com.mind_era.guava.helper;bundle-version="0.0.2",
- org.eclipse.ui;bundle-version="[3.7.0,4.0.0)",
- com.google.guava;bundle-version="16.0.1",
- org.knime.product;bundle-version="[3.0.0,4.0.0)";resolution:=optional,
- org.knime.ext.svg;bundle-version="[3.0.0,4.0.0)";resolution:=optional,
+ org.eclipse.ui;bundle-version="[3.109.0,4.0.0)",
+ com.google.guava;bundle-version="19.0.0",
+ org.knime.product;bundle-version="[4.0.0,5.0.0)";resolution:=optional,
+ org.knime.ext.svg;bundle-version="[4.0.0,5.0.0)";resolution:=optional,
  com.mind_era.knime_rapidminer.knime.nodes.common;bundle-version="0.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 DynamicImport-Package: *
