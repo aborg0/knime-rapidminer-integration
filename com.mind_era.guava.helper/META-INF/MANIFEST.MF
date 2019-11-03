@@ -5,5 +5,5 @@ Bundle-SymbolicName: com.mind_era.guava.helper;singleton:=true
 Bundle-Version: 0.0.2.qualifier
 Bundle-Vendor: Mind Eratosthenes Kft.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: com.google.guava;bundle-version="10.0.1"
+Require-Bundle: com.google.guava;bundle-version="17.0.0"
 Export-Package: com.mind_era.guava.helper.data
